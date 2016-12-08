@@ -1,0 +1,17 @@
+Package: scmeth
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: Divy Kangeyan <divyswar01@g.harvard.edu>
+Import:
+      ggplot2,
+      knitr,
+      bsseq,
+      limma
+Suggest:
+      AnnotationHub
+Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
+Description: This is a sample package
+License: MIT
+LazyData: TRUE
+RoxygenNote: 5.0.1

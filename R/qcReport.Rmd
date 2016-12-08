@@ -1,0 +1,63 @@
+---
+title: "QC Report"
+author: 
+date: "12/6/2016"
+output: html_document
+params:
+  samples: bsObj
+  outdir: outdirectory
+  organism: organism
+  genome: genome
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+```{r,echo=FALSE,warning=FALSE}
+library(reshape2)
+library(ggplot2)
+
+bs<-params$samples
+covVec<-scmeth::coverage(bs)
+sampleNames<-sampleNames(bs)
+covDf <- data.frame(sample=sampleNames, coveredCpgs=covVec)
+covDf$grp <- substr(covDf$sample, 1, 1)
+AllCpG_Assigned<- melt(covDf, id.vars = c("grp", "sample"))
+m <- reshape2::melt(covDf, id.vars = c("grp", "sample"))
+o <- order(covDf$grp, covDf$coveredCpgs)
+sampleOrder <- covDf$sample[o]
+m$sample <- factor(m$sample, levels=sampleOrder)
+ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = as.numeric(100000)), linetype=2, color="blue")+ geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered CpGs")  + theme_bw()
+
+#############################
+
+chrCov<-scmeth::chromosomeCoverage(bs)
+m <- reshape2::melt(chrCov, varnames = c("Chromosome", "Sample"))
+
+m$Chromosome <- factor(m$Chromosome, levels=names((rowSums(chrCov))))
+m$Chromosome <- factor(m$Chromosome, levels=names(sort(rowSums(chrCov))))
+o <- order(m$Chromosome)
+sampleOrder <-m$Sample[o]
+m$Sample <- factor(m$Sample, levels=sampleOrder)
+
+
+
+ggplot2::ggplot(m, aes(Chromosome,value)) + geom_line(aes(group=Sample)) + ggtitle("Number of covered CpGs in CLL and bcells by chromosome") + xlab("Chromosomes ordered by coverage") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+
+
+#############################
+
+
+covDf <- scmeth::repMask(bs,params$organism, params$genome)
+m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
+o <- order(covDf$coveredCpgs)
+sampleOrder <- covDf$sample[o]
+m$sample <- factor(m$sample, levels=sampleOrder)
+head(m)
+ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered Non-repeatmasker CpGs")  + theme_bw()
+
+
+```

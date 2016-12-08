@@ -5,7 +5,7 @@
 #'@return The sqaure of the output
 #'@example
 #'@export
-
+#
 
 report <- function(bsObj,outdirectory,organism,genome,meta = NULL, cacheable = NA) {
   #bsseqObject<-Sys.getenv(rdaFile)

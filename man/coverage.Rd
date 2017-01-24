@@ -2,17 +2,17 @@
 % Please edit documentation in R/coverage.R
 \name{coverage}
 \alias{coverage}
-\title{square a number}
+\title{Coverage statistics}
 \usage{
 coverage(bs)
 }
 \arguments{
-\item{x}{A numeric input}
+\item{takes}{bs object as input}
 }
 \value{
-The sqaure of the output
+vector of numbers as output
 }
 \description{
-Take in a numeric value and squares it
+Provides Coverage metrics for the sample
 }
 

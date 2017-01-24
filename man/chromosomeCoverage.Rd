@@ -2,17 +2,18 @@
 % Please edit documentation in R/chromosomeCoverage.R
 \name{chromosomeCoverage}
 \alias{chromosomeCoverage}
-\title{square a number}
+\title{Coverage statistics based on chromosome}
 \usage{
 chromosomeCoverage(bs)
 }
 \arguments{
-\item{x}{A numeric input}
+\item{takes}{bs object as input}
 }
 \value{
-The sqaure of the output
+matrix of numbers as output with
+column and rows indicating the samples and the chromosome
 }
 \description{
-Take in a numeric value and squares it
+Provides Coverage metrics for the sample by each chromosome
 }
 

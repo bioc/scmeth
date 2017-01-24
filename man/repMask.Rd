@@ -2,17 +2,17 @@
 % Please edit documentation in R/repMask.R
 \name{repMask}
 \alias{repMask}
-\title{square a number}
+\title{Repeat masker coverage statistics}
 \usage{
 repMask(bs, organism, genome)
 }
 \arguments{
-\item{x}{A numeric input}
+\item{Takes}{bs object, name of the organism and reference genome}
 }
 \value{
-The sqaure of the output
+Data frame with sample name and coverage in repeat masker regions
 }
 \description{
-Take in a numeric value and squares it
+Provides Coverage metrics based on the repeat masker region
 }
 

@@ -2,17 +2,17 @@
 % Please edit documentation in R/report.R
 \name{report}
 \alias{report}
-\title{square a number}
+\title{Generates an inclusive report on methylation analysis}
 \usage{
 report(bsObj, outdirectory, organism, genome, meta = NULL, cacheable = NA)
 }
 \arguments{
-\item{x}{A numeric input}
+\item{list}{of inputs}
 }
 \value{
-The sqaure of the output
+A report will be the output based on rmarkdown file
 }
 \description{
-Take in a numeric value and squares it
+Takes bs object, output directory, name of the organism, reference genome
 }
 

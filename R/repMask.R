@@ -1,8 +1,8 @@
-#' square a number
+#' Repeat masker coverage statistics
 #'
-#'Take in a numeric value and squares it
-#'@param x A numeric input
-#'@return The sqaure of the output
+#'Provides Coverage metrics based on the repeat masker region
+#'@param Takes bs object, name of the organism and reference genome
+#'@return Data frame with sample name and coverage in repeat masker regions
 #'@example
 #'@export
 

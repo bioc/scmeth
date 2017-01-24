@@ -1,8 +1,9 @@
-#' square a number
+#' Coverage statistics based on chromosome
 #'
-#'Take in a numeric value and squares it
-#'@param x A numeric input
-#'@return The sqaure of the output
+#'Provides Coverage metrics for the sample by each chromosome
+#'@param takes bs object as input
+#'@return matrix of numbers as output with
+#'column and rows indicating the samples and the chromosome
 #'@example
 #'@export
 

@@ -1,8 +1,8 @@
-#' square a number
+#' Coverage statistics
 #'
-#'Take in a numeric value and squares it
-#'@param x A numeric input
-#'@return The sqaure of the output
+#'Provides Coverage metrics for the sample
+#'@param takes bs object as input
+#'@return vector of numbers as output
 #'@example
 #'@export
 

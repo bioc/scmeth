@@ -1,8 +1,8 @@
-#' square a number
+#' Generates an inclusive report on methylation analysis
 #'
-#'Take in a numeric value and squares it
-#'@param x A numeric input
-#'@return The sqaure of the output
+#'Takes bs object, output directory, name of the organism, reference genome
+#'@param list of inputs
+#'@return A report will be the output based on rmarkdown file
 #'@example
 #'@export
 #

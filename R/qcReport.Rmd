@@ -1,7 +1,7 @@
 ---
 title: "QC Report"
 author: 
-date: "12/6/2016"
+date: 
 output: html_document
 params:
   samples: bsObj
@@ -18,6 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r,echo=FALSE,warning=FALSE}
 library(reshape2)
 library(ggplot2)
+library(xtable)
 
 bs<-params$samples
 covVec<-scmeth::coverage(bs)
@@ -29,7 +30,14 @@ m <- reshape2::melt(covDf, id.vars = c("grp", "sample"))
 o <- order(covDf$grp, covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
-ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = as.numeric(100000)), linetype=2, color="blue")+ geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered CpGs")  + theme_bw()
+
+summary<-c('min','max','mean','median')
+numericValues<-c(min(m$value),max(m$value),mean(m$value),median(m$value))
+summaryDF<-as.data.frame(cbind(summary,numericValues))
+#print(xtable(summaryDF),comment =FALSE)
+
+
+ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = as.numeric(median(value))), linetype=2, color="blue")+ geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered CpGs")  + theme_bw()
 
 #############################
 
@@ -56,8 +64,19 @@ m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
 o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
-head(m)
+summary(m)
 ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered Non-repeatmasker CpGs")  + theme_bw()
 
+# CpG Discretization
+discretizedCpG<-cpgDiscretization(bs)
+percentDiscarded<-discretizedCpG[3]
+discardedDf <- data.frame(sample=sampleNames, value=percentDiscarded)
+meltedDiscardedDf<- melt(discardedDf, id.vars = c("sample", "discard.perc"))
+
+o <- order(meltedDiscardedDf$discard.perc,meltedDiscardedDf$sample)
+sampleOrder <- meltedDiscardedDf$sample[o]
+meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
+
+ggplot2::ggplot(meltedDiscardedDf, aes(sample, discard.perc)) + geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Percentage of discarded CpGs") + xlab("Sample") + ggtitle("Discarded CpGs from each sample after discretization")  + theme_bw()
 
 ```

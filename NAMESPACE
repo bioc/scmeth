@@ -2,6 +2,7 @@
 
 export(chromosomeCoverage)
 export(coverage)
+export(cpgDiscretization)
 export(cube)
 export(repMask)
 export(report)

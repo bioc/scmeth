@@ -14,8 +14,8 @@ params:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-```{r,echo=FALSE,warning=FALSE}
+## Rendered by scmeth
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(reshape2)
 library(ggplot2)
 library(xtable)
@@ -64,6 +64,11 @@ m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
 o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
+
+library(pander)
+pandoc.header("Summary statistics for the read coverage", level = 2)
+
+
 summary(m)
 ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered Non-repeatmasker CpGs")  + theme_bw()
 
@@ -78,5 +83,13 @@ sampleOrder <- meltedDiscardedDf$sample[o]
 meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
 
 ggplot2::ggplot(meltedDiscardedDf, aes(sample, discard.perc)) + geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Percentage of discarded CpGs") + xlab("Sample") + ggtitle("Discarded CpGs from each sample after discretization")  + theme_bw()
+
+# Feature level coverage
+pandoc.header("Feature level coverage of the CpGs", level = 2)
+
+featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic'),genome)
+colnames(featureCovDf)<-c('feature annotation','number of CpGs')
+print(featureCovDf)
+
 
 ```

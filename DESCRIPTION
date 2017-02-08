@@ -15,4 +15,4 @@ Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: This is a sample package
 License: MIT
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

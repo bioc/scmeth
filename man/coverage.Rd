@@ -15,4 +15,3 @@ vector of numbers as output
 \description{
 Provides Coverage metrics for the sample
 }
-

@@ -15,4 +15,3 @@ matrix a data frame with feature names and th number of CpG covered
 \description{
 Provides Coverage metrics for the sample by each features provided by the user
 }
-

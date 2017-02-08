@@ -15,4 +15,3 @@ A report will be the output based on rmarkdown file
 \description{
 Takes bs object, output directory, name of the organism, reference genome
 }
-

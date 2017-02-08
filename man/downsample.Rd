@@ -15,4 +15,3 @@ Data frame with the saturation Data
 \description{
 Downsample the CpG covergae matrix for saturation analysis
 }
-

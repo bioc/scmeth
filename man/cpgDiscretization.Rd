@@ -16,4 +16,3 @@ discretized methylation matrix and a plot showing how many of the CpGs are disca
 \description{
 Take in a numeric value and squares it
 }
-

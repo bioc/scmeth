@@ -16,3 +16,4 @@ methylationDist<-function(bs){
   return(methylationDensityPlot)
 
 }
+

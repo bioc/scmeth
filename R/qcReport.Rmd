@@ -15,10 +15,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Rendered by scmeth
+
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(reshape2)
 library(ggplot2)
-library(xtable)
+
 
 bs<-params$samples
 covVec<-scmeth::coverage(bs)
@@ -87,9 +89,14 @@ ggplot2::ggplot(meltedDiscardedDf, aes(sample, discard.perc)) + geom_bar(stat="i
 # Feature level coverage
 pandoc.header("Feature level coverage of the CpGs", level = 2)
 
-featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic'),genome)
-colnames(featureCovDf)<-c('feature annotation','number of CpGs')
-print(featureCovDf)
+#featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic'),genome)
+#colnames(featureCovDf)<-c('feature annotation','number of CpGs')
+#print(featureCovDf)
 
+##############################
+# Downsample Plots
+dsMatrix<-scmeth::downsample(bs)
+meltedDsMatrix<-melt(dsMatrix)
+ggplot(meltedDsMatrix, aes(Var1, value, group=Var2))+ geom_line() + scale_x_continuous(name="Fraction of Reads") + scale_y_continuous(name="Number of CpG covered") + ggtitle("Saturation Analysis Plot") + theme_bw()
 
 ```

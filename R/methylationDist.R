@@ -7,13 +7,23 @@
 #'@export
 
 
-methylationDist<-function(bs){
+methylationDist<-function(bs,all=FALSE){
   covMatrix<-getCoverage(bs)
   methMatrix<-getCoverage(bs,type='M')/covMatrix
-  d<-density(methMatrix[,sample(ncol(methMatrix),1)],na.rm=TRUE)
-  methylationDensityPlot<-plot(d,main = "Methylation distribution for a single cell \n in the library")
+  if (all== TRUE){
 
-  return(methylationDensityPlot)
+    methylationDensityPlot<-ggplot(methMatrix[,sample(ncol(methMatrix),1)])+geom_density()
+    #d<-density(methMatrix[,sample(ncol(methMatrix),1)],na.rm=TRUE)
+    #methylationDensityPlot<-plot(d,main = "Methylation distribution for a single cell \n in the library")
+    return(methylationDensityPlot)
+
+  }else{
+    methylationDensityPlot<-ggplot(methMatrix[,sample(ncol(methMatrix),1)])+geom_density()
+    #d<-density(methMatrix[,sample(ncol(methMatrix),1)],na.rm=TRUE)
+    #methylationDensityPlot<-plot(d,main = "Methylation distribution for a single cell \n in the library")
+
+    return(methylationDensityPlot)
+  }
 
 }
 

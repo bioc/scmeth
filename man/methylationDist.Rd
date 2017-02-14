@@ -4,7 +4,7 @@
 \alias{methylationDist}
 \title{Mehtylation distribution function}
 \usage{
-methylationDist(bs)
+methylationDist(bs, all = FALSE)
 }
 \arguments{
 \item{Takes}{bs object, name of the organism and reference genome}

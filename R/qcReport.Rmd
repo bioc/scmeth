@@ -16,13 +16,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Rendered by scmeth
 
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+bs<-params$samples
+```
+
+## CpG Coverage 
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(reshape2)
 library(ggplot2)
 
-
-bs<-params$samples
 covVec<-scmeth::coverage(bs)
 sampleNames<-sampleNames(bs)
 covDf <- data.frame(sample=sampleNames, coveredCpgs=covVec)
@@ -42,7 +45,15 @@ summaryDF<-as.data.frame(cbind(summary,numericValues))
 ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = as.numeric(median(value))), linetype=2, color="blue")+ geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered CpGs")  + theme_bw()
 
 #############################
+```
 
+xtable(summaryDF)
+
+
+
+
+## Chromosomal Coverage
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 chrCov<-scmeth::chromosomeCoverage(bs)
 m <- reshape2::melt(chrCov, varnames = c("Chromosome", "Sample"))
 
@@ -54,13 +65,16 @@ m$Sample <- factor(m$Sample, levels=sampleOrder)
 
 
 
-ggplot2::ggplot(m, aes(Chromosome,value)) + geom_line(aes(group=Sample)) + ggtitle("Number of covered CpGs in CLL and bcells by chromosome") + xlab("Chromosomes ordered by coverage") +
+ggplot2::ggplot(m, aes(Chromosome,value)) + geom_line(aes(group=Sample)) + ggtitle("Number of covered CpGs by chromosome") + xlab("Chromosomes ordered by coverage") +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
 
 
 #############################
+```
 
 
+## Non-repatmasker Coverage
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
 o <- order(covDf$coveredCpgs)
@@ -71,9 +85,17 @@ library(pander)
 pandoc.header("Summary statistics for the read coverage", level = 2)
 
 
-summary(m)
+
 ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered Non-repeatmasker CpGs")  + theme_bw()
 
+
+## Chromosomal Coverage
+```
+
+# Data Preprocessing
+## CpG Discretization
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
@@ -87,11 +109,15 @@ meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
 ggplot2::ggplot(meltedDiscardedDf, aes(sample, discard.perc)) + geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Percentage of discarded CpGs") + xlab("Sample") + ggtitle("Discarded CpGs from each sample after discretization")  + theme_bw()
 
 # Feature level coverage
-pandoc.header("Feature level coverage of the CpGs", level = 2)
+#pandoc.header("Feature level coverage of the CpGs", level = 2)
 
 #featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic'),genome)
 #colnames(featureCovDf)<-c('feature annotation','number of CpGs')
 #print(featureCovDf)
+```
+
+## Downsampling Analysis
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 
 ##############################
 # Downsample Plots

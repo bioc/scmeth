@@ -10,17 +10,20 @@
 methylationDist<-function(bs,all=FALSE){
   covMatrix<-getCoverage(bs)
   methMatrix<-getCoverage(bs,type='M')/covMatrix
-  if (all== TRUE){
+  df <- as.data.frame(matrix(unlist(methMatrix), nrow = nrow(methMatrix)))
 
-    methylationDensityPlot<-ggplot(methMatrix[,sample(ncol(methMatrix),1)])+geom_density()
-    #d<-density(methMatrix[,sample(ncol(methMatrix),1)],na.rm=TRUE)
-    #methylationDensityPlot<-plot(d,main = "Methylation distribution for a single cell \n in the library")
+  if (all==TRUE){
+    meltedDf<-melt(df)
+    methylationDensityPlot<-ggplot(meltedDf)+geom_density(aes(x=value))+facet_wrap(~variable,ncol=3)+
+                              ggtitle('Methylation distribution for all the cells')+xlab('Methylation')
+
     return(methylationDensityPlot)
 
-  }else{
-    methylationDensityPlot<-ggplot(methMatrix[,sample(ncol(methMatrix),1)])+geom_density()
-    #d<-density(methMatrix[,sample(ncol(methMatrix),1)],na.rm=TRUE)
-    #methylationDensityPlot<-plot(d,main = "Methylation distribution for a single cell \n in the library")
+  }else if (all==FALSE){
+    indCell<-data.frame(x=df[,sample(ncol(df),1)])
+    methylationDensityPlot<-ggplot()+geom_density(aes(x=x),data=indCell)+
+                            ggtitle('Methylation Distribution for an arbitrary cell')+xlab('Methylation rate')
+
 
     return(methylationDensityPlot)
   }

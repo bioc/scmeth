@@ -126,3 +126,10 @@ meltedDsMatrix<-melt(dsMatrix)
 ggplot(meltedDsMatrix, aes(Var1, value, group=Var2))+ geom_line() + scale_x_continuous(name="Fraction of Reads") + scale_y_continuous(name="Number of CpG covered") + ggtitle("Saturation Analysis Plot") + theme_bw()
 
 ```
+
+## Methylation Distribution
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=15}
+# Methylation distribution for all the cells
+scmeth::methylationDist(bs,all=TRUE)
+
+```

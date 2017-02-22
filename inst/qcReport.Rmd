@@ -47,10 +47,6 @@ ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = a
 #############################
 ```
 
-xtable(summaryDF)
-
-
-
 
 ## Chromosomal Coverage
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
@@ -80,11 +76,6 @@ m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
 o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
-
-library(pander)
-pandoc.header("Summary statistics for the read coverage", level = 2)
-
-
 
 ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered Non-repeatmasker CpGs")  + theme_bw()
 
@@ -128,7 +119,7 @@ ggplot(meltedDsMatrix, aes(Var1, value, group=Var2))+ geom_line() + scale_x_cont
 ```
 
 ## Methylation Distribution
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=15}
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 # Methylation distribution for all the cells
 scmeth::methylationDist(bs,all=TRUE)
 

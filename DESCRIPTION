@@ -6,9 +6,7 @@ Author: Divy Kangeyan <divyswar01@g.harvard.edu>
 Import:
       ggplot2,
       knitr,
-      pander,
       bsseq,
-      limma
 Suggest:
       AnnotationHub
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>

@@ -4,7 +4,8 @@
 #'@param takes bs object and list of features as input
 #'@return matrix a data frame with feature names and th number of CpG covered
 #'
-#'@example
+#'@examples
+#'featureCoverage(bsObject,c('cpg_island','exon'),'mm10')
 #'@export
 
 

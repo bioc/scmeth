@@ -3,7 +3,8 @@
 #'Downsample the CpG covergae matrix for saturation analysis
 #'@param takes bs object as input
 #'@return Data frame with the saturation Data
-#'@example
+#'@examples
+#'downsample(bsObject,c(0,0.5,1))
 #'@export
 
 downsample <- function(bs,dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1),0.99,1)) {

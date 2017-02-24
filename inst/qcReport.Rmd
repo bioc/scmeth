@@ -25,6 +25,7 @@ bs<-params$samples
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(reshape2)
 library(ggplot2)
+library(AnnotationHub)
 
 covVec<-scmeth::coverage(bs)
 sampleNames<-sampleNames(bs)
@@ -102,9 +103,9 @@ ggplot2::ggplot(meltedDiscardedDf, aes(sample, discard.perc)) + geom_bar(stat="i
 # Feature level coverage
 #pandoc.header("Feature level coverage of the CpGs", level = 2)
 
-#featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic'),genome)
-#colnames(featureCovDf)<-c('feature annotation','number of CpGs')
-#print(featureCovDf)
+featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
+colnames(featureCovDf)<-c('feature annotation','number of CpGs')
+print(featureCovDf)
 ```
 
 ## Downsampling Analysis

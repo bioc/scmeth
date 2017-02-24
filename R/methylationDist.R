@@ -3,7 +3,8 @@
 #'Plot the methylation distribution for a few of the cells
 #'@param Takes bs object, name of the organism and reference genome
 #'@return Data frame with sample name and coverage in repeat masker regions
-#'@example
+#'@examples
+#'methylationDist(bsObject,all=FALSE)
 #'@export
 
 
@@ -11,6 +12,7 @@ methylationDist<-function(bs,all=FALSE){
   covMatrix<-getCoverage(bs)
   methMatrix<-getCoverage(bs,type='M')/covMatrix
   df <- as.data.frame(matrix(unlist(methMatrix), nrow = nrow(methMatrix)))
+  colnames(df)<-colnames(methMatrix)
 
   if (all==TRUE){
     meltedDf<-melt(df)

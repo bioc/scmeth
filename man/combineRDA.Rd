@@ -16,3 +16,6 @@ Data frame with sample name and coverage in repeat masker regions
 Combine multiple bsseq rda object into one bs object
 Preferably for a library pool of cells
 }
+\examples{
+combineRDA(c(bsObject1, bsObject2))
+}

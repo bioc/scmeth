@@ -3,12 +3,13 @@
 #'Provides Coverage metrics based on the repeat masker region
 #'@param Takes bs object, name of the organism and reference genome
 #'@return Data frame with sample name and coverage in repeat masker regions
-#'@example
+#'@examples
+#'repMask(bsseqObject,'Mus musculus','mm10')
 #'@export
 
 
 repMask<-function(bs,organism,genome){
-  hub <- AnnotationHub()
+  hub <- AnnotationHub::AnnotationHub()
   repeatGr <- hub[[names(query(hub, c("rmsk", organism, genome)))]]
   rep <- countOverlaps(bs, repeatGr)>0
   cov=getCoverage(bs)

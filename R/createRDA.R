@@ -5,7 +5,8 @@
 #'
 #'@param Takes bs object, name of the organism and reference genome
 #'@return Data frame with sample name and coverage in repeat masker regions
-#'@example
+#'@examples
+#'createRDA(CpG.bedGraph file)
 #'@export
 
 

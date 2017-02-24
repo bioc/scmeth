@@ -7,8 +7,10 @@ Import:
       ggplot2,
       knitr,
       bsseq,
+      AnnotationHub,
+      annotatr
 Suggest:
-      AnnotationHub
+      reshape2
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: This is a sample package
 License: MIT

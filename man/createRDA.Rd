@@ -15,3 +15,6 @@ Data frame with sample name and coverage in repeat masker regions
 \description{
 Generate bsseq rda object from the pileometh output
 }
+\examples{
+createRDA(CpG.bedGraph file)
+}

@@ -15,3 +15,6 @@ Data frame with the saturation Data
 \description{
 Downsample the CpG covergae matrix for saturation analysis
 }
+\examples{
+downsample(bsObject,c(0,0.5,1))
+}

@@ -16,3 +16,6 @@ column and rows indicating the samples and the chromosome
 \description{
 Provides Coverage metrics for the sample by each chromosome
 }
+\examples{
+chromosomeCoverage(bsObject)
+}

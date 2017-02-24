@@ -15,3 +15,6 @@ matrix a data frame with feature names and th number of CpG covered
 \description{
 Provides Coverage metrics for the sample by each features provided by the user
 }
+\examples{
+featureCoverage(bsObject,c('cpg_island','exon'),'mm10')
+}

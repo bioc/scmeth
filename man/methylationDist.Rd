@@ -15,3 +15,6 @@ Data frame with sample name and coverage in repeat masker regions
 \description{
 Plot the methylation distribution for a few of the cells
 }
+\examples{
+methylationDist(bsObject,all=FALSE)
+}

@@ -3,8 +3,9 @@
 #'Takes bs object, output directory, name of the organism, reference genome
 #'@param list of inputs
 #'@return A report will be the output based on rmarkdown file
-#'@example
-#'report(bsObject,'fileDirectory','Mus musculus','mm10')
+#'@examples
+#'report(bsseqObject,outputDirectory,'Mus musculus','mm10')
+#
 #'@export
 #
 

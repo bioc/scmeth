@@ -15,3 +15,6 @@ Data frame with sample name and coverage in repeat masker regions
 \description{
 Provides Coverage metrics based on the repeat masker region
 }
+\examples{
+repMask(bsseqObject,'Mus musculus','mm10')
+}

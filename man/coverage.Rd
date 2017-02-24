@@ -4,7 +4,7 @@
 \alias{coverage}
 \title{Coverage statistics}
 \usage{
-coverage(bs)
+coverage(bsObject)
 }
 \arguments{
 \item{takes}{bs object as input}
@@ -14,4 +14,7 @@ vector of numbers as output
 }
 \description{
 Provides Coverage metrics for the sample
+}
+\examples{
+coverage(bsseqObject)
 }

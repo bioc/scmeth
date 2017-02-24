@@ -4,7 +4,8 @@
 #'@param takes bs object as input
 #'@return matrix of numbers as output with
 #'column and rows indicating the samples and the chromosome
-#'@example
+#'@examples
+#'chromosomeCoverage(bsObject)
 #'@export
 
 

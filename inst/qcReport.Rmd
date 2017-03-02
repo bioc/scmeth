@@ -4,10 +4,11 @@ author:
 date: 
 output: html_document
 params:
-  samples: bsObj
+  samples: bs
   outdir: outdirectory
   organism: organism
   genome: genome
+  reads: readData
 ---
 
 ```{r setup, include=FALSE}
@@ -18,11 +19,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 bs<-params$samples
+nSamples<-length(sampleNames(bs))
 ```
 
 ## CpG Coverage 
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 library(reshape2)
 library(ggplot2)
 library(AnnotationHub)
@@ -50,7 +52,7 @@ ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = a
 
 
 ## Chromosomal Coverage
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 chrCov<-scmeth::chromosomeCoverage(bs)
 m <- reshape2::melt(chrCov, varnames = c("Chromosome", "Sample"))
 
@@ -71,7 +73,7 @@ ggplot2::ggplot(m, aes(Chromosome,value)) + geom_line(aes(group=Sample)) + ggtit
 
 
 ## Non-repatmasker Coverage
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
 o <- order(covDf$coveredCpgs)
@@ -87,7 +89,7 @@ ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() 
 # Data Preprocessing
 ## CpG Discretization
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
@@ -109,7 +111,7 @@ print(featureCovDf)
 ```
 
 ## Downsampling Analysis
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 
 ##############################
 # Downsample Plots
@@ -120,8 +122,21 @@ ggplot(meltedDsMatrix, aes(Var1, value, group=Var2))+ geom_line() + scale_x_cont
 ```
 
 ## Methylation Distribution
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 # Methylation distribution for all the cells
 scmeth::methylationDist(bs,all=TRUE)
+
+```
+
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+# Methylation distribution for all the cells
+readinfo<-params$reads
+print(readinfo)
+if (!(is.null(readinfo))){
+  print('Hello')
+  scmeth::readmetrics(readinfo)
+}
+
 
 ```

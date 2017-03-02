@@ -4,7 +4,7 @@
 \alias{coverage}
 \title{Coverage statistics}
 \usage{
-coverage(bsObject)
+coverage(bs)
 }
 \arguments{
 \item{takes}{bs object as input}

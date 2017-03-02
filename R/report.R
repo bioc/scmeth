@@ -9,7 +9,7 @@
 #'@export
 #
 
-report <- function(bsObj,outdirectory,organism,genome,meta = NULL, cacheable = NA) {
+report <- function(bsObj,outdirectory,organism,genome,readData = NULL,meta = NULL, cacheable = NA) {
   #bsseqObject<-Sys.getenv(rdaFile)
   #if (is.null(outdirectory)){
   #  outdirectory=getwd()
@@ -17,7 +17,8 @@ report <- function(bsObj,outdirectory,organism,genome,meta = NULL, cacheable = N
 
   #RmdFile<-file.path(PROJHOME,'scmeth/R','qcReport.Rmd')
   RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
-  rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,organism=organism,genome=genome),output_file=paste0(outdirectory,"/qcReport.html"))
+
+  rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,organism=organism,genome=genome,reads=readData),output_file=paste0(outdirectory,"/qcReport.html"))
 
   #return(23)
 }

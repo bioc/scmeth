@@ -6,8 +6,8 @@
 #'@examples coverage(bsseqObject)
 #'@export
 
-coverage <- function(bsObject) {
-  load(bsObject)
+coverage <- function(bs) {
+
   covMatrix<-getCoverage(bs)
   covVec<- colSums(covMatrix>0,na.rm=TRUE)
   return(covVec)

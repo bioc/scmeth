@@ -4,7 +4,8 @@
 \alias{report}
 \title{Generates an inclusive report on methylation analysis}
 \usage{
-report(bsObj, outdirectory, organism, genome, meta = NULL, cacheable = NA)
+report(bsObj, outdirectory, organism, genome, readData = NULL, meta = NULL,
+  cacheable = NA)
 }
 \arguments{
 \item{list}{of inputs}

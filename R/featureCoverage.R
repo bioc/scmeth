@@ -20,6 +20,7 @@ featureCoverage <-function(bs,features,genome){
   }
   annots_gr = annotatr::build_annotations(genome = genome, annotations = annotationFeatures)
 
+
   # Intersect the regions with the reference annotations
   dm_annotated = annotatr::annotate_regions(
     regions = granges(bs),

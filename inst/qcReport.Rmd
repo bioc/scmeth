@@ -80,7 +80,7 @@ o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
 
-ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered Non-repeatmasker CpGs")  + theme_bw()
+ggplot2::ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered Non-repeatmasker CpGs")  + theme_bw()
 
 
 ## Chromosomal Coverage
@@ -117,7 +117,7 @@ print(featureCovDf)
 # Downsample Plots
 dsMatrix<-scmeth::downsample(bs)
 meltedDsMatrix<-melt(dsMatrix)
-ggplot(meltedDsMatrix, aes(Var1, value, group=Var2))+ geom_line() + scale_x_continuous(name="Fraction of Reads") + scale_y_continuous(name="Number of CpG covered") + ggtitle("Saturation Analysis Plot") + theme_bw()
+ggplot2::ggplot(meltedDsMatrix, aes(Var1, value, group=Var2))+ geom_line() + scale_x_continuous(name="Fraction of Reads") + scale_y_continuous(name="Number of CpG covered") + ggtitle("Saturation Analysis Plot") + theme_bw()
 
 ```
 

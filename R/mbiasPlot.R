@@ -14,7 +14,7 @@ mbiasplot<-function(mbiasFile){
   mbiasTable$Read<-as.factor(mbiasTable$Read)
   mbiasTable$Strand<-as.factor(mbiasTable$Strand)
 
-  g<-ggplot(mbiasTable)+geom_line(aes(x=Position,y=methylation,colour=Read,linetype=Strand))+
+  g<-ggplot2::ggplot(mbiasTable)+geom_line(aes(x=Position,y=methylation,colour=Read,linetype=Strand))+
     ylim(0,1)+ggtitle('Mbias Plot')
 
   return(g)

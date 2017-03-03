@@ -16,7 +16,7 @@ methylationDist<-function(bs,all=FALSE){
 
   if (all==TRUE){
     meltedDf<-melt(df)
-    methylationDensityPlot<-ggplot(meltedDf)+geom_density(aes(x=value))+facet_wrap(~variable,ncol=3)+
+    methylationDensityPlot<-ggplot2::ggplot(meltedDf)+geom_density(aes(x=value))+facet_wrap(~variable,ncol=3)+
                               ggtitle('Methylation distribution for all the cells')+xlab('Methylation')
 
     return(methylationDensityPlot)

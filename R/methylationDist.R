@@ -1,10 +1,13 @@
-#' Mehtylation distribution function
+#' Provide graphics for methylation distribution
 #'
-#'Plot the methylation distribution for a few of the cells
-#'@param Takes bs object, name of the organism and reference genome
-#'@return Data frame with sample name and coverage in repeat masker regions
+#'Plot the methylation distribution for the cells in bsseq object
+#'@param bs bsseq object
+#'@param all Indicator of whether to plot the distribution for all the cells or for
+#'a single cell
+#'@return plot of the methylation distribution
 #'@examples
-#'methylationDist(bsObject,all=FALSE)
+#'methylationDist(bsObject)
+#'methylationDist(bsObject,all = TRUE)
 #'@export
 
 

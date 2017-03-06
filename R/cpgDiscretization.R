@@ -1,9 +1,14 @@
 #' Discretize the CpG methylation values
 #' to align with single cell analysis
 #'
-#'Take in a numeric value and squares it
-#'@param rda as an input
-#'@return discretized methylation matrix and a plot showing how many of the CpGs are discarded
+#'In single cell analysis overwhelmingly large number of CpGs have binary methylation
+#'Due to errors in sequencing and amplification many CpGs tend to have non-binary methylation. Hence
+#'this function catergorizes the non-binary CpGs as methylated if the methyation is above 0.8 and
+#'unmethylated if the methylation is below 0.2
+#'@param bs bsseq object
+#'@return meth discretized methylation matrix
+#'@return discard total number of removed CpGs from each sample
+#'@return Percentage of CpGs discarded compared to the total number of CpGs
 #'@examples
 #'cpgDiscretization(bsObject)
 #'@export

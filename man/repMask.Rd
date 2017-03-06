@@ -2,18 +2,22 @@
 % Please edit documentation in R/repMask.R
 \name{repMask}
 \alias{repMask}
-\title{Repeat masker coverage statistics}
+\title{Coverage of CpGs in repeat masker region}
 \usage{
 repMask(bs, organism, genome)
 }
 \arguments{
-\item{Takes}{bs object, name of the organism and reference genome}
+\item{bs}{bsseq object}
+
+\item{organism}{scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens}
+
+\item{genome}{reference alignment, i.e. mm10 or hg38}
 }
 \value{
 Data frame with sample name and coverage in repeat masker regions
 }
 \description{
-Provides Coverage metrics based on the repeat masker region
+Provides Coverage metrics in the repeat masker region
 }
 \examples{
 repMask(bsseqObject,'Mus musculus','mm10')

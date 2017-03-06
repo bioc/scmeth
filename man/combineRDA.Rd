@@ -7,10 +7,10 @@
 combineRDA(rdaList)
 }
 \arguments{
-\item{Takes}{bs object, name of the organism and reference genome}
+\item{rdaList}{list of bsseq rda objects}
 }
 \value{
-Data frame with sample name and coverage in repeat masker regions
+Combined one rda object for all the cells
 }
 \description{
 Combine multiple bsseq rda object into one bs object

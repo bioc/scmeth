@@ -4,8 +4,8 @@
 #'Combine multiple bsseq rda object into one bs object
 #'Preferably for a library pool of cells
 #'
-#'@param Takes bs object, name of the organism and reference genome
-#'@return Data frame with sample name and coverage in repeat masker regions
+#'@param rdaList list of bsseq rda objects
+#'@return Combined one rda object for all the cells
 #'@examples
 #'combineRDA(c(bsObject1, bsObject2))
 #'@export

@@ -1,10 +1,10 @@
 #' Generate bsseq rda object
 #'
 #'
-#'Generate bsseq rda object from the pileometh output
+#'Generate bsseq rda object from the methyldackel/pileometh output
 #'
-#'@param Takes bs object, name of the organism and reference genome
-#'@return Data frame with sample name and coverage in repeat masker regions
+#'@param file CpG.bedGraph file output from methyldackel/pileometh
+#'@return bsseq object with coverga and methylation information for the sample
 #'@examples
 #'createRDA(CpG.bedGraph file)
 #'@export

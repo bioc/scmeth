@@ -1,9 +1,9 @@
-#' Coverage statistics based on chromosome
+#' CpG covergae in each chromosome
 #'
-#'Provides Coverage metrics for the sample by each chromosome
-#'@param takes bs object as input
-#'@return matrix of numbers as output with
-#'column and rows indicating the samples and the chromosome
+#'Provides Coverage metrics for each sample by the chromosome
+#'@param bs bsseq object
+#'@return matrix of chromsome covergae with
+#'column and rows indicating the samples and the chromosome respectively
 #'@examples
 #'chromosomeCoverage(bsObject)
 #'@export

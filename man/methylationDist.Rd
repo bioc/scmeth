@@ -2,19 +2,23 @@
 % Please edit documentation in R/methylationDist.R
 \name{methylationDist}
 \alias{methylationDist}
-\title{Mehtylation distribution function}
+\title{Provide graphics for methylation distribution}
 \usage{
 methylationDist(bs, all = FALSE)
 }
 \arguments{
-\item{Takes}{bs object, name of the organism and reference genome}
+\item{bs}{bsseq object}
+
+\item{all}{Indicator of whether to plot the distribution for all the cells or for
+a single cell}
 }
 \value{
-Data frame with sample name and coverage in repeat masker regions
+plot of the methylation distribution
 }
 \description{
-Plot the methylation distribution for a few of the cells
+Plot the methylation distribution for the cells in bsseq object
 }
 \examples{
-methylationDist(bsObject,all=FALSE)
+methylationDist(bsObject)
+methylationDist(bsObject,all = TRUE)
 }

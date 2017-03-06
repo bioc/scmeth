@@ -2,18 +2,18 @@
 % Please edit documentation in R/coverage.R
 \name{coverage}
 \alias{coverage}
-\title{Coverage statistics}
+\title{Coverage for single cells}
 \usage{
 coverage(bs)
 }
 \arguments{
-\item{takes}{bs object as input}
+\item{bs}{bsseq object}
 }
 \value{
-vector of numbers as output
+vector of coverage for the cells in bs object
 }
 \description{
-Provides Coverage metrics for the sample
+Provides Coverage for each cell in a library pool
 }
 \examples{
 coverage(bsseqObject)

@@ -1,7 +1,9 @@
-#' Repeat masker coverage statistics
+#' Coverage of CpGs in repeat masker region
 #'
-#'Provides Coverage metrics based on the repeat masker region
-#'@param Takes bs object, name of the organism and reference genome
+#'Provides Coverage metrics in the repeat masker region
+#'@param bs bsseq object
+#'@param organism scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens
+#'@param genome reference alignment, i.e. mm10 or hg38
 #'@return Data frame with sample name and coverage in repeat masker regions
 #'@examples
 #'repMask(bsseqObject,'Mus musculus','mm10')

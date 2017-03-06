@@ -1,8 +1,13 @@
 #' Generates an inclusive report on methylation analysis
 #'
-#'Takes bs object, output directory, name of the organism, reference genome
-#'@param list of inputs
-#'@return A report will be the output based on rmarkdown file
+#' This function uses most of the functions in this package to generate a report for the user
+#'@param bs bsseq object
+#'@param outdirectory name of the output directory where the report will be saved
+#'@param organism scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens
+#'@param genome reference alignment, i.e. mm10 or hg38
+#'@param readData read information file on the samples. This is an optional argument and if given
+#'the report will have graphics on read information
+#'@return Report will be an html file
 #'@examples
 #'report(bsseqObject,outputDirectory,'Mus musculus','mm10')
 #

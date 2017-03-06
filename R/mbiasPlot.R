@@ -1,8 +1,11 @@
-#' Mehtylation distribution function
+#' Mehtylation bias plot
 #'
-#'Plot the methylation distribution for a few of the cells
-#'@param Takes bs object, name of the organism and reference genome
-#'@return Data frame with sample name and coverage in repeat masker regions
+#'Plot the methylation at each position of the read to observe any biases in the methylation
+#'based on the read position
+#'
+#'@param mbiasFile methylation bias file provided by methyldackel/pileometh
+#'@return Plot showing the methylation across the read position in original top
+#'and original bottom strand both in forward and reverse reads
 #'@examples
 #'mbiasplot(mbiasFile)
 #'@export

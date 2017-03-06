@@ -132,9 +132,8 @@ scmeth::methylationDist(bs,all=TRUE)
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 # Methylation distribution for all the cells
 readinfo<-params$reads
-print(readinfo)
 if (!(is.null(readinfo))){
-  print('Hello')
+  print('Read information')
   scmeth::readmetrics(readinfo)
 }
 

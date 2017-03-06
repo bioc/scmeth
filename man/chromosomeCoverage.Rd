@@ -2,19 +2,19 @@
 % Please edit documentation in R/chromosomeCoverage.R
 \name{chromosomeCoverage}
 \alias{chromosomeCoverage}
-\title{Coverage statistics based on chromosome}
+\title{CpG covergae in each chromosome}
 \usage{
 chromosomeCoverage(bs)
 }
 \arguments{
-\item{takes}{bs object as input}
+\item{bs}{bsseq object}
 }
 \value{
-matrix of numbers as output with
-column and rows indicating the samples and the chromosome
+matrix of chromsome covergae with
+column and rows indicating the samples and the chromosome respectively
 }
 \description{
-Provides Coverage metrics for the sample by each chromosome
+Provides Coverage metrics for each sample by the chromosome
 }
 \examples{
 chromosomeCoverage(bsObject)

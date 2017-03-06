@@ -1,11 +1,15 @@
-#' Coverage statistics based on the feature
+#' Coverage based on the genomic feature
 #'
-#'Provides Coverage metrics for the sample by each features provided by the user
-#'@param takes bs object and list of features as input
-#'@return matrix a data frame with feature names and th number of CpG covered
+#'Provides Coverage metrics for the sample by each genomic features provided by the user
+#'@param bs bsseq object
+#'@param features list of genomic features, i.e. genes_exons, genes_introns, cpg_islands, cpg_shelves
+#'Names are based on the annotatr packages, so all the features provided by the annotatr
+#'package will be supported in this function
+#'@param genome reference alignment, i.e. mm10 or hg38
+#'@return a data frame with genomic feature names and the number of CpG covered in each feature
 #'
 #'@examples
-#'featureCoverage(bsObject,c('cpg_island','exon'),'mm10')
+#'featureCoverage(bsObject,c('cpg_islands','genes_exons'),'mm10')
 #'@export
 
 

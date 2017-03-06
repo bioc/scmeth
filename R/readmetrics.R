@@ -1,8 +1,8 @@
-#' Graphics for read information
+#' Provide graphics for read information
 #'
 #'Plot the mapped and unmapped reads
-#'@param Takes bs object, name of the organism and reference genome
-#'@return Data frame with sample name and coverage in repeat masker regions
+#'@param readData a .txt file providing mapped and unmapped reads for each sample
+#'@return Plot showing the mapped and unmapped read information for each cell
 #'@examples
 #'readmetrics(read.txt)
 #'@export

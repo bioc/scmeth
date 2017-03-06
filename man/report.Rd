@@ -8,13 +8,22 @@ report(bsObj, outdirectory, organism, genome, readData = NULL, meta = NULL,
   cacheable = NA)
 }
 \arguments{
-\item{list}{of inputs}
+\item{outdirectory}{name of the output directory where the report will be saved}
+
+\item{organism}{scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens}
+
+\item{genome}{reference alignment, i.e. mm10 or hg38}
+
+\item{readData}{read information file on the samples. This is an optional argument and if given
+the report will have graphics on read information}
+
+\item{bs}{bsseq object}
 }
 \value{
-A report will be the output based on rmarkdown file
+Report will be an html file
 }
 \description{
-Takes bs object, output directory, name of the organism, reference genome
+This function uses most of the functions in this package to generate a report for the user
 }
 \examples{
 report(bsseqObject,outputDirectory,'Mus musculus','mm10')

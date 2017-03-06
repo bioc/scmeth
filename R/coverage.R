@@ -1,8 +1,8 @@
-#' Coverage statistics
+#' Coverage for single cells
 #'
-#'Provides Coverage metrics for the sample
-#'@param takes bs object as input
-#'@return vector of numbers as output
+#'Provides Coverage for each cell in a library pool
+#'@param bs bsseq object
+#'@return vector of coverage for the cells in bs object
 #'@examples coverage(bsseqObject)
 #'@export
 

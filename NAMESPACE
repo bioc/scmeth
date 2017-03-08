@@ -3,6 +3,7 @@
 export(chromosomeCoverage)
 export(combineRDA)
 export(coverage)
+export(cpgDensity)
 export(cpgDiscretization)
 export(createRDA)
 export(downsample)

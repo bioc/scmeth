@@ -56,15 +56,15 @@ ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = a
 chrCov<-scmeth::chromosomeCoverage(bs)
 m <- reshape2::melt(chrCov, varnames = c("Chromosome", "Sample"))
 
-m$Chromosome <- factor(m$Chromosome, levels=names((rowSums(chrCov))))
-m$Chromosome <- factor(m$Chromosome, levels=names(sort(rowSums(chrCov))))
-o <- order(m$Chromosome)
-sampleOrder <-m$Sample[o]
-m$Sample <- factor(m$Sample, levels=sampleOrder)
+#m$Chromosome <- factor(m$Chromosome, levels=names((rowSums(chrCov))))
+#m$Chromosome <- factor(m$Chromosome, levels=names(sort(rowSums(chrCov))))
+#o <- order(m$Chromosome)
+#sampleOrder <-m$Chromosome[o]
+#m$Chromosome <- factor(m$Chromosome, levels=sampleOrder)
 
 
 
-ggplot2::ggplot(m, aes(Chromosome,value)) + geom_line(aes(group=Sample)) + ggtitle("Number of covered CpGs by chromosome") + xlab("Chromosomes ordered by coverage") +
+ggplot2::ggplot(m, aes(Chromosome,value)) + geom_point(aes(group=Sample)) + ggtitle("Number of covered CpGs by chromosome") + xlab("Chromosomes ordered by coverage") + xlab('Chromosome')+ylab('Number of CpGs')+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
 
 
@@ -133,7 +133,6 @@ scmeth::methylationDist(bs,all=TRUE)
 # Methylation distribution for all the cells
 readinfo<-params$reads
 if (!(is.null(readinfo))){
-  print('Read information')
   scmeth::readmetrics(readinfo)
 }
 

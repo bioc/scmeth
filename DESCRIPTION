@@ -3,16 +3,23 @@ Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
 Author: Divy Kangeyan <divyswar01@g.harvard.edu>
+Depends: R (>= 3.3.0)
 Import:
       ggplot2,
       knitr,
       bsseq,
       AnnotationHub,
-      annotatr
+      annotatr (>= 1.0.3),
+      Repitools
 Suggest:
-      reshape2
+      reshape2,
+      BSgenome.Mmusculus.UCSC.mm10
+      BSgenome.Hsapiens.UCSC.hg19
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: This is a sample package
 License: MIT
 LazyData: TRUE
 RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

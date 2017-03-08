@@ -17,6 +17,7 @@ featureCoverage <-function(bs,features,genome){
   if (!requireNamespace('annotatr',quietly=TRUE)){
     stop("Pkg needed for this function to work. Please install it")
   }
+  library(annotatr)
   annotationFeatures<-c()
   for (i in features){
     annotationFeatures<-c(paste0(genome,'_',i),annotationFeatures)

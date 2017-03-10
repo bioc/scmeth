@@ -50,6 +50,18 @@ ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = a
 #############################
 ```
 
+## Methylation Density plot
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+cpgDenMatrix<-scmeth::cpgDensity(bs,organism = params$organism)
+m <- reshape2::melt(cpgDenMatrix, varnames = c("region", "Sample"))
+
+
+ggplot2::ggplot(m, aes(region,value)) + geom_line(aes(group=Sample)) + ggtitle("Number of covered CpGs by chromosome") + xlab("CpG coverage based on the CpG density") + xlab('CpG Density')+ylab('Number of CpGs')+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
 
 ## Chromosomal Coverage
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}

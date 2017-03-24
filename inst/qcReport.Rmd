@@ -22,9 +22,22 @@ bs<-params$samples
 nSamples<-length(sampleNames(bs))
 ```
 
+## Read information
+#### If read data provided the following plot is shown
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+# Methylation distribution for all the cells
+readinfo<-params$reads
+if (!(is.null(readinfo))){
+  scmeth::readmetrics(readinfo)
+}
+
+
+```
+
+
 ## CpG Coverage 
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 library(reshape2)
 library(ggplot2)
 library(AnnotationHub)
@@ -51,41 +64,22 @@ ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = a
 ```
 
 ## Methylation Density plot
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 cpgDenMatrix<-scmeth::cpgDensity(bs,organism = params$organism)
-m <- reshape2::melt(cpgDenMatrix, varnames = c("region", "Sample"))
+cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
+m <- reshape2::melt(cpgDenMatrix, varnames = c("Sample", "Density"))
 
 
-ggplot2::ggplot(m, aes(region,value)) + geom_line(aes(group=Sample)) + ggtitle("Number of covered CpGs by chromosome") + xlab("CpG coverage based on the CpG density") + xlab('CpG Density')+ylab('Number of CpGs')+
+ggplot2::ggplot(m, aes(Density,value)) + geom_line(aes(group=Sample)) + ggtitle("Fraction of covered CpGs by CpG density") + xlab("CpG coverage based on the CpG density") + xlab('CpG Density')+ylab('Fraction of CpGs')+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
   theme(plot.title = element_text(hjust = 0.5))
 
 ```
 
 
-## Chromosomal Coverage
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
-chrCov<-scmeth::chromosomeCoverage(bs)
-m <- reshape2::melt(chrCov, varnames = c("Chromosome", "Sample"))
-
-#m$Chromosome <- factor(m$Chromosome, levels=names((rowSums(chrCov))))
-#m$Chromosome <- factor(m$Chromosome, levels=names(sort(rowSums(chrCov))))
-#o <- order(m$Chromosome)
-#sampleOrder <-m$Chromosome[o]
-#m$Chromosome <- factor(m$Chromosome, levels=sampleOrder)
-
-
-
-ggplot2::ggplot(m, aes(Chromosome,value)) + geom_point(aes(group=Sample)) + ggtitle("Number of covered CpGs by chromosome") + xlab("Chromosomes ordered by coverage") + xlab('Chromosome')+ylab('Number of CpGs')+
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-
-
-#############################
-```
-
 
 ## Non-repatmasker Coverage
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
 o <- order(covDf$coveredCpgs)
@@ -101,7 +95,7 @@ ggplot2::ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coor
 # Data Preprocessing
 ## CpG Discretization
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
@@ -123,7 +117,7 @@ print(featureCovDf)
 ```
 
 ## Downsampling Analysis
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 
 ##############################
 # Downsample Plots
@@ -141,12 +135,3 @@ scmeth::methylationDist(bs,all=TRUE)
 ```
 
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
-# Methylation distribution for all the cells
-readinfo<-params$reads
-if (!(is.null(readinfo))){
-  scmeth::readmetrics(readinfo)
-}
-
-
-```

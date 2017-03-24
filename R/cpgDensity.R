@@ -18,7 +18,7 @@ cpgDensity<-function(bs,organism,windowLength=100){
   cpgdCov <- by(cov>0, cpgdBin, colSums)
   cpgdCov <- do.call("rbind", cpgdCov)
 
-  }else if (organism == 'Homo sapiens'){
+  a}else if (organism == 'Homo sapiens'){
     library(BSgenome.Hsapiens.UCSC.hg19)
     cpgd<-Repitools::cpgDensityCalc(granges(bs),Hsapeins,window = windowLength)
     cpgdBin<-cut(cpgd,c(seq(0,20),max(cpgd)))

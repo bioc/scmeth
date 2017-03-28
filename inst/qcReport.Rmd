@@ -63,9 +63,16 @@ ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = a
 #############################
 ```
 
+## Bisulfite conversion rate for the samples
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+scmeth::bsConversionPlot(bs)
+
+```
+
+
 ## Methylation Density plot
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
-cpgDenMatrix<-scmeth::cpgDensity(bs,organism = params$organism)
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+cpgDenMatrix<-scmeth::cpgDensity(bs,organism = params$organism,windowLength=1000)
 cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
 m <- reshape2::melt(cpgDenMatrix, varnames = c("Sample", "Density"))
 
@@ -117,7 +124,7 @@ print(featureCovDf)
 ```
 
 ## Downsampling Analysis
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 
 ##############################
 # Downsample Plots

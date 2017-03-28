@@ -8,23 +8,34 @@
 #'@export
 
 
-cpgDensity<-function(bs,organism,windowLength=100){
+cpgDensity<-function(bs,organism,windowLength=1000){
   if (organism == 'Mus musculus'){
 
   library(BSgenome.Mmusculus.UCSC.mm10)
   cov<-getCoverage(bs)
   cpgd<-Repitools::cpgDensityCalc(granges(bs),Mmusculus,window = windowLength)
-  cpgdBin<-cut(cpgd,c(seq(0,20),max(cpgd)))
+  if (max(cpgd)>50){
+    cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))
+  }else{
+    cpgdBin<-cut(cpgd,c(seq(0,20),max(cpgd)))
+  }
   cpgdCov <- by(cov>0, cpgdBin, colSums)
   cpgdCov <- do.call("rbind", cpgdCov)
 
-  a}else if (organism == 'Homo sapiens'){
+  }else if (organism == 'Homo sapiens'){
     library(BSgenome.Hsapiens.UCSC.hg19)
     cpgd<-Repitools::cpgDensityCalc(granges(bs),Hsapeins,window = windowLength)
+    if (max(cpgd)>50){
+      cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))
+    }else{
+      cpgdBin<-cut(cpgd,c(seq(0,20),max(cpgd)))
+    }
     cpgdBin<-cut(cpgd,c(seq(0,20),max(cpgd)))
     cpgdCov <- by(cov>0, cpgdBin, colSums)
     cpgdCov <- do.call("rbind", cpgdCov)
 
+  }else{
+    warning("Provide an existing organism designation")
   }
   return(cpgdCov)
 }

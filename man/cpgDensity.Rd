@@ -4,7 +4,7 @@
 \alias{cpgDensity}
 \title{Provides Coverage metrics in the repeat masker region}
 \usage{
-cpgDensity(bs, organism, windowLength = 100)
+cpgDensity(bs, organism, windowLength = 1000)
 }
 \arguments{
 \item{bs}{bsseq object}

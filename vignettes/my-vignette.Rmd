@@ -28,11 +28,11 @@ Contents
 1. Introduction
 ---------------------
 <p style="text-align: justify;">
-Though a small chemical change in the genome, DNA methylation has significant impact in several diseases, developmental processes and other bioligcal changes. Hence methylation data should be analyzed carefully to gain biological insights. That is the main purpose of this package. 
+Though a small chemical change in the genome, DNA methylation has significant impact in several diseases, developmental processes and other biological changes. Hence methylation data should be analyzed carefully to gain biological insights. That is the main purpose of this package. 
 </p>
 
 <p style="text-align: justify;">
-This bioconductor package containes functions to do quality control and preprocessing analysis for methylation data. This package is especially customized to use the output from the firecloud implementation of methylation pipeline. However it still has function to generate bsseq objects with methylation information given the bedgraph file obtained from *methyldackel*. For now only human and mouse genomes are supported in this package but in the future we will expand to other organisms. In addition to individual functions **report** function in the **scmeth** provides all inclusive report with most of the functions in this package. If users prefer they can just use the **report** function to gain summary of their data.
+This bioconductor package contains functions to do quality control and preprocessing analysis for methylation data. This package is especially customized to use the output from the firecloud implementation of methylation pipeline. However it still has function to generate bsseq objects with methylation information given the bedgraph file obtained from *methyldackel*. For now only human and mouse genomes are supported in this package but in the future we will expand to other organisms. In addition to individual functions **report** function in the **scmeth** provides all inclusive report with most of the functions in this package. If users prefer they can just use the **report** function to gain summary of their data.
 </p>
 
 2. Installation
@@ -46,7 +46,7 @@ biocLite("scmeth")
 3. Input files
 ---------------------
 <p style="text-align: justify;">
-Main input files that is used in most of the functions is an .rda file containing *bsseq* object. This can be obtained from the firecloud implementation of the methylation pipeline. However if the user has an output from *Methyldackel* as a bedgraph file then they can use the **createRDA** and **combineRDA** function to create the bsseq object. When the user has this bsseq object it should firt be loaded with the following command
+Main input files that is used in most of the functions is an .rda file containing *bsseq* object. This can be obtained from the firecloud implementation of the methylation pipeline. However if the user has an output from *Methyldackel* as a bedgraph file then they can use the **createRDA** and **combineRDA** function to create the bsseq object. When the user has this bsseq object it should first be loaded with the following command
 </p>
 
 ```{r, eval=FALSE}
@@ -62,11 +62,79 @@ These bsseq objects are saved as *bs*, so the user can use the loaded bsseq obje
 ---------------------
 
 4.1 Functions
+<p style="text-align: justify;">
+**scmeth** package contains several functions to assess different metrics and success of the sequencing process. One main metric is the CpG coverage. Coverage of the CpG can be assessed in differen ways. Very basic one is to observed how many CpG were observed in each sample. **coverage** function can be used to get this information. 
+
+</p>
+
+```{r, eval=FALSE}
+scmeth::coverage(bs)
+```
+
+<p style="text-align: justify;">
+**repmask** functions provide information on the CpG coverage in repeat regions of the genome. *explain why it is important*. In order to build the repeat mask regions of the genome **repmask** function will require the organism and the genome build information
+</p>
+
+```{r, eval=FALSE}
+scmeth::repmask(bs,"Mus musculus","mm10")
+```
+
+<p style="text-align: justify;">
+There are several other ways the number of CpGs captured can be observed. One of the way is to observed how the CpGs are distributed across different chromosomes.
+</p>
+
+```{r, eval=FALSE}
+scmeth::chromosomeCoverage(bs,"Mus musculus","mm10")
+```
+
+<p style="text-align: justify;">
+Another way to observe the distribution of CpGs is to classify them by the genomic features they belong. Some of the features are very specific to the CpG dense regions such as CpG Islands, CpG Shores, CpG Shelves etc. Others are general genomic features such as introns, exons, promoters etc. This information can be obtained by **featureCoverage**. In addition to the bs object this function requires the genomic features of interest and the genome build.
+
+```{r, eval=FALSE}
+scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),"mm10")
+```
+
+</p>
+
+
+
+
+<p style="text-align: justify;">
+CpGs are not distributed across the genome uniformly. Most of the genome contains very low percentage of CpGs except for the CpG dense regions,i.e. CpG islands. Bisulfite sequencing targets all the CpGs across the genome, however reduced reperesentation bisulfite sequencing (RRBS) target CpG dense CpG islands. Therefore CpG density plot will be a great diagnostic to see whether the protocol succeded. In order to calculate the CpG density a window length should be specified. By default the function chooses 1kB regions. 
+</p>
+
+```{r, eval=FALSE}
+scmeth::cpgDensity(bs,"Mus musculus",windowLength=1000)
+```
+
+<p style="text-align: justify;">
+In addition to the CpG coverage the methylation data can be assessed via downsampling analysis, methylation bias plot and methylation distribution. Downsampling analysis is tool to assess whether the sequencing process achieved the saturation level in terms of CpG capture. In order to perform downsampling analysis the CpGs that are covered at least once sampled via binomial random sampling with given probabaility. At each probability level the number of CpGs captured is assessed. If the number of CpG captured attains a plateu then the sequencing was succesful. **downsample** function provides a matrix of CpG coverage for each sample at various downsampling rates. The report renders  this information into a plot. Downsampleing rate ranges from 0.01 to 0.99, however users can change that input.
+
+```{r, eval=FALSE}
+scmeth::downsample(bs)
+```
+</p>
+
+<p style="text-align: justify;">
+Methylation bias plot shows the methylation along the reads. In a high quality samples methylation across the read would be more or less a horizontal line. However there could be fluatuations in the beginning or the end of the read. Single cell sequencing samples also can show jagged trend in the methylation bias plot due to lower read count. Methylation bias can be assesed via **mbiasPlot** function. This function takes the mbias file generated from methyldackel and generates the mbias plot
+
+```{r, eval=FALSE}
+scmeth::mbiasplot(file)
+```
+
+</p>
+
+<p style="text-align: justify;">
+**methylationDist** function provides the methylation distribution of the samples. By default it will produce distribution for single sample but users can change it by specifying all=TRUE.
+```{r, eval=FALSE}
+scmeth::methylationDist(file)
+```
+
 
 
 4.2 Report
 <p style="text-align: justify;">
-A comprehensive quality control report can be generated in the package vis **report** function in this package. report function takes the bs object, the directory where the report shoudl be saved, organism that this data is obtained from, the genomic build. Follwing is an example of how to use the report function
+A comprehensive quality control report can be generated in the package vis **report** function in this package. report function takes the bs object, the directory where the report should be saved, organism that this data is obtained from, the genomic build. Following is an example of how to use the report function.
 
 </p>
 
@@ -75,6 +143,15 @@ scmeth::report(bs, '~/Documents',"Mus musculus","mm10")
 ```
 
 
+<p style="text-align: justify;">
+Following the command an html report will be stored in the indicated directory. 
+</p>
+
+
+
+--------------------------
+----------------------
+-----------------
 
 
 Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
@@ -97,7 +174,7 @@ The `html_vignette` template includes a basic CSS theme. To override this theme 
 
 ## Figures
 
-The figure sizes have been customised so that you can easily put two images side-by-side. 
+The figure sizes have been customized so that you can easily put two images side-by-side. 
 
 ```{r, fig.show='hold'}
 plot(1:10)

@@ -14,7 +14,7 @@
 #'@export
 
 downsample <- function(bs,dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1),0.99,1)) {
-  covMatrix<-getCoverage(bs)
+  covMatrix<-bsseq::getCoverage(bs)
   Samples<-sampleNames(bs)
   downSampleMatrix<-matrix(nrow=length(dsRates),ncol=length(Samples))
 

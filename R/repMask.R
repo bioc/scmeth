@@ -12,10 +12,10 @@
 
 repMask<-function(bs,organism,genome){
   hub <- AnnotationHub::AnnotationHub()
-  repeatGr <- hub[[names(query(hub, c("rmsk", organism, genome)))]]
-  rep <- countOverlaps(bs, repeatGr)>0
-  cov=getCoverage(bs)
-  covDf <- data.frame(sample=sampleNames(bs), coveredCpgs=colSums(cov[!rep,]>=1))
+  repeatGr <- hub[[names(AnnotationHub::query(hub, c("rmsk", organism, genome)))]]
+  rep <- GenomicRanges::countOverlaps(bs, repeatGr)>0
+  cov<-bsseq::getCoverage(bs)
+  covDf <- data.frame(coveredCpgs=colSums(cov[!rep,]>=1))
   return(covDf)
 
 }

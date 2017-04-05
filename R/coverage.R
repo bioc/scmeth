@@ -8,7 +8,7 @@
 
 coverage <- function(bs) {
 
-  covMatrix<-getCoverage(bs)
+  covMatrix<-bsseq::getCoverage(bs)
   covVec<- colSums(covMatrix>0,na.rm=TRUE)
   return(covVec)
 }

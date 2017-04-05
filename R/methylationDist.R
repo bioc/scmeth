@@ -12,13 +12,13 @@
 
 
 methylationDist<-function(bs,all=FALSE){
-  covMatrix<-getCoverage(bs)
-  methMatrix<-getCoverage(bs,type='M')/covMatrix
+  covMatrix<-bsseq::getCoverage(bs)
+  methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
   df <- as.data.frame(matrix(unlist(methMatrix), nrow = nrow(methMatrix)))
   colnames(df)<-colnames(methMatrix)
 
   if (all==TRUE){
-    meltedDf<-melt(df)
+    meltedDf<-reshape2::melt(df)
     methylationDensityPlot<-ggplot2::ggplot(meltedDf)+geom_density(aes(x=value))+facet_wrap(~variable,ncol=3)+
                               ggtitle('Methylation distribution for all the cells')+xlab('Methylation')
 
@@ -26,7 +26,7 @@ methylationDist<-function(bs,all=FALSE){
 
   }else if (all==FALSE){
     indCell<-data.frame(x=df[,sample(ncol(df),1)])
-    methylationDensityPlot<-ggplot()+geom_density(aes(x=x),data=indCell)+
+    methylationDensityPlot<-ggplot2::ggplot()+geom_density(aes(x=x),data=indCell)+
                             ggtitle('Methylation Distribution for an arbitrary cell')+xlab('Methylation rate')
 
 

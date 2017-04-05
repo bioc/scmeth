@@ -16,7 +16,7 @@ bsConversionPlot<-function(bs){
   if ('bsconversion' %in% colnames(phenoData)) {
     bscDf<-data.frame(sample=rownames(phenoData),bsc=phenoData$bsconversion)
 
-  g<-ggplot(meltedDf,aes(sample,bsc))+geom_point()+ylim(min(meltedDf$bsc)-0.05,max(meltedDf$bsc)+0.05)+theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  g<-ggplot2::ggplot(meltedDf,aes(sample,bsc))+geom_point()+ylim(min(meltedDf$bsc)-0.05,max(meltedDf$bsc)+0.05)+theme(axis.text.x = element_text(angle = 60, hjust = 1))+
     xlab('samples')+ylab('bisulfite conversion rate')+ggtitle('Bisulfite conversion rate across samples')
   return(g)
   }else

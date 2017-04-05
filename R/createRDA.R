@@ -19,7 +19,7 @@ createRDA<-function(file){
   cov<-m+um
 
   message("generating bs object")
-  bs<-BSseq(chr=tab[,1], pos=tab[,3], M= matrix(m), Cov=matrix(cov),sampleNames=sample)
+  bs<-bsseq::BSseq(chr=tab[,1], pos=tab[,3], M= matrix(m), Cov=matrix(cov),sampleNames=sample)
   message("Done.")
 
   return(bs)

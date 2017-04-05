@@ -10,10 +10,11 @@ Import:
       bsseq,
       AnnotationHub,
       annotatr (>= 1.0.3),
-      Repitools
+      Repitools,
+      GenomicRanges
 Suggest:
       reshape2,
-      BSgenome.Mmusculus.UCSC.mm10
+      BSgenome.Mmusculus.UCSC.mm10,
       BSgenome.Hsapiens.UCSC.hg19
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: This is a sample package

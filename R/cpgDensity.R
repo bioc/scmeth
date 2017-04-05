@@ -12,7 +12,7 @@ cpgDensity<-function(bs,organism,windowLength=1000){
   if (organism == 'Mus musculus'){
 
   library(BSgenome.Mmusculus.UCSC.mm10)
-  cov<-getCoverage(bs)
+  cov<-bsseq::getCoverage(bs)
   cpgd<-Repitools::cpgDensityCalc(granges(bs),Mmusculus,window = windowLength)
   if (max(cpgd)>50){
     cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))

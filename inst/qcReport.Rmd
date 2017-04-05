@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 bs<-params$samples
-nSamples<-length(sampleNames(bs))
+nSamples<-length(Biobase::sampleNames(bs))
 ```
 
 ## Read information
@@ -86,7 +86,7 @@ ggplot2::ggplot(m, aes(Density,value)) + geom_line(aes(group=Sample)) + ggtitle(
 
 
 ## Non-repatmasker Coverage
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,comment=FALSE,fig.height=nSamples*0.4}
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
 o <- order(covDf$coveredCpgs)

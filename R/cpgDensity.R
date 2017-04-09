@@ -24,7 +24,7 @@ cpgDensity<-function(bs,organism,windowLength=1000){
 
   }else if (organism == 'Homo sapiens'){
     library(BSgenome.Hsapiens.UCSC.hg19)
-    cpgd<-Repitools::cpgDensityCalc(granges(bs),Hsapeins,window = windowLength)
+    cpgd<-Repitools::cpgDensityCalc(granges(bs),Hsapiens,window = windowLength)
     if (max(cpgd)>50){
       cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))
     }else{

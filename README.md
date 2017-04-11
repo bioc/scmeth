@@ -1,2 +1,2 @@
 # scmeth
-Qualit Control analysis for methylation data
+Quality Control analysis for methylation data

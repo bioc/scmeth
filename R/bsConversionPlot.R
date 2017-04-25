@@ -1,24 +1,29 @@
-#' Mehtylation bias plot
+#' Bisulfite conversion rate visualization
 #'
 #'Plot the bisulfite conversion rate for each sample
 #'based on the pheno data in the bs object
 #'
-#'@param Takes the bs object as the input
+#'@param bs bsseq object
 #'@return Plot showing bisulfite conversion rate for each sample
 #'
 #'@examples
-#'bsConversionPlott(bs)
+#'bsConversionPlot(bsseqObject)
 #'@export
 
 
 bsConversionPlot<-function(bs){
-  phenoData<-pData(bs)
+  phenoData<-bsseq::pData(bs)
   if ('bsconversion' %in% colnames(phenoData)) {
     bscDf<-data.frame(sample=rownames(phenoData),bsc=phenoData$bsconversion)
 
-  g<-ggplot2::ggplot(meltedDf,aes(sample,bsc))+geom_point()+ylim(min(meltedDf$bsc)-0.05,max(meltedDf$bsc)+0.05)+theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-    xlab('samples')+ylab('bisulfite conversion rate')+ggtitle('Bisulfite conversion rate across samples')
-  return(g)
+    if (requireNamespace("ggplot2",quietly = TRUE)){
+    g<-ggplot(bscDf,aes_string('sample','bsc'))+geom_point()+ylim(max(min(bscDf$bsc)-0.05,0),min(max(bscDf$bsc)+0.05,1))+
+    theme(axis.text.x = element_text(angle = 60, hjust = 1))+xlab('samples')+ylab('bisulfite conversion rate')+
+    ggtitle('Bisulfite conversion rate across samples')
+    return(g)
+    }else{
+      warning("ggplot package needed for plot rendering")
+    }
   }else
     message("Provide a bs object with bisufite conversion to produce the plot")
 }

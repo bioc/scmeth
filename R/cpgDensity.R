@@ -1,10 +1,10 @@
 #'Provides Coverage metrics in the repeat masker region
 #'@param bs bsseq object
 #'@param organism scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens
-#'@param genome reference alignment, i.e. mm10 or hg38
+#'@param windowLength Length of the window to calculate the density
 #'@return Data frame with sample name and coverage in repeat masker regions
 #'@examples
-#'repMask(bsseqObject,'Mus musculus','mm10')
+#'cpgDensity(bsseqObject,'Mus musculus',1000)
 #'@export
 
 
@@ -13,7 +13,7 @@ cpgDensity<-function(bs,organism,windowLength=1000){
 
   library(BSgenome.Mmusculus.UCSC.mm10)
   cov<-bsseq::getCoverage(bs)
-  cpgd<-Repitools::cpgDensityCalc(granges(bs),Mmusculus,window = windowLength)
+  cpgd<-Repitools::cpgDensityCalc(GenomicRanges::granges(bs),Mmusculus,window = windowLength)
   if (max(cpgd)>50){
     cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))
   }else{

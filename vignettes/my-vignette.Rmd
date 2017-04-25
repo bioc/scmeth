@@ -109,8 +109,8 @@ CpG Islands are characterized by their high GC content, high level of observed t
 </p>
 
 ```{r, warning=FALSE,message=FALSE}
-library(GenomicRanges)
-scmeth::repMask(bs,"Mus musculus","mm10")
+#library(GenomicRanges)
+#scmeth::repMask(bs,"Mus musculus","mm10")
 ```
 
 <p style="text-align: justify;">
@@ -169,7 +169,7 @@ scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'
 **methylationDist** function provides the methylation distribution of the samples. By default it will produce distribution for single sample but users can change it by specifying all=TRUE.
 </p>
 ```{r,warning=FALSE,message=FALSE,fig.width=6}
-library(ggplot2)
+#library(ggplot2)
 scmeth::methylationDist(bs,all=TRUE)
 ```
 

@@ -4,10 +4,11 @@
 \alias{report}
 \title{Generates an inclusive report on methylation analysis}
 \usage{
-report(bsObj, outdirectory, organism, genome, readData = NULL, meta = NULL,
-  cacheable = NA)
+report(bsObj, outdirectory, organism, genome, readData = NULL)
 }
 \arguments{
+\item{bsObj}{bsseq object}
+
 \item{outdirectory}{name of the output directory where the report will be saved}
 
 \item{organism}{scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens}
@@ -16,8 +17,6 @@ report(bsObj, outdirectory, organism, genome, readData = NULL, meta = NULL,
 
 \item{readData}{read information file on the samples. This is an optional argument and if given
 the report will have graphics on read information}
-
-\item{bs}{bsseq object}
 }
 \value{
 Report will be an html file

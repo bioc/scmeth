@@ -1,7 +1,7 @@
 #' Generates an inclusive report on methylation analysis
 #'
 #' This function uses most of the functions in this package to generate a report for the user
-#'@param bs bsseq object
+#'@param bsObj bsseq object
 #'@param outdirectory name of the output directory where the report will be saved
 #'@param organism scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens
 #'@param genome reference alignment, i.e. mm10 or hg38
@@ -14,7 +14,7 @@
 #'@export
 #
 
-report <- function(bsObj,outdirectory,organism,genome,readData = NULL,meta = NULL, cacheable = NA) {
+report <- function(bsObj,outdirectory,organism,genome,readData = NULL) {
   #bsseqObject<-Sys.getenv(rdaFile)
   #if (is.null(outdirectory)){
   #  outdirectory=getwd()

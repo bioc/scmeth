@@ -2,7 +2,7 @@
 % Please edit documentation in R/mbiasPlot.R
 \name{mbiasplot}
 \alias{mbiasplot}
-\title{Mehtylation bias plot}
+\title{Methylation bias plot}
 \usage{
 mbiasplot(mbiasFile)
 }

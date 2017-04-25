@@ -6,7 +6,7 @@
 #'@param file CpG.bedGraph file output from methyldackel/pileometh
 #'@return bsseq object with coverga and methylation information for the sample
 #'@examples
-#'createRDA(CpG.bedGraph file)
+#'createRDA(CpG.bedGraphfile)
 #'@export
 
 

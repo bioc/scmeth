@@ -16,5 +16,5 @@ bsseq object with coverga and methylation information for the sample
 Generate bsseq rda object from the methyldackel/pileometh output
 }
 \examples{
-createRDA(CpG.bedGraph file)
+createRDA(CpG.bedGraphfile)
 }

@@ -19,19 +19,28 @@ methylationDist<-function(bs,all=FALSE){
 
   if (all==TRUE){
     meltedDf<-reshape2::melt(df)
+    if (requireNamespace("ggplot2",quietly = TRUE)){
     methylationDensityPlot<-ggplot2::ggplot(meltedDf)+geom_density(aes(x=value))+facet_wrap(~variable,ncol=3)+
                               ggtitle('Methylation distribution for all the cells')+xlab('Methylation')
 
     return(methylationDensityPlot)
+    }else{
+      warning('ggplot2 required for plot rendering')
+    }
 
   }else if (all==FALSE){
     indCell<-data.frame(x=df[,sample(ncol(df),1)])
+    if (requireNamespace("ggplot2",quietly = TRUE)){
     methylationDensityPlot<-ggplot2::ggplot()+geom_density(aes(x=x),data=indCell)+
                             ggtitle('Methylation Distribution for an arbitrary cell')+xlab('Methylation rate')
 
 
     return(methylationDensityPlot)
-  }
 
+    }else{
+      warning('ggplot2 required for plot rendering')
+    }
+
+  }
 }
 

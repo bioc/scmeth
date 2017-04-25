@@ -11,7 +11,7 @@ cpgDensity(bs, organism, windowLength = 1000)
 
 \item{organism}{scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens}
 
-\item{genome}{reference alignment, i.e. mm10 or hg38}
+\item{windowLength}{Length of the window to calculate the density}
 }
 \value{
 Data frame with sample name and coverage in repeat masker regions
@@ -20,5 +20,5 @@ Data frame with sample name and coverage in repeat masker regions
 Provides Coverage metrics in the repeat masker region
 }
 \examples{
-repMask(bsseqObject,'Mus musculus','mm10')
+cpgDensity(bsseqObject,'Mus musculus',1000)
 }

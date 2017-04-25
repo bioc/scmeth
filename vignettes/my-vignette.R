@@ -17,8 +17,8 @@ load(system.file("extdata",'bsObject.rda',package='scmeth'))
 scmeth::coverage(bs)
 
 ## ---- warning=FALSE,message=FALSE----------------------------------------
-library(GenomicRanges)
-scmeth::repMask(bs,"Mus musculus","mm10")
+#library(GenomicRanges)
+#scmeth::repMask(bs,"Mus musculus","mm10")
 
 ## ---- warning=FALSE------------------------------------------------------
 scmeth::chromosomeCoverage(bs)
@@ -37,7 +37,7 @@ library(ggplot2)
 scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6-----------------------------
-library(ggplot2)
+#library(ggplot2)
 scmeth::methylationDist(bs,all=TRUE)
 
 ## ------------------------------------------------------------------------

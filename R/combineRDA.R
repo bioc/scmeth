@@ -14,18 +14,9 @@
 combineRDA<-function(rdaList){
   message("Reading bsseq objects")
 
-
   message("Combining bs object")
-
-  bs<-Reduce(combine,rdaList)
+  bs<-Reduce(BiocGenerics::combine,rdaList)
   bs@parameters<-rdaList[[1]]@parameters
-
-  #pData<-pData(bs)
-  #pData$col<-as.numeric(factor(pData$type))
-  #pData(bs)<-pData
-
-  #message("Saving bs to ")
-  #save(bs, file=outfile)
 
   return(bs)
 

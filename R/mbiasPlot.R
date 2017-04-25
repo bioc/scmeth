@@ -1,4 +1,4 @@
-#' Mehtylation bias plot
+#' Methylation bias plot
 #'
 #'Plot the methylation at each position of the read to observe any biases in the methylation
 #'based on the read position
@@ -9,6 +9,7 @@
 #'@examples
 #'mbiasplot(mbiasFile)
 #'@export
+#'@importFrom utils read.table
 
 
 mbiasplot<-function(mbiasFile){
@@ -16,7 +17,7 @@ mbiasplot<-function(mbiasFile){
   mbiasTable$methylation<-mbiasTable$nMethylated/(mbiasTable$nMethylated+mbiasTable$nUnmethylated)
   mbiasTable$Read<-as.factor(mbiasTable$Read)
   mbiasTable$Strand<-as.factor(mbiasTable$Strand)
-
+  requireNamespace('ggplot2')
   g<-ggplot2::ggplot(mbiasTable)+geom_line(aes(x=Position,y=methylation,colour=Read,linetype=Strand))+
     ylim(0,1)+ggtitle('Mbias Plot')
 

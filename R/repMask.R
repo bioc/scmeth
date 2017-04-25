@@ -11,6 +11,7 @@
 
 
 repMask<-function(bs,organism,genome){
+  requireNamespace("GenomicRanges")
   hub <- AnnotationHub::AnnotationHub()
   repeatGr <- hub[[names(AnnotationHub::query(hub, c("rmsk", organism, genome)))]]
   rep <- GenomicRanges::countOverlaps(bs, repeatGr)>0

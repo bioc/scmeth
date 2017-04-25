@@ -2,12 +2,12 @@
 % Please edit documentation in R/bsConversionPlot.R
 \name{bsConversionPlot}
 \alias{bsConversionPlot}
-\title{Mehtylation bias plot}
+\title{Bisulfite conversion rate visualization}
 \usage{
 bsConversionPlot(bs)
 }
 \arguments{
-\item{Takes}{the bs object as the input}
+\item{bs}{bsseq object}
 }
 \value{
 Plot showing bisulfite conversion rate for each sample
@@ -17,5 +17,5 @@ Plot the bisulfite conversion rate for each sample
 based on the pheno data in the bs object
 }
 \examples{
-bsConversionPlott(bs)
+bsConversionPlot(bsObject)
 }

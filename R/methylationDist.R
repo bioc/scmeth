@@ -6,8 +6,9 @@
 #'a single cell
 #'@return plot of the methylation distribution
 #'@examples
-#'methylationDist(bsObject)
-#'methylationDist(bsObject,all = TRUE)
+#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'methylationDist(bs)
+#'methylationDist(bs,all = TRUE)
 #'@export
 
 
@@ -20,8 +21,8 @@ methylationDist<-function(bs,all=FALSE){
   if (all==TRUE){
     meltedDf<-reshape2::melt(df)
     if (requireNamespace("ggplot2",quietly = TRUE)){
-    methylationDensityPlot<-ggplot2::ggplot(meltedDf)+geom_density(aes(x=value))+facet_wrap(~variable,ncol=3)+
-                              ggtitle('Methylation distribution for all the cells')+xlab('Methylation')
+    methylationDensityPlot<-ggplot2::ggplot(meltedDf)+ggplot2::geom_density(ggplot2::aes_string(x='value'))+ggplot2::facet_wrap(~variable,ncol=3)+
+      ggplot2::ggtitle('Methylation distribution for all the cells')+ggplot2::xlab('Methylation')
 
     return(methylationDensityPlot)
     }else{
@@ -31,8 +32,8 @@ methylationDist<-function(bs,all=FALSE){
   }else if (all==FALSE){
     indCell<-data.frame(x=df[,sample(ncol(df),1)])
     if (requireNamespace("ggplot2",quietly = TRUE)){
-    methylationDensityPlot<-ggplot2::ggplot()+geom_density(aes(x=x),data=indCell)+
-                            ggtitle('Methylation Distribution for an arbitrary cell')+xlab('Methylation rate')
+    methylationDensityPlot<-ggplot2::ggplot()+ggplot2::geom_density(ggplot2::aes_string(x='x'),data=indCell)+
+      ggplot2::ggtitle('Methylation Distribution for an arbitrary cell')+ggplot2::xlab('Methylation rate')
 
 
     return(methylationDensityPlot)

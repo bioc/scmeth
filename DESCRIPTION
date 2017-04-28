@@ -5,20 +5,23 @@ Version: 0.1.0
 Author: Divy Kangeyan <divyswar01@g.harvard.edu>
 Depends: R (>= 3.3.0)
 Imports:
-      ggplot2,
-      knitr,
-      bsseq,
-      AnnotationHub,
-      annotatr (>= 1.0.3),
-      Repitools,
-      GenomicRanges
+  ggplot2,
+  knitr,
+  bsseq,
+  AnnotationHub,
+  annotatr(>= 1.0.3),
+  Repitools,
+  GenomicRanges
 Suggests:
-      rmarkdown
-      reshape2,
-      BSgenome.Mmusculus.UCSC.mm10,
-      BSgenome.Hsapiens.UCSC.hg19
+  rmarkdown,
+  reshape2,
+  BSgenome.Mmusculus.UCSC.mm10,
+  BSgenome.Hsapiens.UCSC.hg19,
+  Biobase,
+  BiocGenerics,
+  GenomeInfoDb
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
-Description: Functions to analyze methylation data especially those obtained from 'firecloud methylation pipeline'
+Description: Functions to analyze methylation data can be found here
              Some functions are relevant for single cell methylation data but most other functions can be used
              for any  methylation data
              Highlight of this workflow is the comprehensive quality control report

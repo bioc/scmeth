@@ -17,5 +17,6 @@ Plot the bisulfite conversion rate for each sample
 based on the pheno data in the bs object
 }
 \examples{
-bsConversionPlot(bsObject)
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+bsConversionPlot(bs)
 }

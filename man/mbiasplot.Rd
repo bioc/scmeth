@@ -18,5 +18,5 @@ Plot the methylation at each position of the read to observe any biases in the m
 based on the read position
 }
 \examples{
-mbiasplot(mbiasFile)
+mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'))
 }

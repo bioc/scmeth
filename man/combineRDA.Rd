@@ -17,5 +17,7 @@ Combine multiple bsseq rda object into one bs object
 Preferably for a library pool of cells
 }
 \examples{
+bsObject1<-createRDA(system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth'))
+bsObject2<-createRDA(system.file("extdata",'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth'))
 combineRDA(c(bsObject1, bsObject2))
 }

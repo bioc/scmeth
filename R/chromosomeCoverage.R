@@ -5,7 +5,8 @@
 #'@return matrix of chromsome covergae with
 #'column and rows indicating the samples and the chromosome respectively
 #'@examples
-#'chromosomeCoverage(bsObject)
+#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'chromosomeCoverage(bs)
 #'@export
 
 

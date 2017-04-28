@@ -24,5 +24,6 @@ this function catergorizes the non-binary CpGs as methylated if the methyation i
 unmethylated if the methylation is below 0.2
 }
 \examples{
-cpgDiscretization(bsObject)
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+cpgDiscretization(bs)
 }

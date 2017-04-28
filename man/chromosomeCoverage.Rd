@@ -17,5 +17,6 @@ column and rows indicating the samples and the chromosome respectively
 Provides Coverage metrics for each sample by the chromosome
 }
 \examples{
-chromosomeCoverage(bsObject)
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+chromosomeCoverage(bs)
 }

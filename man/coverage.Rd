@@ -16,5 +16,6 @@ vector of coverage for the cells in bs object
 Provides Coverage for each cell in a library pool
 }
 \examples{
-coverage(bsseqObject)
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+coverage(bs)
 }

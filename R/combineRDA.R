@@ -7,6 +7,8 @@
 #'@param rdaList list of bsseq rda objects
 #'@return Combined one rda object for all the cells
 #'@examples
+#'bsObject1<-createRDA(system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth'))
+#'bsObject2<-createRDA(system.file("extdata",'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth'))
 #'combineRDA(c(bsObject1, bsObject2))
 #'@export
 

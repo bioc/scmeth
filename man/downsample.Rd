@@ -21,7 +21,8 @@ Data frame with the CpG coverage for each sample at each sampling rate
 Downsample the CpG covergae matrix for saturation analysis
 }
 \examples{
-downsample(bsObject)
-downsample(bsObject,seq(0,1,length.out=20))
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+downsample(bs)
+downsample(bs,seq(0,1,length.out=20))
 
 }

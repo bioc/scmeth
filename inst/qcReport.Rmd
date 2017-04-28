@@ -43,7 +43,7 @@ library(ggplot2)
 library(AnnotationHub)
 
 covVec<-scmeth::coverage(bs)
-sampleNames<-sampleNames(bs)
+sampleNames<-bsseq::sampleNames(bs)
 covDf <- data.frame(sample=sampleNames, coveredCpgs=covVec)
 covDf$grp <- substr(covDf$sample, 1, 1)
 AllCpG_Assigned<- melt(covDf, id.vars = c("grp", "sample"))

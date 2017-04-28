@@ -19,6 +19,7 @@ plot of the methylation distribution
 Plot the methylation distribution for the cells in bsseq object
 }
 \examples{
-methylationDist(bsObject)
-methylationDist(bsObject,all = TRUE)
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+methylationDist(bs)
+methylationDist(bs,all = TRUE)
 }

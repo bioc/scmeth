@@ -10,13 +10,14 @@
 #'@return discard total number of removed CpGs from each sample
 #'@return Percentage of CpGs discarded compared to the total number of CpGs
 #'@examples
-#'cpgDiscretization(bsObject)
+#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'cpgDiscretization(bs)
 #'@export
 #
 
 cpgDiscretization<-function(bs){
-  covMatrix<-getCoverage(bs)
-  methMatrix<-getCoverage(bs,type='M')
+  covMatrix<-bsseq::getCoverage(bs)
+  methMatrix<-bsseq::getCoverage(bs,type='M')
   methMatrix<-methMatrix/covMatrix
   tempMethylationMatrix<-methMatrix
   methMatrix[methMatrix<=0.2]<-0

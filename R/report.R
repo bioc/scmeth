@@ -9,7 +9,8 @@
 #'the report will have graphics on read information
 #'@return Report will be an html file
 #'@examples
-#'report(bsseqObject,outputDirectory,'Mus musculus','mm10')
+#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'report(bs,'~','Mus musculus','mm10')
 #
 #'@export
 #

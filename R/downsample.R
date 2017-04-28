@@ -8,15 +8,16 @@
 #'dsRates can be changed to add more sampling rates
 #'@return Data frame with the CpG coverage for each sample at each sampling rate
 #'@examples
-#'downsample(bsObject)
-#'downsample(bsObject,seq(0,1,length.out=20))
+#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'downsample(bs)
+#'downsample(bs,seq(0,1,length.out=20))
 #'
 #'@export
 #'@importFrom stats rbinom
 
 downsample <- function(bs,dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1),0.99,1)) {
   covMatrix<-bsseq::getCoverage(bs)
-  Samples<-sampleNames(bs)
+  Samples<-Biobase::sampleNames(bs)
   downSampleMatrix<-matrix(nrow=length(dsRates),ncol=length(Samples))
 
   for (i in 1:length(dsRates)){

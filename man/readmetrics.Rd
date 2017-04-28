@@ -15,6 +15,3 @@ Plot showing the mapped and unmapped read information for each cell
 \description{
 Plot the mapped and unmapped reads
 }
-\examples{
-readmetrics(read.txt)
-}

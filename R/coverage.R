@@ -3,7 +3,9 @@
 #'Provides Coverage for each cell in a library pool
 #'@param bs bsseq object
 #'@return vector of coverage for the cells in bs object
-#'@examples coverage(bsseqObject)
+#'@examples
+#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'coverage(bs)
 #'@export
 
 coverage <- function(bs) {

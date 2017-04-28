@@ -22,5 +22,6 @@ a data frame with genomic feature names and the number of CpG covered in each fe
 Provides Coverage metrics for the sample by each genomic features provided by the user
 }
 \examples{
-featureCoverage(bsObject,c('cpg_islands','genes_exons'),'mm10')
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+featureCoverage(bs,c('cpg_islands','genes_exons'),'mm10')
 }

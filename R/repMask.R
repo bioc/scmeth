@@ -5,13 +5,13 @@
 #'@param organism scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens
 #'@param genome reference alignment, i.e. mm10 or hg38
 #'@return Data frame with sample name and coverage in repeat masker regions
-#'@examples
-#'repMask(bsseqObject,'Mus musculus','mm10')
+#'#@examples
+#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'repMask(bs,'Mus musculus','mm10')
 #'@export
 
 
 repMask<-function(bs,organism,genome){
-  requireNamespace("GenomicRanges")
   hub <- AnnotationHub::AnnotationHub()
   repeatGr <- hub[[names(AnnotationHub::query(hub, c("rmsk", organism, genome)))]]
   rep <- GenomicRanges::countOverlaps(bs, repeatGr)>0

@@ -25,5 +25,6 @@ Report will be an html file
 This function uses most of the functions in this package to generate a report for the user
 }
 \examples{
-report(bsseqObject,outputDirectory,'Mus musculus','mm10')
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+report(bs,'~','Mus musculus','mm10')
 }

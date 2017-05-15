@@ -11,20 +11,23 @@ Imports:
   AnnotationHub,
   annotatr(>= 1.0.3),
   Repitools,
-  GenomicRanges
+  GenomicRanges,
+  reshape2,
+  stats,
+  utils,
+  BSgenome
 Suggests:
   rmarkdown,
-  reshape2,
   BSgenome.Mmusculus.UCSC.mm10,
-  BSgenome.Hsapiens.UCSC.hg19,
+  BSgenome.Hsapiens.NCBI.GRCh38,
   Biobase,
   BiocGenerics,
-  GenomeInfoDb
+  GenomeInfoDb,
+  Biostrings
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
-Description: Functions to analyze methylation data can be found here
-             Some functions are relevant for single cell methylation data but most other functions can be used
-             for any  methylation data
-             Highlight of this workflow is the comprehensive quality control report
+Description: Functions to analyze methylation data can be found here.
+             Some functions are relevant for single cell methylation data but most other functions can be used for any  methylation data.
+             Highlight of this workflow is the comprehensive quality control report.
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 6.0.1

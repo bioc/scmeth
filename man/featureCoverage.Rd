@@ -4,7 +4,7 @@
 \alias{featureCoverage}
 \title{Coverage based on the genomic feature}
 \usage{
-featureCoverage(bs, features, genome)
+featureCoverage(bs, features, genomebuild)
 }
 \arguments{
 \item{bs}{bsseq object}
@@ -13,7 +13,7 @@ featureCoverage(bs, features, genome)
 Names are based on the annotatr packages, so all the features provided by the annotatr
 package will be supported in this function}
 
-\item{genome}{reference alignment, i.e. mm10 or hg38}
+\item{genomebuild}{reference alignment, i.e. mm10 or hg38}
 }
 \value{
 a data frame with genomic feature names and the number of CpG covered in each feature
@@ -22,6 +22,7 @@ a data frame with genomic feature names and the number of CpG covered in each fe
 Provides Coverage metrics for the sample by each genomic features provided by the user
 }
 \examples{
+library(annotatr)
 load(system.file("extdata",'bsObject.rda',package='scmeth'))
 featureCoverage(bs,c('cpg_islands','genes_exons'),'mm10')
 }

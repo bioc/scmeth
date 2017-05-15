@@ -32,11 +32,11 @@ methylationDist<-function(bs,all=FALSE){
   }else if (all==FALSE){
     indCell<-data.frame(x=df[,sample(ncol(df),1)])
     if (requireNamespace("ggplot2",quietly = TRUE)){
-    methylationDensityPlot<-ggplot2::ggplot()+ggplot2::geom_density(ggplot2::aes_string(x='x'),data=indCell)+
-      ggplot2::ggtitle('Methylation Distribution for an arbitrary cell')+ggplot2::xlab('Methylation rate')
+      g<-ggplot2::ggplot()+ggplot2::geom_density(ggplot2::aes_string(x='x'),data=indCell)
+      g<-g+ggplot2::ggtitle('Methylation Distribution for an arbitrary cell')
+      g<-g+ggplot2::xlab('Methylation rate')
 
-
-    return(methylationDensityPlot)
+      return(g)
 
     }else{
       warning('ggplot2 required for plot rendering')

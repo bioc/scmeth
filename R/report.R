@@ -16,12 +16,7 @@
 #
 
 report <- function(bsObj,outdirectory,organism,genome,readData = NULL) {
-  #bsseqObject<-Sys.getenv(rdaFile)
-  #if (is.null(outdirectory)){
-  #  outdirectory=getwd()
-  #}
 
-  #RmdFile<-file.path(PROJHOME,'scmeth/R','qcReport.Rmd')
   RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
 
   rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,organism=organism,genome=genome,reads=readData),output_file=paste0(outdirectory,"/qcReport.html"))

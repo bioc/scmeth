@@ -5,9 +5,11 @@
 #'@param organism scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens
 #'@param genome reference alignment, i.e. mm10 or hg38
 #'@return Data frame with sample name and coverage in repeat masker regions
-#'#@examples
+#'@examples
+#'library(BSgenome.Mmusculus.UCSC.mm10)
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'repMask(bs,'Mus musculus','mm10')
+#'@import GenomicRanges
 #'@export
 
 

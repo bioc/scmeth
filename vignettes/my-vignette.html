@@ -12,7 +12,7 @@
 
 <meta name="author" content="Divy S. Kangeyan" />
 
-<meta name="date" content="2017-04-28" />
+<meta name="date" content="2017-05-17" />
 
 <title>scmeth Vignette</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">scmeth Vignette</h1>
 <h4 class="author"><em>Divy S. Kangeyan</em></h4>
-<h4 class="date"><em>2017-04-28</em></h4>
+<h4 class="date"><em>2017-05-17</em></h4>
 
 
 
@@ -161,12 +161,13 @@ There are several other ways the number of CpGs captured can be observed. One of
 <p style="text-align: justify;">
 Another way to observe the distribution of CpGs is to classify them by the genomic features they belong. Some of the features are very specific to the CpG dense regions such as CpG Islands, CpG Shores, CpG Shelves etc. Others are general genomic features such as introns, exons, promoters etc. This information can be obtained by <strong>featureCoverage</strong> function. In addition to the bs object this function requires the genomic features of interest and the genome build.
 </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scmeth::<span class="kw">featureCoverage</span>(bs,<span class="dt">features=</span><span class="kw">c</span>(<span class="st">'genes_exons'</span>,<span class="st">'genes_introns'</span>,<span class="st">'genes_intergenic'</span>,<span class="st">'cpg_islands'</span>),<span class="st">&quot;mm10&quot;</span>)</code></pre></div>
-<pre><code>##              annot.type     n
-## 1      mm10_cpg_islands  4657
-## 2      mm10_genes_exons  5018
-## 3 mm10_genes_intergenic 13249
-## 4    mm10_genes_introns 13307</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(annotatr)
+<span class="co">#scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),&quot;mm10&quot;)</span>
+scmeth::<span class="kw">featureCoverage</span>(bs,<span class="dt">features=</span><span class="kw">c</span>(<span class="st">'genes_exons'</span>,<span class="st">'genes_introns'</span>,<span class="st">'cpg_islands'</span>),<span class="st">&quot;mm10&quot;</span>)</code></pre></div>
+<pre><code>##           annot.type     n
+## 1   mm10_cpg_islands  4657
+## 2   mm10_genes_exons  5018
+## 3 mm10_genes_introns 13307</code></pre>
 </p>
 </div>
 <div id="cpgdensity" class="section level3">
@@ -174,7 +175,8 @@ Another way to observe the distribution of CpGs is to classify them by the genom
 <p style="text-align: justify;">
 CpGs are not distributed across the genome uniformly. Most of the genome contains very low percentage of CpGs except for the CpG dense regions,i.e. CpG islands. Bisulfite sequencing targets all the CpGs across the genome, however reduced representation bisulfite sequencing (RRBS) target CpG dense CpG islands. Therefore CpG density plot will be a great diagnostic to see whether the protocol succeeded. In order to calculate the CpG density a window length should be specified. By default <strong>cpgDensity</strong> function chooses 1kB regions. Therefore CpG density plot will be a great diagnostic tool to observed whether the protocol specifically targeted CpG dense or CpG sparse regions or whether CpGs were obtained uniformly across the regions.
 </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scmeth::<span class="kw">cpgDensity</span>(bs,<span class="st">&quot;Mus musculus&quot;</span>,<span class="dt">windowLength=</span><span class="dv">1000</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BSgenome.Mmusculus.UCSC.mm10)
+scmeth::<span class="kw">cpgDensity</span>(bs,Mmusculus,<span class="dt">windowLength=</span><span class="dv">1000</span>)</code></pre></div>
 <pre><code>##          sc-RRBS_zyg_01_chr1 sc-RRBS_zyg_02_chr1 sc-RRBS_zyg_03_chr1
 ## (0,5]                   1566                 407                 921
 ## (5,10]                  4558                1161                2729
@@ -195,19 +197,19 @@ In addition to the CpG coverage the methylation data can be assessed via down sa
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scmeth::<span class="kw">downsample</span>(bs)</code></pre></div>
 <pre><code>##       [,1] [,2]  [,3]
-## 0.01  3532  633  1778
-## 0.02  6312 1092  3060
-## 0.05 10715 2000  5544
-## 0.1  13956 2870  7179
-## 0.2  15997 3563  8555
-## 0.3  16931 3881  9206
-## 0.4  17471 4097  9592
-## 0.5  17843 4270  9831
-## 0.6  18168 4416 10042
-## 0.7  18421 4517 10267
-## 0.8  18660 4615 10444
-## 0.9  18855 4708 10550
-## 0.99 19025 4765 10681
+## 0.01  3583  602  1807
+## 0.02  6192 1095  3092
+## 0.05 10797 2090  5438
+## 0.1  13892 2890  7251
+## 0.2  15996 3566  8583
+## 0.3  16961 3900  9105
+## 0.4  17499 4159  9551
+## 0.5  17865 4275  9829
+## 0.6  18142 4390 10089
+## 0.7  18365 4544 10258
+## 0.8  18623 4594 10421
+## 0.9  18857 4682 10569
+## 0.99 19015 4767 10681
 ## 1    19040 4771 10696</code></pre>
 </div>
 <div id="mbiasplot" class="section level3">
@@ -277,7 +279,7 @@ If the users don’t have a bsseq object with all the information then <strong>c
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

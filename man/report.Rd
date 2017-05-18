@@ -25,6 +25,7 @@ Report will be an html file
 This function uses most of the functions in this package to generate a report for the user
 }
 \examples{
+library(BSgenome.Mmusculus.UCSC.mm10)
 load(system.file("extdata",'bsObject.rda',package='scmeth'))
-report(bs,'~','Mus musculus','mm10')
+report(bs,'~',Mmusculus,'mm10')
 }

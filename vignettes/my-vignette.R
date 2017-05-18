@@ -24,10 +24,15 @@ scmeth::coverage(bs)
 scmeth::chromosomeCoverage(bs)
 
 ## ---- warning=FALSE,message=FALSE----------------------------------------
-scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),"mm10")
+library(annotatr)
+#scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),"mm10")
+scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','cpg_islands'),"mm10")
+
+
 
 ## ----warning=FALSE,message=FALSE-----------------------------------------
-scmeth::cpgDensity(bs,"Mus musculus",windowLength=1000)
+library(BSgenome.Mmusculus.UCSC.mm10)
+scmeth::cpgDensity(bs,Mmusculus,windowLength=1000)
 
 ## ----warning=FALSE-------------------------------------------------------
 scmeth::downsample(bs)

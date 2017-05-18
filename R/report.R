@@ -9,8 +9,9 @@
 #'the report will have graphics on read information
 #'@return Report will be an html file
 #'@examples
+#'library(BSgenome.Mmusculus.UCSC.mm10)
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
-#'report(bs,'~','Mus musculus','mm10')
+#'report(bs,'~',Mmusculus,'mm10')
 #
 #'@export
 #

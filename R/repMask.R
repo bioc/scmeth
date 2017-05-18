@@ -8,14 +8,14 @@
 #'@examples
 #'library(BSgenome.Mmusculus.UCSC.mm10)
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
-#'repMask(bs,'Mus musculus','mm10')
+#'repMask(bs,Mmusculus,'mm10')
 #'@import GenomicRanges
 #'@export
 
 
 repMask<-function(bs,organism,genome){
   hub <- AnnotationHub::AnnotationHub()
-  repeatGr <- hub[[names(AnnotationHub::query(hub, c("rmsk", organism, genome)))]]
+  repeatGr <- hub[[names(AnnotationHub::query(hub, c("rmsk", GenomeInfoDb::organism(organism), genome)))]]
   rep <- GenomicRanges::countOverlaps(bs, repeatGr)>0
   cov<-bsseq::getCoverage(bs)
   covDf <- data.frame(coveredCpgs=colSums(cov[!rep,]>=1))

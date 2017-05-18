@@ -38,15 +38,11 @@ if (!(is.null(readinfo))){
 ## CpG Coverage 
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
-library(reshape2)
-library(ggplot2)
-library(AnnotationHub)
 
 covVec<-scmeth::coverage(bs)
 sampleNames<-bsseq::sampleNames(bs)
 covDf <- data.frame(sample=sampleNames, coveredCpgs=covVec)
 covDf$grp <- substr(covDf$sample, 1, 1)
-AllCpG_Assigned<- melt(covDf, id.vars = c("grp", "sample"))
 m <- reshape2::melt(covDf, id.vars = c("grp", "sample"))
 o <- order(covDf$grp, covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
@@ -55,10 +51,10 @@ m$sample <- factor(m$sample, levels=sampleOrder)
 summary<-c('min','max','mean','median')
 numericValues<-c(min(m$value),max(m$value),mean(m$value),median(m$value))
 summaryDF<-as.data.frame(cbind(summary,numericValues))
-#print(xtable(summaryDF),comment =FALSE)
 
 
-ggplot2::ggplot(m, aes(sample, value)) + geom_hline(data = m, aes(yintercept = as.numeric(median(value))), linetype=2, color="blue")+ geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered CpGs")  + theme_bw()
+
+ggplot2::ggplot(m, ggplot2::aes(sample, value)) + ggplot2::geom_hline(data = m, ggplot2::aes(yintercept = as.numeric(median(value))), linetype=2, color="blue")+ ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() + ggplot2::scale_y_continuous(name="Number of CpGs") + ggplot2::xlab("Sample") + ggplot2::ggtitle("Number of Covered CpGs")  + ggplot2::theme_bw()
 
 #############################
 ```
@@ -77,9 +73,9 @@ cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
 m <- reshape2::melt(cpgDenMatrix, varnames = c("Sample", "Density"))
 
 
-ggplot2::ggplot(m, aes(Density,value)) + geom_line(aes(group=Sample)) + ggtitle("Fraction of covered CpGs by CpG density") + xlab("CpG coverage based on the CpG density") + xlab('CpG Density')+ylab('Fraction of CpGs')+
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  theme(plot.title = element_text(hjust = 0.5))
+ggplot2::ggplot(m, ggplot2::aes_string('Density','value')) + ggplot2::geom_line(ggplot2::aes_string(group='Sample')) + ggplot2::ggtitle("Fraction of covered CpGs by CpG density") + ggplot2::xlab("CpG coverage based on the CpG density") + ggplot2::xlab('CpG Density')+ggplot2::ylab('Fraction of CpGs')
+#+ggplot2::theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+#ggplot2::theme(plot.title = element_text(hjust = 0.5))
 
 ```
 
@@ -89,12 +85,12 @@ ggplot2::ggplot(m, aes(Density,value)) + geom_line(aes(group=Sample)) + ggtitle(
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,comment=FALSE,fig.height=nSamples*0.4}
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 covDf$sample<-rownames(covDf)
-m <- melt(covDf, id.vars = c("sample","coveredCpgs"))
+m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
 o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
 
-ggplot2::ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Number of CpGs") + xlab("Sample") + ggtitle("Number of Covered Non-repeatmasker CpGs")  + theme_bw()
+ggplot2::ggplot(m, ggplot2::aes_string('sample', 'coveredCpgs')) +  ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() + ggplot2::scale_y_continuous(name="Number of CpGs") + ggplot2::xlab("Sample") + ggplot2::ggtitle("Number of Covered Non-repeatmasker CpGs")  + ggplot2::theme_bw()
 
 
 ## Chromosomal Coverage
@@ -108,17 +104,17 @@ ggplot2::ggplot(m, aes(sample, coveredCpgs)) +  geom_bar(stat="identity") + coor
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
 discardedDf <- data.frame(sample=sampleNames, value=percentDiscarded)
-meltedDiscardedDf<- melt(discardedDf, id.vars = c("sample", "discard.perc"))
+meltedDiscardedDf<- reshape2::melt(discardedDf, id.vars = c("sample", "discard.perc"))
 
 o <- order(meltedDiscardedDf$discard.perc,meltedDiscardedDf$sample)
 sampleOrder <- meltedDiscardedDf$sample[o]
 meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
 
-ggplot2::ggplot(meltedDiscardedDf, aes(sample, discard.perc)) + geom_bar(stat="identity") + coord_flip() + scale_y_continuous(name="Percentage of discarded CpGs") + xlab("Sample") + ggtitle("Discarded CpGs from each sample after discretization")  + theme_bw()
+ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes(sample, discard.perc)) +ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() + ggplot2::scale_y_continuous(name="Percentage of discarded CpGs") + ggplot2::xlab("Sample") + ggplot2::ggtitle("Discarded CpGs from each sample after discretization")  + ggplot2::theme_bw()
 
 # Feature level coverage
 #pandoc.header("Feature level coverage of the CpGs", level = 2)
-
+library(annotatr)
 featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
 colnames(featureCovDf)<-c('feature annotation','number of CpGs')
 print(featureCovDf)
@@ -130,8 +126,8 @@ print(featureCovDf)
 ##############################
 # Downsample Plots
 dsMatrix<-scmeth::downsample(bs)
-meltedDsMatrix<-melt(dsMatrix)
-ggplot2::ggplot(meltedDsMatrix, aes(Var1, value, group=Var2))+ geom_line() + scale_x_continuous(name="Fraction of Reads") + scale_y_continuous(name="Number of CpG covered") + ggtitle("Saturation Analysis Plot") + theme_bw()
+meltedDsMatrix<-reshape2::melt(dsMatrix)
+ggplot2::ggplot(meltedDsMatrix, ggplot2::aes(Var1, value, group=Var2))+ ggplot2::geom_line() + ggplot2::scale_x_continuous(name="Fraction of Reads") + ggplot2::scale_y_continuous(name="Number of CpG covered") + ggplot2::ggtitle("Saturation Analysis Plot") + ggplot2::theme_bw()
 
 ```
 

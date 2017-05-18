@@ -126,7 +126,11 @@ scmeth::chromosomeCoverage(bs)
 Another way to observe the distribution of CpGs is to classify them by the genomic features they belong. Some of the features are very specific to the CpG dense regions such as CpG Islands, CpG Shores, CpG Shelves etc. Others are general genomic features such as introns, exons, promoters etc. This information can be obtained by **featureCoverage** function. In addition to the bs object this function requires the genomic features of interest and the genome build.
 </p>
 ```{r, warning=FALSE,message=FALSE}
-scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),"mm10")
+library(annotatr)
+#scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),"mm10")
+scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','cpg_islands'),"mm10")
+
+
 ```
 
 </p>
@@ -139,7 +143,8 @@ CpGs are not distributed across the genome uniformly. Most of the genome contain
 </p>
 
 ```{r,warning=FALSE,message=FALSE}
-scmeth::cpgDensity(bs,"Mus musculus",windowLength=1000)
+library(BSgenome.Mmusculus.UCSC.mm10)
+scmeth::cpgDensity(bs,Mmusculus,windowLength=1000)
 ```
 
 ### downsample

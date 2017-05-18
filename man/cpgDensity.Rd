@@ -20,6 +20,7 @@ Data frame with sample name and coverage in repeat masker regions
 Provides Coverage metrics in the repeat masker region
 }
 \examples{
+library(BSgenome.Mmusculus.UCSC.mm10)
 load(system.file("extdata",'bsObject.rda',package='scmeth'))
-cpgDensity(bs,'Mus musculus',1000)
+cpgDensity(bs,Mmusculus,1000)
 }

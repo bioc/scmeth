@@ -4,10 +4,10 @@
 \alias{readmetrics}
 \title{Provide graphics for read information}
 \usage{
-readmetrics(readData)
+readmetrics(bs)
 }
 \arguments{
-\item{readData}{a .txt file providing mapped and unmapped reads for each sample}
+\item{bs}{bsseq object}
 }
 \value{
 Plot showing the mapped and unmapped read information for each cell

@@ -49,10 +49,10 @@ scmeth::methylationDist(bs,all=TRUE)
 scmeth::bsConversionPlot(bs)
 
 ## ----warning=FALSE-------------------------------------------------------
-rda1<-createRDA(system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth'))
-rda2<-createRDA(system.file("extdata",'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth'))
-rda3<-createRDA(system.file("extdata",'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth'))
+#rda1<-createRDA(system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth'))
+#rda2<-createRDA(system.file("extdata",'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth'))
+#rda3<-createRDA(system.file("extdata",'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth'))
 
 ## ------------------------------------------------------------------------
-combineRDA(c(rda1,rda2,rda3))
+#combineRDA(c(rda1,rda2,rda3))
 

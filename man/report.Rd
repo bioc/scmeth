@@ -4,7 +4,7 @@
 \alias{report}
 \title{Generates an inclusive report on methylation analysis}
 \usage{
-report(bsObj, outdirectory, organism, genome, readData = NULL)
+report(bsObj, outdirectory, organism, genome)
 }
 \arguments{
 \item{bsObj}{bsseq object}
@@ -13,9 +13,7 @@ report(bsObj, outdirectory, organism, genome, readData = NULL)
 
 \item{organism}{scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens}
 
-\item{genome}{reference alignment, i.e. mm10 or hg38}
-
-\item{readData}{read information file on the samples. This is an optional argument and if given
+\item{genome}{reference alignment, i.e. mm10 or hg38
 the report will have graphics on read information}
 }
 \value{

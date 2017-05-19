@@ -9,7 +9,6 @@ Imports:
   knitr,
   bsseq,
   AnnotationHub,
-  annotatr(>= 1.0.3),
   Repitools,
   GenomicRanges,
   reshape2,
@@ -23,7 +22,8 @@ Suggests:
   Biobase,
   BiocGenerics,
   GenomeInfoDb,
-  Biostrings
+  Biostrings,
+  annotatr (>= 1.0.3)
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: Functions to analyze methylation data can be found here.
              Some functions are relevant for single cell methylation data but most other functions can be used for any  methylation data.

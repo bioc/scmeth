@@ -8,7 +8,6 @@ params:
   outdir: outdirectory
   organism: organism
   genome: genome
-  reads: readData
 ---
 
 ```{r setup, include=FALSE}
@@ -26,12 +25,7 @@ nSamples<-length(Biobase::sampleNames(bs))
 #### If read data provided the following plot is shown
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 # Methylation distribution for all the cells
-readinfo<-params$reads
-if (!(is.null(readinfo))){
-  scmeth::readmetrics(readinfo)
-}
-
-
+scmeth::readmetrics(bs)
 ```
 
 
@@ -73,9 +67,8 @@ cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
 m <- reshape2::melt(cpgDenMatrix, varnames = c("Sample", "Density"))
 
 
-ggplot2::ggplot(m, ggplot2::aes_string('Density','value')) + ggplot2::geom_line(ggplot2::aes_string(group='Sample')) + ggplot2::ggtitle("Fraction of covered CpGs by CpG density") + ggplot2::xlab("CpG coverage based on the CpG density") + ggplot2::xlab('CpG Density')+ggplot2::ylab('Fraction of CpGs')
-#+ggplot2::theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-#ggplot2::theme(plot.title = element_text(hjust = 0.5))
+ggplot2::ggplot(m, ggplot2::aes_string('Density','value')) + ggplot2::geom_line(ggplot2::aes_string(group='Sample')) + ggplot2::ggtitle("Fraction of covered CpGs by CpG density") + ggplot2::xlab("CpG coverage based on the CpG density") + ggplot2::xlab('CpG Density')+ggplot2::ylab('Fraction of CpGs')+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust = 1))
+
 
 ```
 

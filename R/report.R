@@ -5,7 +5,6 @@
 #'@param outdirectory name of the output directory where the report will be saved
 #'@param organism scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens
 #'@param genome reference alignment, i.e. mm10 or hg38
-#'@param readData read information file on the samples. This is an optional argument and if given
 #'the report will have graphics on read information
 #'@return Report will be an html file
 #'@examples
@@ -16,11 +15,11 @@
 #'@export
 #
 
-report <- function(bsObj,outdirectory,organism,genome,readData = NULL) {
+report <- function(bsObj,outdirectory,organism,genome) {
 
   RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
 
-  rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,organism=organism,genome=genome,reads=readData),output_file=paste0(outdirectory,"/qcReport.html"))
+  rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,organism=organism,genome=genome),output_file=paste0(outdirectory,"/qcReport.html"))
 
   #return(23)
 }

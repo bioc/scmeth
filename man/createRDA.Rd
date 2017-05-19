@@ -4,10 +4,14 @@
 \alias{createRDA}
 \title{Generate bsseq rda object}
 \usage{
-createRDA(file)
+createRDA(CpG_file, readmetric_file, bsConv_file)
 }
 \arguments{
-\item{file}{CpG.bedGraph file output from methyldackel/pileometh}
+\item{CpG_file}{CpG.bedGraph file output from methyldackel/pileometh}
+
+\item{readmetric_file}{file containing read information}
+
+\item{bsConv_file}{file containing bisulfite conversion information}
 }
 \value{
 bsseq object with coverga and methylation information for the sample
@@ -16,5 +20,8 @@ bsseq object with coverga and methylation information for the sample
 Generate bsseq rda object from the methyldackel/pileometh output
 }
 \examples{
-createRDA(system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth'))
+CpGBedGraphFile<-system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth')
+readMetricsFile<-system.file("extdata",'sc-RRBS-zygote_01.read_metrics.txt',package='scmeth')
+bsConversionFile<-system.file("extdata",'sc-RRBS-zygote_01.bsConv.txt',package='scmeth')
+createRDA(CpGBedGraphFile,readMetricsFile,bsConversionFile)
 }

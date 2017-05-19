@@ -12,7 +12,7 @@
 
 <meta name="author" content="Divy S. Kangeyan" />
 
-<meta name="date" content="2017-05-17" />
+<meta name="date" content="2017-05-18" />
 
 <title>scmeth Vignette</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">scmeth Vignette</h1>
 <h4 class="author"><em>Divy S. Kangeyan</em></h4>
-<h4 class="date"><em>2017-05-17</em></h4>
+<h4 class="date"><em>2017-05-18</em></h4>
 
 
 
@@ -197,19 +197,19 @@ In addition to the CpG coverage the methylation data can be assessed via down sa
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scmeth::<span class="kw">downsample</span>(bs)</code></pre></div>
 <pre><code>##       [,1] [,2]  [,3]
-## 0.01  3583  602  1807
-## 0.02  6192 1095  3092
-## 0.05 10797 2090  5438
-## 0.1  13892 2890  7251
-## 0.2  15996 3566  8583
-## 0.3  16961 3900  9105
-## 0.4  17499 4159  9551
-## 0.5  17865 4275  9829
-## 0.6  18142 4390 10089
-## 0.7  18365 4544 10258
-## 0.8  18623 4594 10421
-## 0.9  18857 4682 10569
-## 0.99 19015 4767 10681
+## 0.01  3637  621  1736
+## 0.02  6130 1106  2971
+## 0.05 10750 2083  5508
+## 0.1  13932 2815  7243
+## 0.2  15996 3549  8592
+## 0.3  16917 3903  9171
+## 0.4  17478 4097  9572
+## 0.5  17824 4308  9827
+## 0.6  18113 4430 10046
+## 0.7  18435 4536 10279
+## 0.8  18635 4619 10411
+## 0.9  18825 4706 10556
+## 0.99 19019 4763 10685
 ## 1    19040 4771 10696</code></pre>
 </div>
 <div id="mbiasplot" class="section level3">
@@ -237,7 +237,8 @@ scmeth::<span class="kw">methylationDist</span>(bs,<span class="dt">all=</span><
 Another important metric in methylation analysis is the bisulfite conversion rate. Bisulfite conversion rate indicates out of all the Cytosines in the non CpG context what fraction of them were methylated. Ideally this number should be 1 or 100% indicating none of the non CpG context cytosines are methylated. However in real experiment this won’t be the case, yet a bisulfite conversion rate below 95% indicates some problem with sample preparation. <strong>bsConversionPlot</strong> function generates a plot showing this metric for each sample.
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scmeth::<span class="kw">bsConversionPlot</span>(bs)</code></pre></div>
-<pre><code>## Provide a bs object with bisufite conversion to produce the plot</code></pre>
+<pre><code>## Warning in scmeth::bsConversionPlot(bs): Provide a bs object with bisufite
+## conversion to produce the plot</code></pre>
 <p style="text-align: justify;">
 If the users don’t have a bsseq object with all the information then <strong>createRDA</strong> and <strong>combineRDA</strong> functions can be used to generate the bsseq object from bedGraph files containing methylation information for each CpG site. These bedGraph files can be obtained from <em>methylDackel</em> or some other software.
 </p>
@@ -245,29 +246,14 @@ If the users don’t have a bsseq object with all the information then <strong>c
 <div id="createrda" class="section level3">
 <h3>createRDA</h3>
 <p><strong>createRDA</strong> function generate an RDA object for each sample separately</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rda1&lt;-<span class="kw">createRDA</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_01_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>))</code></pre></div>
-<pre><code>## Creating BSseq object with19040loci.</code></pre>
-<pre><code>## generating bs object</code></pre>
-<pre><code>## Done.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rda2&lt;-<span class="kw">createRDA</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_02_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>))</code></pre></div>
-<pre><code>## Creating BSseq object with4771loci.</code></pre>
-<pre><code>## generating bs object</code></pre>
-<pre><code>## Done.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rda3&lt;-<span class="kw">createRDA</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_03_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>))</code></pre></div>
-<pre><code>## Creating BSseq object with10696loci.</code></pre>
-<pre><code>## generating bs object</code></pre>
-<pre><code>## Done.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#rda1&lt;-createRDA(system.file(&quot;extdata&quot;,'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth'))</span>
+<span class="co">#rda2&lt;-createRDA(system.file(&quot;extdata&quot;,'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth'))</span>
+<span class="co">#rda3&lt;-createRDA(system.file(&quot;extdata&quot;,'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth'))</span></code></pre></div>
 </div>
 <div id="combinerda" class="section level3">
 <h3>combineRDA</h3>
 <p><strong>combineRDA</strong> pools the information from multiple samples for comparison.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">combineRDA</span>(<span class="kw">c</span>(rda1,rda2,rda3))</code></pre></div>
-<pre><code>## Reading bsseq objects</code></pre>
-<pre><code>## Combining bs object</code></pre>
-<pre><code>## An object of type 'BSseq' with
-##   33378 methylation loci
-##   3 samples
-## has not been smoothed</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#combineRDA(c(rda1,rda2,rda3))</span></code></pre></div>
 <hr />
 </div>
 </div>

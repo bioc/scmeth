@@ -20,12 +20,9 @@
 
 
 combineRDA<-function(rdaList){
-  message("Reading bsseq objects")
+    message("Combining bs object")
+    bs<-Reduce(BiocGenerics::combine,rdaList)
+    bs@parameters<-rdaList[[1]]@parameters
 
-  message("Combining bs object")
-  bs<-Reduce(BiocGenerics::combine,rdaList)
-  bs@parameters<-rdaList[[1]]@parameters
-
-  return(bs)
-
+    return(bs)
 }

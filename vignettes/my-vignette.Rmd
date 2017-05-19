@@ -28,16 +28,30 @@ Contents
 1. Introduction
 ---------------------
 <p style="text-align: justify;">
-Though a small chemical change in the genome, DNA methylation has significant impact in several diseases, developmental processes and other biological changes. Hence methylation data should be analyzed carefully to gain biological insights. **scmeth** package offers some tools to conduct methylation analysis properly. 
+Though a small chemical change in the genome, DNA methylation has significant
+impact in several diseases, developmental processes and other biological 
+changes. Hence methylation data should be analyzed carefully to gain 
+biological insights. **scmeth** package offers some tools to conduct methylatio
+n analysis properly. 
 </p>
 
 <p style="text-align: justify;">
-This bioconductor package contains functions to do quality control and preprocessing analysis for methylation data. This package is especially customized to use the output from the firecloud implementation of methylation pipeline. However it still has function to generate bsseq objects with methylation information given the bedgraph file obtained from *methyldackel*. For now only human and mouse genomes are supported in this package but in the future we will expand to other organisms. In addition to individual functions, **report** function in the **scmeth** provides all inclusive report with most of the functions in this package. If users prefer they can just use the **report** function to gain summary of their data.
+This bioconductor package contains functions to do quality control and 
+preprocessing analysis for methylation data. This package is especially 
+customized to use the output from the firecloud implementation of methylatio
+n pipeline. However it still has function to generate bsseq objects with
+methylation information given the bedgraph file obtained from *methyldackel*. 
+For now only human and mouse genomes are supported in this package but in the 
+future we will expand to other organisms. In addition to individual functions, 
+**report** function in the **scmeth** provides all inclusive report with most 
+of the functions in this package. If users prefer they can just use the 
+**report** function to gain summary of their data.
 </p>
 
 2. Installation
 ---------------------
-**scmeth** is available in bioconductor and can be downloads using the following commands
+**scmeth** is available in bioconductor and can be downloads using the 
+following commands
 ```{r, eval=FALSE}
 source("http://bioconductor.org/biocLite.R")
 biocLite("scmeth")
@@ -46,7 +60,12 @@ biocLite("scmeth")
 3. Input files
 ---------------------
 <p style="text-align: justify;">
-Main input files that is used in most of the functions is an .rda file containing *bsseq* object. This can be obtained from the firecloud implementation of the methylation pipeline. However if the user has an output from *Methyldackel* as a bedgraph file then they can use the **createRDA** and **combineRDA** function to create the bsseq object. When the user has this bsseq object it should first be loaded with the following command
+Main input files that is used in most of the functions is an .rda file 
+containing *bsseq* object. This can be obtained from the firecloud 
+implementation of the methylation pipeline. However if the user has an output
+from *Methyldackel* as a bedgraph file then they can use the **createRDA** and
+**combineRDA** function to create the bsseq object. When the user has this 
+bsseq object it should first be loaded with the following command
 </p>
 
 ```{r, eval=FALSE}
@@ -54,7 +73,8 @@ load('methylationData.rda')
 ```
 
 <p style="text-align: justify;">
-These bsseq objects are saved as *bs*, so the user can use the loaded bsseq object in the functions of the package. 
+These bsseq objects are saved as *bs*, so the user can use the loaded bsseq
+object in the functions of the package. 
 </p>
 
 
@@ -65,7 +85,11 @@ These bsseq objects are saved as *bs*, so the user can use the loaded bsseq obje
 --------------
 
 <p style="text-align: justify;">
-A comprehensive quality control report can be generated in the package via **report** function in this package. report function takes the bs object, the directory where the report should be saved, organism that this data is obtained from and the genomic build. Following is an example usage of the **report** function.
+A comprehensive quality control report can be generated in the package via 
+**report** function in this package. report function takes the bs object, 
+the directory where the report should be saved, organism that this data is 
+obtained from and the genomic build. Following is an example usage of the 
+**report** function.
 
 </p>
 
@@ -84,12 +108,17 @@ Following the command an html report will be stored in the indicated directory.
 4.2 Functions
 -----------------
 <p style="text-align: justify;">
-This section will elaborate on some of the main functions and show the usage of these functions based on a sample data set that comes along with the package. 
+This section will elaborate on some of the main functions and show the usage 
+of these functions based on a sample data set that comes along with the 
+package. 
 
-**scmeth** package contains several functions to assess different metrics and success of the sequencing process. 
+**scmeth** package contains several functions to assess different metrics and 
+success of the sequencing process. 
 
 ### coverage
-One main metric is the CpG coverage. Coverage of the CpG can be assessed in different ways. Very basic one is to check how many CpG were observed in each sample. **coverage** function can be used to get this information. 
+One main metric is the CpG coverage. Coverage of the CpG can be assessed in 
+different ways. Very basic one is to check how many CpG were observed in each 
+sample. **coverage** function can be used to get this information. 
 
 </p>
 Loading the data
@@ -105,7 +134,14 @@ scmeth::coverage(bs)
 
 ### repmask
 <p style="text-align: justify;">
-CpG Islands are characterized by their high GC content, high level of observed to expected ratio of CpGs and length over 500 bp. However some repeat regions in the genome also fit the same criteria although they are not bona fide CpG Island. Therefore it is important to see how many CpGs are observed in the non repeat regions of the genome. **repMask** functions provide information on the CpG coverage in repeat regions of the genome. In order to build the repeat mask regions of the genome **repmask** function will require the organism and the genome build information.
+CpG Islands are characterized by their high GC content, high level of observed 
+to expected ratio of CpGs and length over 500 bp. However some repeat regions 
+in the genome also fit the same criteria although they are not bona fide CpG 
+Island. Therefore it is important to see how many CpGs are observed in the non 
+repeat regions of the genome. **repMask** functions provide information on the 
+CpG coverage in repeat regions of the genome. In order to build the repeat mask
+regions of the genome **repmask** function will require the organism and the
+genome build information.
 </p>
 
 ```{r, warning=FALSE,message=FALSE}
@@ -114,7 +150,9 @@ scmeth::repMask(bs,Mmusculus,"mm10")
 ```
 
 <p style="text-align: justify;">
-There are several other ways the number of CpGs captured can be observed. One of the way is to observe how the CpGs are distributed across different chromosomes. 
+There are several other ways the number of CpGs captured can be observed. 
+One of the way is to observe how the CpGs are distributed across different 
+chromosomes. 
 </p>
 
 ```{r, warning=FALSE}
@@ -123,12 +161,18 @@ scmeth::chromosomeCoverage(bs)
 
 ### featureCoverage
 <p style="text-align: justify;">
-Another way to observe the distribution of CpGs is to classify them by the genomic features they belong. Some of the features are very specific to the CpG dense regions such as CpG Islands, CpG Shores, CpG Shelves etc. Others are general genomic features such as introns, exons, promoters etc. This information can be obtained by **featureCoverage** function. In addition to the bs object this function requires the genomic features of interest and the genome build.
+Another way to observe the distribution of CpGs is to classify them by the 
+genomic features they belong. Some of the features are very specific to the CpG
+dense regions such as CpG Islands, CpG Shores, CpG Shelves etc. Others are 
+general genomic features such as introns, exons, promoters etc. This 
+information can be obtained by **featureCoverage** function. In addition to the
+bs object this function requires the genomic features of interest and the 
+genome build.
 </p>
 ```{r, warning=FALSE,message=FALSE}
 library(annotatr)
-#scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),"mm10")
-scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','cpg_islands'),"mm10")
+scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns',
+                                      'cpg_islands'),"mm10")
 
 
 ```
@@ -139,7 +183,16 @@ scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','cpg_islands
 
 ### cpgDensity
 <p style="text-align: justify;">
-CpGs are not distributed across the genome uniformly. Most of the genome contains very low percentage of CpGs except for the CpG dense regions,i.e. CpG islands. Bisulfite sequencing targets all the CpGs across the genome, however reduced representation bisulfite sequencing (RRBS) target CpG dense CpG islands. Therefore CpG density plot will be a great diagnostic to see whether the protocol succeeded. In order to calculate the CpG density a window length should be specified. By default **cpgDensity** function chooses 1kB regions. Therefore CpG density plot will be a great diagnostic tool to observed whether the protocol specifically targeted CpG dense or CpG sparse regions or whether CpGs were obtained uniformly across the regions. 
+CpGs are not distributed across the genome uniformly. Most of the genome 
+contains very low percentage of CpGs except for the CpG dense regions,
+i.e. CpG islands. Bisulfite sequencing targets all the CpGs across the genome,
+however reduced representation bisulfite sequencing (RRBS) target CpG dense CpG
+islands. Therefore CpG density plot will be a great diagnostic to see whether 
+the protocol succeeded. In order to calculate the CpG density a window length 
+should be specified. By default **cpgDensity** function chooses 1kB regions. 
+Therefore CpG density plot will be a great diagnostic tool to observed whether
+the protocol specifically targeted CpG dense or CpG sparse regions or whether 
+CpGs were obtained uniformly across the regions. 
 </p>
 
 ```{r,warning=FALSE,message=FALSE}
@@ -149,7 +202,17 @@ scmeth::cpgDensity(bs,Mmusculus,windowLength=1000)
 
 ### downsample
 <p style="text-align: justify;">
-In addition to the CpG coverage the methylation data can be assessed via down sampling analysis, methylation bias plot and methylation distribution. Down sampling analysis is a tool to assess whether the sequencing process achieved the saturation level in terms of CpG capture. In order to perform down sampling analysis the CpGs that are covered at least once sampled via binomial random sampling with given probability. At each probability level the number of CpGs captured is assessed. If the number of CpG captured attains a plateau then the sequencing was successful. **downsample** function provides a matrix of CpG coverage for each sample at various down sampling rates. The report renders  this information into a plot. Downsampling rate ranges from 0.01 to 0.99, however users can change the donwsampling rates.
+In addition to the CpG coverage the methylation data can be assessed via down
+sampling analysis, methylation bias plot and methylation distribution. Down 
+sampling analysis is a tool to assess whether the sequencing process achieved 
+the saturation level in terms of CpG capture. In order to perform down sampling
+analysis the CpGs that are covered at least once sampled via binomial random 
+sampling with given probability. At each probability level the number of CpGs
+captured is assessed. If the number of CpG captured attains a plateau then the
+sequencing was successful. **downsample** function provides a matrix of CpG 
+coverage for each sample at various down sampling rates. The report renders  
+this information into a plot. Downsampling rate ranges from 0.01 to 0.99, 
+however users can change the donwsampling rates.
 </p>
 
 ```{r,warning=FALSE}
@@ -159,7 +222,13 @@ scmeth::downsample(bs)
 
 ### mbiasPlot
 <p style="text-align: justify;">
-Methylation bias plot shows the methylation along the reads. In a high quality samples methylation across the read would be more or less a horizontal line. However there could be fluctuations in the beginning or the end of the read. Single cell sequencing samples also can show jagged trend in the methylation bias plot due to lower read count. Methylation bias can be assessed via **mbiasPlot** function. This function takes the mbias file generated from *methyldackel* and generates the methylation bias plot
+Methylation bias plot shows the methylation along the reads. In a high quality 
+samples methylation across the read would be more or less a horizontal line. 
+However there could be fluctuations in the beginning or the end of the read. 
+Single cell sequencing samples also can show jagged trend in the methylation 
+bias plot due to lower read count. Methylation bias can be assessed via 
+**mbiasPlot** function. This function takes the mbias file generated from 
+*methyldackel* and generates the methylation bias plot
 </p>
 
 ```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
@@ -171,7 +240,9 @@ scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'
 
 ### methylationDist
 <p style="text-align: justify;">
-**methylationDist** function provides the methylation distribution of the samples. By default it will produce distribution for single sample but users can change it by specifying all=TRUE.
+**methylationDist** function provides the methylation distribution of the 
+samples. By default it will produce distribution for single sample but users
+can change it by specifying all=TRUE.
 </p>
 ```{r,warning=FALSE,message=FALSE,fig.width=6}
 #library(ggplot2)
@@ -181,7 +252,14 @@ scmeth::methylationDist(bs,all=TRUE)
 
 ### bsConversionPlot
 <p style="text-align: justify;">
-Another important metric in methylation analysis is the bisulfite conversion rate. Bisulfite conversion rate indicates out of all the Cytosines in the non CpG context what fraction of them were methylated. Ideally this number should be 1 or 100% indicating none of the non CpG context cytosines are methylated. However in real experiment this won't be the case, yet a bisulfite conversion rate below 95% indicates some problem with sample preparation. **bsConversionPlot** function generates a plot showing this metric for each sample.
+Another important metric in methylation analysis is the bisulfite conversion 
+rate. Bisulfite conversion rate indicates out of all the Cytosines in the non
+CpG context what fraction of them were methylated. Ideally this number should
+be 1 or 100% indicating none of the non CpG context cytosines are methylated. 
+However in real experiment this won't be the case, yet a bisulfite conversion
+rate below 95% indicates some problem with sample preparation. 
+**bsConversionPlot** function generates a plot showing this metric for each 
+sample.
 </p>
 ```{r}
 scmeth::bsConversionPlot(bs)
@@ -190,7 +268,10 @@ scmeth::bsConversionPlot(bs)
 
 
 <p style="text-align: justify;">
-If the users don't have a bsseq object with all the information then **createRDA** and **combineRDA**  functions can be used to generate the bsseq object from bedGraph files containing methylation information for each CpG site. These bedGraph files can be obtained from *methylDackel* or some other software. 
+If the users don't have a bsseq object with all the information then 
+**createRDA** and **combineRDA**  functions can be used to generate the bsseq
+object from bedGraph files containing methylation information for each CpG 
+site. These bedGraph files can be obtained from *methylDackel* or some other software. 
 </p>
 
 ### createRDA

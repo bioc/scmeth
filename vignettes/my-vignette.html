@@ -12,7 +12,7 @@
 
 <meta name="author" content="Divy S. Kangeyan" />
 
-<meta name="date" content="2017-05-18" />
+<meta name="date" content="2017-05-19" />
 
 <title>scmeth Vignette</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">scmeth Vignette</h1>
 <h4 class="author"><em>Divy S. Kangeyan</em></h4>
-<h4 class="date"><em>2017-05-18</em></h4>
+<h4 class="date"><em>2017-05-19</em></h4>
 
 
 
@@ -89,10 +89,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="introduction" class="section level2">
 <h2>1. Introduction</h2>
 <p style="text-align: justify;">
-Though a small chemical change in the genome, DNA methylation has significant impact in several diseases, developmental processes and other biological changes. Hence methylation data should be analyzed carefully to gain biological insights. <strong>scmeth</strong> package offers some tools to conduct methylation analysis properly.
+Though a small chemical change in the genome, DNA methylation has significant impact in several diseases, developmental processes and other biological changes. Hence methylation data should be analyzed carefully to gain biological insights. <strong>scmeth</strong> package offers some tools to conduct methylatio n analysis properly.
 </p>
 <p style="text-align: justify;">
-This bioconductor package contains functions to do quality control and preprocessing analysis for methylation data. This package is especially customized to use the output from the firecloud implementation of methylation pipeline. However it still has function to generate bsseq objects with methylation information given the bedgraph file obtained from <em>methyldackel</em>. For now only human and mouse genomes are supported in this package but in the future we will expand to other organisms. In addition to individual functions, <strong>report</strong> function in the <strong>scmeth</strong> provides all inclusive report with most of the functions in this package. If users prefer they can just use the <strong>report</strong> function to gain summary of their data.
+This bioconductor package contains functions to do quality control and preprocessing analysis for methylation data. This package is especially customized to use the output from the firecloud implementation of methylatio n pipeline. However it still has function to generate bsseq objects with methylation information given the bedgraph file obtained from <em>methyldackel</em>. For now only human and mouse genomes are supported in this package but in the future we will expand to other organisms. In addition to individual functions, <strong>report</strong> function in the <strong>scmeth</strong> provides all inclusive report with most of the functions in this package. If users prefer they can just use the <strong>report</strong> function to gain summary of their data.
 </p>
 </div>
 <div id="installation" class="section level2">
@@ -120,7 +120,7 @@ These bsseq objects are saved as <em>bs</em>, so the user can use the loaded bss
 <p>A comprehensive quality control report can be generated in the package via <strong>report</strong> function in this package. report function takes the bs object, the directory where the report should be saved, organism that this data is obtained from and the genomic build. Following is an example usage of the <strong>report</strong> function.</p>
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scmeth)
-scmeth::<span class="kw">report</span>(bs, <span class="st">'~/Documents'</span>,<span class="st">&quot;Mus musculus&quot;</span>,<span class="st">&quot;mm10&quot;</span>)</code></pre></div>
+scmeth::<span class="kw">report</span>(bs, <span class="st">'~/Documents'</span>,Mmusculus,<span class="st">&quot;mm10&quot;</span>)</code></pre></div>
 <p style="text-align: justify;">
 Following the command an html report will be stored in the indicated directory.
 </p>
@@ -147,8 +147,12 @@ Following the command an html report will be stored in the indicated directory.
 <p style="text-align: justify;">
 CpG Islands are characterized by their high GC content, high level of observed to expected ratio of CpGs and length over 500 bp. However some repeat regions in the genome also fit the same criteria although they are not bona fide CpG Island. Therefore it is important to see how many CpGs are observed in the non repeat regions of the genome. <strong>repMask</strong> functions provide information on the CpG coverage in repeat regions of the genome. In order to build the repeat mask regions of the genome <strong>repmask</strong> function will require the organism and the genome build information.
 </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#library(GenomicRanges)</span>
-<span class="co">#scmeth::repMask(bs,&quot;Mus musculus&quot;,&quot;mm10&quot;)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BSgenome.Mmusculus.UCSC.mm10)
+scmeth::<span class="kw">repMask</span>(bs,Mmusculus,<span class="st">&quot;mm10&quot;</span>)</code></pre></div>
+<pre><code>##                     coveredCpgs
+## sc-RRBS_zyg_01_chr1       12208
+## sc-RRBS_zyg_02_chr1        3056
+## sc-RRBS_zyg_03_chr1        6666</code></pre>
 <p style="text-align: justify;">
 There are several other ways the number of CpGs captured can be observed. One of the way is to observe how the CpGs are distributed across different chromosomes.
 </p>
@@ -162,8 +166,8 @@ There are several other ways the number of CpGs captured can be observed. One of
 Another way to observe the distribution of CpGs is to classify them by the genomic features they belong. Some of the features are very specific to the CpG dense regions such as CpG Islands, CpG Shores, CpG Shelves etc. Others are general genomic features such as introns, exons, promoters etc. This information can be obtained by <strong>featureCoverage</strong> function. In addition to the bs object this function requires the genomic features of interest and the genome build.
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(annotatr)
-<span class="co">#scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),&quot;mm10&quot;)</span>
-scmeth::<span class="kw">featureCoverage</span>(bs,<span class="dt">features=</span><span class="kw">c</span>(<span class="st">'genes_exons'</span>,<span class="st">'genes_introns'</span>,<span class="st">'cpg_islands'</span>),<span class="st">&quot;mm10&quot;</span>)</code></pre></div>
+scmeth::<span class="kw">featureCoverage</span>(bs,<span class="dt">features=</span><span class="kw">c</span>(<span class="st">'genes_exons'</span>,<span class="st">'genes_introns'</span>,
+                                      <span class="st">'cpg_islands'</span>),<span class="st">&quot;mm10&quot;</span>)</code></pre></div>
 <pre><code>##           annot.type     n
 ## 1   mm10_cpg_islands  4657
 ## 2   mm10_genes_exons  5018
@@ -173,7 +177,7 @@ scmeth::<span class="kw">featureCoverage</span>(bs,<span class="dt">features=</s
 <div id="cpgdensity" class="section level3">
 <h3>cpgDensity</h3>
 <p style="text-align: justify;">
-CpGs are not distributed across the genome uniformly. Most of the genome contains very low percentage of CpGs except for the CpG dense regions,i.e. CpG islands. Bisulfite sequencing targets all the CpGs across the genome, however reduced representation bisulfite sequencing (RRBS) target CpG dense CpG islands. Therefore CpG density plot will be a great diagnostic to see whether the protocol succeeded. In order to calculate the CpG density a window length should be specified. By default <strong>cpgDensity</strong> function chooses 1kB regions. Therefore CpG density plot will be a great diagnostic tool to observed whether the protocol specifically targeted CpG dense or CpG sparse regions or whether CpGs were obtained uniformly across the regions.
+CpGs are not distributed across the genome uniformly. Most of the genome contains very low percentage of CpGs except for the CpG dense regions, i.e. CpG islands. Bisulfite sequencing targets all the CpGs across the genome, however reduced representation bisulfite sequencing (RRBS) target CpG dense CpG islands. Therefore CpG density plot will be a great diagnostic to see whether the protocol succeeded. In order to calculate the CpG density a window length should be specified. By default <strong>cpgDensity</strong> function chooses 1kB regions. Therefore CpG density plot will be a great diagnostic tool to observed whether the protocol specifically targeted CpG dense or CpG sparse regions or whether CpGs were obtained uniformly across the regions.
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BSgenome.Mmusculus.UCSC.mm10)
 scmeth::<span class="kw">cpgDensity</span>(bs,Mmusculus,<span class="dt">windowLength=</span><span class="dv">1000</span>)</code></pre></div>
@@ -193,23 +197,24 @@ scmeth::<span class="kw">cpgDensity</span>(bs,Mmusculus,<span class="dt">windowL
 <div id="downsample" class="section level3">
 <h3>downsample</h3>
 <p style="text-align: justify;">
-In addition to the CpG coverage the methylation data can be assessed via down sampling analysis, methylation bias plot and methylation distribution. Down sampling analysis is a tool to assess whether the sequencing process achieved the saturation level in terms of CpG capture. In order to perform down sampling analysis the CpGs that are covered at least once sampled via binomial random sampling with given probability. At each probability level the number of CpGs captured is assessed. If the number of CpG captured attains a plateau then the sequencing was successful. <strong>downsample</strong> function provides a matrix of CpG coverage for each sample at various down sampling rates. The report renders this information into a plot. Downsampling rate ranges from 0.01 to 0.99, however users can change the donwsampling rates.
+In addition to the CpG coverage the methylation data can be assessed via down sampling analysis, methylation bias plot and methylation distribution. Down sampling analysis is a tool to assess whether the sequencing process achieved the saturation level in terms of CpG capture. In order to perform down sampling analysis the CpGs that are covered at least once sampled via binomial random sampling with given probability. At each probability level the number of CpGs captured is assessed. If the number of CpG captured attains a plateau then the sequencing was successful. <strong>downsample</strong> function provides a matrix of CpG coverage for each sample at various down sampling rates. The report renders<br />
+this information into a plot. Downsampling rate ranges from 0.01 to 0.99, however users can change the donwsampling rates.
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scmeth::<span class="kw">downsample</span>(bs)</code></pre></div>
 <pre><code>##       [,1] [,2]  [,3]
-## 0.01  3637  621  1736
-## 0.02  6130 1106  2971
-## 0.05 10750 2083  5508
-## 0.1  13932 2815  7243
-## 0.2  15996 3549  8592
-## 0.3  16917 3903  9171
-## 0.4  17478 4097  9572
-## 0.5  17824 4308  9827
-## 0.6  18113 4430 10046
-## 0.7  18435 4536 10279
-## 0.8  18635 4619 10411
-## 0.9  18825 4706 10556
-## 0.99 19019 4763 10685
+## 0.01  3606  633  1807
+## 0.02  6207 1107  3127
+## 0.05 10840 2001  5458
+## 0.1  13937 2836  7251
+## 0.2  16080 3524  8576
+## 0.3  16866 3875  9224
+## 0.4  17488 4119  9537
+## 0.5  17864 4294  9841
+## 0.6  18197 4419 10056
+## 0.7  18458 4511 10239
+## 0.8  18659 4623 10425
+## 0.9  18837 4692 10546
+## 0.99 19019 4766 10685
 ## 1    19040 4771 10696</code></pre>
 </div>
 <div id="mbiasplot" class="section level3">
@@ -246,14 +251,39 @@ If the users don’t have a bsseq object with all the information then <strong>c
 <div id="createrda" class="section level3">
 <h3>createRDA</h3>
 <p><strong>createRDA</strong> function generate an RDA object for each sample separately</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#rda1&lt;-createRDA(system.file(&quot;extdata&quot;,'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth'))</span>
-<span class="co">#rda2&lt;-createRDA(system.file(&quot;extdata&quot;,'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth'))</span>
-<span class="co">#rda3&lt;-createRDA(system.file(&quot;extdata&quot;,'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth'))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CpGBedGraphFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_01_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+readMetricsFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_01.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+bsConversionFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_01.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+CpGBedGraphFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_02_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+readMetricsFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_02.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+bsConversionFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_02.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+CpGBedGraphFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_03_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+readMetricsFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_03.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+bsConversionFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_03.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+
+
+rda1&lt;-<span class="kw">createRDA</span>(CpGBedGraphFile_1,readMetricsFile_1,bsConversionFile_1)</code></pre></div>
+<pre><code>## Creating BSseq object with19040loci.</code></pre>
+<pre><code>## generating bs object</code></pre>
+<pre><code>## Done.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rda2&lt;-<span class="kw">createRDA</span>(CpGBedGraphFile_2,readMetricsFile_2,bsConversionFile_2)</code></pre></div>
+<pre><code>## Creating BSseq object with4771loci.</code></pre>
+<pre><code>## generating bs object</code></pre>
+<pre><code>## Done.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rda3&lt;-<span class="kw">createRDA</span>(CpGBedGraphFile_3,readMetricsFile_3,bsConversionFile_3)</code></pre></div>
+<pre><code>## Creating BSseq object with10696loci.</code></pre>
+<pre><code>## generating bs object</code></pre>
+<pre><code>## Done.</code></pre>
 </div>
 <div id="combinerda" class="section level3">
 <h3>combineRDA</h3>
 <p><strong>combineRDA</strong> pools the information from multiple samples for comparison.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#combineRDA(c(rda1,rda2,rda3))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">combineRDA</span>(<span class="kw">c</span>(rda1,rda2,rda3))</code></pre></div>
+<pre><code>## Combining bs object</code></pre>
+<pre><code>## An object of type 'BSseq' with
+##   33378 methylation loci
+##   3 samples
+## has not been smoothed</code></pre>
 <hr />
 </div>
 </div>

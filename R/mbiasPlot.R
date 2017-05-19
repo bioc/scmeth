@@ -13,15 +13,15 @@
 
 
 mbiasplot<-function(mbiasFile){
-  mbiasTable<-read.table(mbiasFile,header=TRUE)
-  mbiasTable$methylation<-mbiasTable$nMethylated/(mbiasTable$nMethylated+mbiasTable$nUnmethylated)
-  mbiasTable$Read<-as.factor(mbiasTable$Read)
-  mbiasTable$Strand<-as.factor(mbiasTable$Strand)
-  g<-ggplot2::ggplot(mbiasTable)+ggplot2::geom_line(ggplot2::aes_string(x='Position',y='methylation',colour='Read',linetype='Strand'))+
-    ggplot2::ylim(0,1)+ggplot2::ggtitle('Mbias Plot')
+    mbiasTable<-read.table(mbiasFile,header=TRUE)
+    mbiasTable$methylation<-mbiasTable$nMethylated/(mbiasTable$nMethylated+mbiasTable$nUnmethylated)
+    mbiasTable$Read<-as.factor(mbiasTable$Read)
+    mbiasTable$Strand<-as.factor(mbiasTable$Strand)
+    g<-ggplot2::ggplot(mbiasTable)
+    g<-g+ggplot2::geom_line(ggplot2::aes_string(x='Position',
+                            y='methylation',colour='Read',linetype='Strand'))
+    g<-g+ggplot2::ylim(0,1)+ggplot2::ggtitle('Mbias Plot')
 
-  return(g)
-
-
+    return(g)
 }
 

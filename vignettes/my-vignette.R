@@ -7,7 +7,7 @@
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  library(scmeth)
-#  scmeth::report(bs, '~/Documents',"Mus musculus","mm10")
+#  scmeth::report(bs, '~/Documents',Mmusculus,"mm10")
 
 ## ------------------------------------------------------------------------
 library(scmeth)
@@ -17,16 +17,16 @@ load(system.file("extdata",'bsObject.rda',package='scmeth'))
 scmeth::coverage(bs)
 
 ## ---- warning=FALSE,message=FALSE----------------------------------------
-#library(GenomicRanges)
-#scmeth::repMask(bs,"Mus musculus","mm10")
+library(BSgenome.Mmusculus.UCSC.mm10)
+scmeth::repMask(bs,Mmusculus,"mm10")
 
 ## ---- warning=FALSE------------------------------------------------------
 scmeth::chromosomeCoverage(bs)
 
 ## ---- warning=FALSE,message=FALSE----------------------------------------
 library(annotatr)
-#scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','genes_intergenic','cpg_islands'),"mm10")
-scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns','cpg_islands'),"mm10")
+scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns',
+                                      'cpg_islands'),"mm10")
 
 
 
@@ -49,10 +49,21 @@ scmeth::methylationDist(bs,all=TRUE)
 scmeth::bsConversionPlot(bs)
 
 ## ----warning=FALSE-------------------------------------------------------
-#rda1<-createRDA(system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth'))
-#rda2<-createRDA(system.file("extdata",'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth'))
-#rda3<-createRDA(system.file("extdata",'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth'))
+CpGBedGraphFile_1<-system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth')
+readMetricsFile_1<-system.file("extdata",'sc-RRBS-zygote_01.read_metrics.txt',package='scmeth')
+bsConversionFile_1<-system.file("extdata",'sc-RRBS-zygote_01.bsConv.txt',package='scmeth')
+CpGBedGraphFile_2<-system.file("extdata",'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth')
+readMetricsFile_2<-system.file("extdata",'sc-RRBS-zygote_02.read_metrics.txt',package='scmeth')
+bsConversionFile_2<-system.file("extdata",'sc-RRBS-zygote_02.bsConv.txt',package='scmeth')
+CpGBedGraphFile_3<-system.file("extdata",'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth')
+readMetricsFile_3<-system.file("extdata",'sc-RRBS-zygote_03.read_metrics.txt',package='scmeth')
+bsConversionFile_3<-system.file("extdata",'sc-RRBS-zygote_03.bsConv.txt',package='scmeth')
+
+
+rda1<-createRDA(CpGBedGraphFile_1,readMetricsFile_1,bsConversionFile_1)
+rda2<-createRDA(CpGBedGraphFile_2,readMetricsFile_2,bsConversionFile_2)
+rda3<-createRDA(CpGBedGraphFile_3,readMetricsFile_3,bsConversionFile_3)
 
 ## ------------------------------------------------------------------------
-#combineRDA(c(rda1,rda2,rda3))
+combineRDA(c(rda1,rda2,rda3))
 

@@ -11,17 +11,16 @@
 #'library(BSgenome.Mmusculus.UCSC.mm10)
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'report(bs,'~',Mmusculus,'mm10')
-#
+#'@import knitr
 #'@export
 #
 
 report <- function(bsObj,outdirectory,organism,genome) {
+    RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
+    rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj
+                            ,organism=organism,genome=genome)
+                            ,output_file=paste0(outdirectory,"/qcReport.html"))
 
-  RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
-
-  rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,organism=organism,genome=genome),output_file=paste0(outdirectory,"/qcReport.html"))
-
-  #return(23)
 }
 
 

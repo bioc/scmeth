@@ -12,14 +12,15 @@
 
 
 cpgDensity<-function(bs,organism,windowLength=1000){
-  cov<-bsseq::getCoverage(bs)
-  cpgd<-Repitools::cpgDensityCalc(GenomicRanges::granges(bs),organism,window = windowLength)
-  if (max(cpgd)>50){
-       cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))
-      }else{
+    cov<-bsseq::getCoverage(bs)
+    cpgd<-Repitools::cpgDensityCalc(GenomicRanges::granges(bs),
+                                  organism,window = windowLength)
+    if (max(cpgd)>50){
+        cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))
+    }else{
         cpgdBin<-cut(cpgd,c(seq(0,20),max(cpgd)))
-      }
-      cpgdCov <- by(cov>0, cpgdBin, colSums)
-      cpgdCov <- do.call("rbind", cpgdCov)
-  return(cpgdCov)
+    }
+    cpgdCov <- by(cov>0, cpgdBin, colSums)
+    cpgdCov <- do.call("rbind", cpgdCov)
+    return(cpgdCov)
 }

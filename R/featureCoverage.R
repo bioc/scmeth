@@ -17,30 +17,24 @@
 
 
 featureCoverage <-function(bs,features,genomebuild){
-  if (requireNamespace('annotatr',quietly=TRUE)){
-    annotationFeatures<-c()
-    for (i in features){
-      annotationFeatures<-c(paste0(genomebuild,'_',i),annotationFeatures)
+    if (requireNamespace('annotatr',quietly=TRUE)){
+        annotationFeatures<-c()
+        for (i in features){
+            annotationFeatures<-c(paste0(genomebuild,'_',i),annotationFeatures)
+        }
+        annots_gr = annotatr::build_annotations(genome = genomebuild, annotations = annotationFeatures)
 
-    }
-    annots_gr = annotatr::build_annotations(genome = genomebuild, annotations = annotationFeatures)
-
-
-    # Intersect the regions with the reference annotations
-    dm_annotated = annotatr::annotate_regions(
-      regions = GenomicRanges::granges(bs),
-      annotations = annots_gr,
-      ignore.strand = TRUE,
-      quiet = TRUE)
-    sumAnnot<-annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
-    sumAnnotDf<-as.data.frame(sumAnnot)
-    return(sumAnnotDf)
+        # Intersect the regions with the reference annotations
+        dm_annotated = annotatr::annotate_regions(
+        regions = GenomicRanges::granges(bs),
+        annotations = annots_gr,
+        ignore.strand = TRUE,
+        quiet = TRUE)
+        sumAnnot<-annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
+        sumAnnotDf<-as.data.frame(sumAnnot)
+        return(sumAnnotDf)
 
   }else{
-
-    stop("annotar package needed for this function to work. Please install it")
+      stop("annotar package needed for this function to work. Please install it")
   }
-
-
-
 }

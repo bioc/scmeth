@@ -16,15 +16,15 @@
 #
 
 cpgDiscretization<-function(bs){
-  covMatrix<-bsseq::getCoverage(bs)
-  methMatrix<-bsseq::getCoverage(bs,type='M')
-  methMatrix<-methMatrix/covMatrix
-  tempMethylationMatrix<-methMatrix
-  methMatrix[methMatrix<=0.2]<-0
-  methMatrix[methMatrix>=0.8]<-1
-  removedCpGs<-colSums(methMatrix>0.2 & methMatrix<0.8, na.rm=TRUE)
-  removedCpGFrac<-(removedCpGs/(scmeth::coverage(bs)))*100
-  returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,'discard-perc' = removedCpGFrac)
-  return(returnList)
-
+    covMatrix<-bsseq::getCoverage(bs)
+    methMatrix<-bsseq::getCoverage(bs,type='M')
+    methMatrix<-methMatrix/covMatrix
+    tempMethylationMatrix<-methMatrix
+    methMatrix[methMatrix<=0.2]<-0
+    methMatrix[methMatrix>=0.8]<-1
+    removedCpGs<-colSums(methMatrix>0.2 & methMatrix<0.8, na.rm=TRUE)
+    removedCpGFrac<-(removedCpGs/(scmeth::coverage(bs)))*100
+    returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
+                   'discard-perc' = removedCpGFrac)
+    return(returnList)
 }

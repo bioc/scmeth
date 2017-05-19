@@ -15,3 +15,7 @@ Plot showing the mapped and unmapped read information for each cell
 \description{
 Plot the mapped and unmapped reads
 }
+\examples{
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+readmetrics(bs)
+}

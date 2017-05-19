@@ -13,33 +13,36 @@
 
 
 methylationDist<-function(bs,all=FALSE){
-  covMatrix<-bsseq::getCoverage(bs)
-  methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
-  df <- as.data.frame(matrix(unlist(methMatrix), nrow = nrow(methMatrix)))
-  colnames(df)<-colnames(methMatrix)
+    covMatrix<-bsseq::getCoverage(bs)
+    methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
+    df <- as.data.frame(matrix(unlist(methMatrix), nrow = nrow(methMatrix)))
+    colnames(df)<-colnames(methMatrix)
 
-  if (all==TRUE){
-    meltedDf<-reshape2::melt(df)
+    if (all==TRUE){
+        meltedDf<-reshape2::melt(df)
     if (requireNamespace("ggplot2",quietly = TRUE)){
-    methylationDensityPlot<-ggplot2::ggplot(meltedDf)+ggplot2::geom_density(ggplot2::aes_string(x='value'))+ggplot2::facet_wrap(~variable,ncol=3)+
-      ggplot2::ggtitle('Methylation distribution for all the cells')+ggplot2::xlab('Methylation')
+        g<-ggplot2::ggplot(meltedDf)
+        g<-g+ggplot2::geom_density(ggplot2::aes_string(x='value'))
+        g<-g+ggplot2::facet_wrap(~variable,ncol=3)
+        g<-g+ggplot2::ggtitle('Methylation distribution for all the cells')
+        g<-g+ggplot2::xlab('Methylation')
 
-    return(methylationDensityPlot)
+    return(g)
     }else{
-      warning('ggplot2 required for plot rendering')
+        warning('ggplot2 required for plot rendering')
     }
 
   }else if (all==FALSE){
-    indCell<-data.frame(x=df[,sample(ncol(df),1)])
-    if (requireNamespace("ggplot2",quietly = TRUE)){
-      g<-ggplot2::ggplot()+ggplot2::geom_density(ggplot2::aes_string(x='x'),data=indCell)
-      g<-g+ggplot2::ggtitle('Methylation Distribution for an arbitrary cell')
-      g<-g+ggplot2::xlab('Methylation rate')
+      indCell<-data.frame(x=df[,sample(ncol(df),1)])
+      if (requireNamespace("ggplot2",quietly = TRUE)){
+          g<-ggplot2::ggplot()+ggplot2::geom_density(ggplot2::aes_string(x='x'),data=indCell)
+          g<-g+ggplot2::ggtitle('Methylation Distribution for an arbitrary cell')
+          g<-g+ggplot2::xlab('Methylation rate')
 
       return(g)
 
     }else{
-      warning('ggplot2 required for plot rendering')
+        warning('ggplot2 required for plot rendering')
     }
 
   }

@@ -1,0 +1,1 @@
+output/bsmap_params2/sc-RRBS-zygote_01 16111282 11718476

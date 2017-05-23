@@ -1,6 +1,7 @@
 #' Methylation bias plot
 #'
-#'Plot the methylation at each position of the read to observe any biases in the methylation
+#'Plot the methylation at each position of the read to observe any biases in
+#'the methylation
 #'based on the read position
 #'
 #'@param mbiasFile methylation bias file provided by methyldackel/pileometh
@@ -14,7 +15,8 @@
 
 mbiasplot<-function(mbiasFile){
     mbiasTable<-read.table(mbiasFile,header=TRUE)
-    mbiasTable$methylation<-mbiasTable$nMethylated/(mbiasTable$nMethylated+mbiasTable$nUnmethylated)
+    mbiasTable$methylation<-mbiasTable$nMethylated/(mbiasTable$nMethylated
+                                                    +mbiasTable$nUnmethylated)
     mbiasTable$Read<-as.factor(mbiasTable$Read)
     mbiasTable$Strand<-as.factor(mbiasTable$Strand)
     g<-ggplot2::ggplot(mbiasTable)

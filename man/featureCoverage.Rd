@@ -9,17 +9,21 @@ featureCoverage(bs, features, genomebuild)
 \arguments{
 \item{bs}{bsseq object}
 
-\item{features}{list of genomic features, i.e. genes_exons, genes_introns, cpg_islands, cpg_shelves
-Names are based on the annotatr packages, so all the features provided by the annotatr
+\item{features}{list of genomic features, i.e. genes_exons, genes_introns,
+cpg_islands, cpg_shelves
+Names are based on the annotatr packages, so all the features provided by the
+annotatr
 package will be supported in this function}
 
 \item{genomebuild}{reference alignment, i.e. mm10 or hg38}
 }
 \value{
-a data frame with genomic feature names and the number of CpG covered in each feature
+a data frame with genomic feature names and the number of
+CpG covered in each feature
 }
 \description{
-Provides Coverage metrics for the sample by each genomic features provided by the user
+Provides Coverage metrics for the sample by each genomic features provided
+by the user
 }
 \examples{
 library(annotatr)

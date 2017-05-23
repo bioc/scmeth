@@ -1,9 +1,12 @@
 #' Discretize the CpG methylation values
 #' to align with single cell analysis
 #'
-#'In single cell analysis overwhelmingly large number of CpGs have binary methylation
-#'Due to errors in sequencing and amplification many CpGs tend to have non-binary methylation. Hence
-#'this function catergorizes the non-binary CpGs as methylated if the methyation is above 0.8 and
+#'In single cell analysis overwhelmingly large number of CpGs have binary
+#'methylation
+#'Due to errors in sequencing and amplification many CpGs tend to have
+#'non-binary methylation. Hence
+#'this function catergorizes the non-binary CpGs as methylated if the
+#'methyation is above 0.8 and
 #'unmethylated if the methylation is below 0.2
 #'@param bs bsseq object
 #'@return meth discretized methylation matrix

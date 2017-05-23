@@ -277,15 +277,24 @@ site. These bedGraph files can be obtained from *methylDackel* or some other sof
 ### createRDA
 **createRDA** function generate an RDA object for each sample separately
 ```{r,warning=FALSE}
-CpGBedGraphFile_1<-system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth')
-readMetricsFile_1<-system.file("extdata",'sc-RRBS-zygote_01.read_metrics.txt',package='scmeth')
-bsConversionFile_1<-system.file("extdata",'sc-RRBS-zygote_01.bsConv.txt',package='scmeth')
-CpGBedGraphFile_2<-system.file("extdata",'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth')
-readMetricsFile_2<-system.file("extdata",'sc-RRBS-zygote_02.read_metrics.txt',package='scmeth')
-bsConversionFile_2<-system.file("extdata",'sc-RRBS-zygote_02.bsConv.txt',package='scmeth')
-CpGBedGraphFile_3<-system.file("extdata",'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth')
-readMetricsFile_3<-system.file("extdata",'sc-RRBS-zygote_03.read_metrics.txt',package='scmeth')
-bsConversionFile_3<-system.file("extdata",'sc-RRBS-zygote_03.bsConv.txt',package='scmeth')
+CpGBedGraphFile_1<-system.file("extdata",
+                      'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth')
+readMetricsFile_1<-system.file("extdata",
+                      'sc-RRBS-zygote_01.read_metrics.txt',package='scmeth')
+bsConversionFile_1<-system.file("extdata",
+                      'sc-RRBS-zygote_01.bsConv.txt',package='scmeth')
+CpGBedGraphFile_2<-system.file("extdata",
+                      'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth')
+readMetricsFile_2<-system.file("extdata",
+                      'sc-RRBS-zygote_02.read_metrics.txt',package='scmeth')
+bsConversionFile_2<-system.file("extdata",
+                      'sc-RRBS-zygote_02.bsConv.txt',package='scmeth')
+CpGBedGraphFile_3<-system.file("extdata",
+                      'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth')
+readMetricsFile_3<-system.file("extdata",
+                      'sc-RRBS-zygote_03.read_metrics.txt',package='scmeth')
+bsConversionFile_3<-system.file("extdata",
+                      'sc-RRBS-zygote_03.bsConv.txt',package='scmeth')
 
 
 rda1<-createRDA(CpGBedGraphFile_1,readMetricsFile_1,bsConversionFile_1)

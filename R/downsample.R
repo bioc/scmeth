@@ -2,11 +2,13 @@
 #'
 #'Downsample the CpG covergae matrix for saturation analysis
 #'@param bs bsseq object
-#'@param dsRates downsampling rate. i.e. the probabaility of sampling a single CpG
+#'@param dsRates downsampling rate. i.e. the probabaility of sampling
+#'a single CpG
 #'default is list of probabilities ranging from 0.01 to 1
 #'This can be changed by the user, for more continuous saturation curve
 #'dsRates can be changed to add more sampling rates
-#'@return Data frame with the CpG coverage for each sample at each sampling rate
+#'@return Data frame with the CpG coverage for each sample at each
+#'sampling rate
 #'@examples
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'downsample(bs)
@@ -15,7 +17,7 @@
 #'@export
 #'@importFrom stats rbinom
 
-downsample <- function(bs,dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1),0.99,1)) {
+downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1),0.99,1)){
     covMatrix<-bsseq::getCoverage(bs)
     Samples<-Biobase::sampleNames(bs)
     downSampleMatrix<-matrix(nrow=length(dsRates),ncol=length(Samples))

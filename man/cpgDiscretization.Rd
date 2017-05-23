@@ -18,9 +18,12 @@ discard total number of removed CpGs from each sample
 Percentage of CpGs discarded compared to the total number of CpGs
 }
 \description{
-In single cell analysis overwhelmingly large number of CpGs have binary methylation
-Due to errors in sequencing and amplification many CpGs tend to have non-binary methylation. Hence
-this function catergorizes the non-binary CpGs as methylated if the methyation is above 0.8 and
+In single cell analysis overwhelmingly large number of CpGs have binary
+methylation
+Due to errors in sequencing and amplification many CpGs tend to have
+non-binary methylation. Hence
+this function catergorizes the non-binary CpGs as methylated if the
+methyation is above 0.8 and
 unmethylated if the methylation is below 0.2
 }
 \examples{

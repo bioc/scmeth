@@ -48,7 +48,9 @@ summaryDF<-as.data.frame(cbind(summary,numericValues))
 
 
 g<-ggplot2::ggplot(m, ggplot2::aes(sample, value))
-g<-g+ggplot2::geom_hline(data = m, ggplot2::aes(yintercept = as.numeric(median(value))), linetype=2, color="blue")
+g<-g+ggplot2::geom_hline(data = m, 
+                         ggplot2::aes(yintercept = as.numeric(median(value))), 
+                         linetype=2, color="blue")
 g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() 
 g<-g+ggplot2::scale_y_continuous(name="Number of CpGs") 
 g<-g+ggplot2::xlab("Sample") 
@@ -85,7 +87,7 @@ g
 
 
 ## Non-repatmasker Coverage
-```{r,echo=FALSE,warning=FALSE,message=FALSE,comment=FALSE,fig.height=nSamples*0.4}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 covDf$sample<-rownames(covDf)
 m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
@@ -113,7 +115,8 @@ g
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
 discardedDf <- data.frame(sample=sampleNames, value=percentDiscarded)
-meltedDiscardedDf<- reshape2::melt(discardedDf, id.vars = c("sample", "discard.perc"))
+meltedDiscardedDf<- reshape2::melt(discardedDf, 
+                                   id.vars = c("sample", "discard.perc"))
 
 o <- order(meltedDiscardedDf$discard.perc,meltedDiscardedDf$sample)
 sampleOrder <- meltedDiscardedDf$sample[o]
@@ -122,7 +125,8 @@ meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
 g<-ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes(sample, discard.perc))
 g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() 
 g<-g+ggplot2::scale_y_continuous(name="Percentage of discarded CpGs") 
-g<-g+ggplot2::xlab("Sample") + ggplot2::ggtitle("Discarded CpGs from each sample after discretization")
+g<-g+ggplot2::xlab("Sample") 
+g<-g+ggplot2::ggtitle("Discarded CpGs from each sample after discretization")
 g<-g+ggplot2::theme_bw()
 g
 
@@ -130,6 +134,7 @@ g
 #pandoc.header("Feature level coverage of the CpGs", level = 2)
 library(annotatr)
 featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
+
 colnames(featureCovDf)<-c('feature annotation','number of CpGs')
 print(featureCovDf)
 ```
@@ -142,7 +147,8 @@ print(featureCovDf)
 dsMatrix<-scmeth::downsample(bs)
 meltedDsMatrix<-reshape2::melt(dsMatrix)
 g<-ggplot2::ggplot(meltedDsMatrix, ggplot2::aes(Var1, value, group=Var2))
-g<-g+ggplot2::geom_line() + ggplot2::scale_x_continuous(name="Fraction of Reads") 
+g<-g+ggplot2::geom_line() 
+g<-g+ ggplot2::scale_x_continuous(name="Fraction of Reads")
 g<-g+ggplot2::scale_y_continuous(name="Number of CpG covered") 
 g<-g+ ggplot2::ggtitle("Saturation Analysis Plot") 
 g<-g+ggplot2::theme_bw()

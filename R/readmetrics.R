@@ -15,8 +15,8 @@ readmetrics<-function(bs){
     pDcolNames<-colnames(phenptypicData)
     if (('totalReads' %in% pDcolNames & 'mappedReads' %in% pDcolNames)){
         dat<-data.frame(sample=rownames(phenptypicData),
-                      total=phenptypicData$totalReads,
-                      mapped=phenptypicData$mappedReads)
+                        total=phenptypicData$totalReads,
+                        mapped=phenptypicData$mappedReads)
         dat$unmapped<-dat$total-dat$mapped
         o<-order(dat$total,dat$sample)
         sampleOrder<-dat$sample[o]
@@ -24,7 +24,7 @@ readmetrics<-function(bs){
                         id.vars="sample",variable.name="Mapping_status")
         m$sample<-factor(m$sample,levels=sampleOrder)
         g<-ggplot2::ggplot(m,ggplot2::aes_string('sample','value',
-                                               fill='Mapping_status'))
+                                                fill='Mapping_status'))
         g<-g+ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()
         g<-g+ggplot2::scale_y_continuous(name="Number of reads")
         g<-g+ggplot2::xlab("samples")

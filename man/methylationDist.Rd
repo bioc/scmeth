@@ -9,7 +9,8 @@ methylationDist(bs, all = FALSE)
 \arguments{
 \item{bs}{bsseq object}
 
-\item{all}{Indicator of whether to plot the distribution for all the cells or for
+\item{all}{Indicator of whether to plot the distribution for all the
+cells or for
 a single cell}
 }
 \value{

@@ -8,9 +8,12 @@
 #'@param bsConv_file file containing bisulfite conversion information
 #'@return bsseq object with coverga and methylation information for the sample
 #'@examples
-#'CpGBedGraphFile<-system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth')
-#'readMetricsFile<-system.file("extdata",'sc-RRBS-zygote_01.read_metrics.txt',package='scmeth')
-#'bsConversionFile<-system.file("extdata",'sc-RRBS-zygote_01.bsConv.txt',package='scmeth')
+#'CpGBedGraphFile<-system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',
+#'package='scmeth')
+#'readMetricsFile<-system.file("extdata",'sc-RRBS-zygote_01.read_metrics.txt',
+#'package='scmeth')
+#'bsConversionFile<-system.file("extdata",'sc-RRBS-zygote_01.bsConv.txt',
+#'package='scmeth')
 #'createRDA(CpGBedGraphFile,readMetricsFile,bsConversionFile)
 #'@export
 
@@ -27,13 +30,13 @@ createRDA<-function(CpG_file, readmetric_file,bsConv_file){
     readInfo<-read.table(readmetric_file,sep=' ')
     bsconvInfo<-read.table(bsConv_file,sep=' ')
     pd<-data.frame(row.names=sample,totalReads=as.numeric(readInfo[2]),
-                 mappedReads=as.numeric(readInfo[3]),
-                 bsconversion=as.numeric(bsconvInfo[2]),
-                 stringsAsFactors=FALSE)
+                    mappedReads=as.numeric(readInfo[3]),
+                    bsconversion=as.numeric(bsconvInfo[2]),
+                    stringsAsFactors=FALSE)
 
     message("generating bs object")
     bs<-bsseq::BSseq(chr=tab[,1], pos=tab[,3], M= matrix(m),
-                   Cov=matrix(cov),sampleNames=sample,pData=pd)
+                    Cov=matrix(cov),sampleNames=sample,pData=pd)
     message("Done.")
 
     return(bs)

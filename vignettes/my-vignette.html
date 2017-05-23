@@ -12,7 +12,7 @@
 
 <meta name="author" content="Divy S. Kangeyan" />
 
-<meta name="date" content="2017-05-19" />
+<meta name="date" content="2017-05-21" />
 
 <title>scmeth Vignette</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">scmeth Vignette</h1>
 <h4 class="author"><em>Divy S. Kangeyan</em></h4>
-<h4 class="date"><em>2017-05-19</em></h4>
+<h4 class="date"><em>2017-05-21</em></h4>
 
 
 
@@ -202,19 +202,19 @@ this information into a plot. Downsampling rate ranges from 0.01 to 0.99, howeve
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scmeth::<span class="kw">downsample</span>(bs)</code></pre></div>
 <pre><code>##       [,1] [,2]  [,3]
-## 0.01  3606  633  1807
-## 0.02  6207 1107  3127
-## 0.05 10840 2001  5458
-## 0.1  13937 2836  7251
-## 0.2  16080 3524  8576
-## 0.3  16866 3875  9224
-## 0.4  17488 4119  9537
-## 0.5  17864 4294  9841
-## 0.6  18197 4419 10056
-## 0.7  18458 4511 10239
-## 0.8  18659 4623 10425
-## 0.9  18837 4692 10546
-## 0.99 19019 4766 10685
+## 0.01  3626  585  1738
+## 0.02  6273 1117  3046
+## 0.05 10789 2052  5488
+## 0.1  13852 2880  7269
+## 0.2  16013 3568  8613
+## 0.3  16861 3929  9174
+## 0.4  17447 4095  9562
+## 0.5  17858 4291  9860
+## 0.6  18167 4416 10098
+## 0.7  18391 4522 10252
+## 0.8  18624 4604 10414
+## 0.9  18861 4702 10582
+## 0.99 19020 4762 10682
 ## 1    19040 4771 10696</code></pre>
 </div>
 <div id="mbiasplot" class="section level3">
@@ -251,15 +251,24 @@ If the users don’t have a bsseq object with all the information then <strong>c
 <div id="createrda" class="section level3">
 <h3>createRDA</h3>
 <p><strong>createRDA</strong> function generate an RDA object for each sample separately</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CpGBedGraphFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_01_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
-readMetricsFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_01.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
-bsConversionFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_01.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
-CpGBedGraphFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_02_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
-readMetricsFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_02.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
-bsConversionFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_02.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
-CpGBedGraphFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS_zyg_03_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
-readMetricsFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_03.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
-bsConversionFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">'sc-RRBS-zygote_03.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CpGBedGraphFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS_zyg_01_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+readMetricsFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS-zygote_01.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+bsConversionFile_1&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS-zygote_01.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+CpGBedGraphFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS_zyg_02_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+readMetricsFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS-zygote_02.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+bsConversionFile_2&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS-zygote_02.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+CpGBedGraphFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS_zyg_03_chr1_CpG.bedGraph'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+readMetricsFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS-zygote_03.read_metrics.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
+bsConversionFile_3&lt;-<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>,
+                      <span class="st">'sc-RRBS-zygote_03.bsConv.txt'</span>,<span class="dt">package=</span><span class="st">'scmeth'</span>)
 
 
 rda1&lt;-<span class="kw">createRDA</span>(CpGBedGraphFile_1,readMetricsFile_1,bsConversionFile_1)</code></pre></div>

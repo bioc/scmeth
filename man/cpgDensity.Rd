@@ -9,7 +9,8 @@ cpgDensity(bs, organism, windowLength = 1000)
 \arguments{
 \item{bs}{bsseq object}
 
-\item{organism}{scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens}
+\item{organism}{scientific name of the organism of interest,
+i.e. Mus musculus or Homo sapiens}
 
 \item{windowLength}{Length of the window to calculate the density}
 }

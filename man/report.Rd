@@ -9,9 +9,11 @@ report(bsObj, outdirectory, organism, genome)
 \arguments{
 \item{bsObj}{bsseq object}
 
-\item{outdirectory}{name of the output directory where the report will be saved}
+\item{outdirectory}{name of the output directory where the
+report will be saved}
 
-\item{organism}{scientific name of the organism of interest, i.e. Mus musculus or Homo sapiens}
+\item{organism}{scientific name of the organism of interest,
+i.e. Mus musculus or Homo sapiens}
 
 \item{genome}{reference alignment, i.e. mm10 or hg38
 the report will have graphics on read information}
@@ -20,7 +22,8 @@ the report will have graphics on read information}
 Report will be an html file
 }
 \description{
-This function uses most of the functions in this package to generate a report for the user
+This function uses most of the functions in this package to
+generate a report for the user
 }
 \examples{
 library(BSgenome.Mmusculus.UCSC.mm10)

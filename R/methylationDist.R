@@ -2,7 +2,8 @@
 #'
 #'Plot the methylation distribution for the cells in bsseq object
 #'@param bs bsseq object
-#'@param all Indicator of whether to plot the distribution for all the cells or for
+#'@param all Indicator of whether to plot the distribution for all the
+#'cells or for
 #'a single cell
 #'@return plot of the methylation distribution
 #'@examples

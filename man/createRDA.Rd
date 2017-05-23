@@ -20,8 +20,11 @@ bsseq object with coverga and methylation information for the sample
 Generate bsseq rda object from the methyldackel/pileometh output
 }
 \examples{
-CpGBedGraphFile<-system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth')
-readMetricsFile<-system.file("extdata",'sc-RRBS-zygote_01.read_metrics.txt',package='scmeth')
-bsConversionFile<-system.file("extdata",'sc-RRBS-zygote_01.bsConv.txt',package='scmeth')
+CpGBedGraphFile<-system.file("extdata",'sc-RRBS_zyg_01_chr1_CpG.bedGraph',
+package='scmeth')
+readMetricsFile<-system.file("extdata",'sc-RRBS-zygote_01.read_metrics.txt',
+package='scmeth')
+bsConversionFile<-system.file("extdata",'sc-RRBS-zygote_01.bsConv.txt',
+package='scmeth')
 createRDA(CpGBedGraphFile,readMetricsFile,bsConversionFile)
 }

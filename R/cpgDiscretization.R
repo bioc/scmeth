@@ -19,8 +19,8 @@
 #
 
 cpgDiscretization<-function(bs){
-    covMatrix<-bsseq::getCoverage(bs)
-    methMatrix<-bsseq::getCoverage(bs,type='M')
+    covMatrix<-as.matrix(bsseq::getCoverage(bs))
+    methMatrix<-as.matrix(bsseq::getCoverage(bs,type='M'))
     methMatrix<-methMatrix/covMatrix
     tempMethylationMatrix<-methMatrix
     methMatrix[methMatrix<=0.2]<-0

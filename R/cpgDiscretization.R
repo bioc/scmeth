@@ -25,7 +25,7 @@ cpgDiscretization<-function(bs){
     tempMethylationMatrix<-methMatrix
     methMatrix[methMatrix<=0.2]<-0
     methMatrix[methMatrix>=0.8]<-1
-    removedCpGs<-colSums(methMatrix>0.2 & methMatrix<0.8, na.rm=TRUE)
+    removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8, na.rm=TRUE)
     removedCpGFrac<-(removedCpGs/(scmeth::coverage(bs)))*100
     returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
                    'discard-perc' = removedCpGFrac)

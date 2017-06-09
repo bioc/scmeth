@@ -19,6 +19,6 @@ repMask<-function(bs,organism,genome){
                        c("rmsk", GenomeInfoDb::organism(organism), genome)))]]
     rep <- GenomicRanges::countOverlaps(bs, repeatGr)>0
     cov<-bsseq::getCoverage(bs)
-    covDf <- data.frame(coveredCpgs=colSums(cov[!rep,]>=1))
+    covDf <- data.frame(coveredCpgs=DelayedArray::colSums(cov[!rep,]>=1))
     return(covDf)
 }

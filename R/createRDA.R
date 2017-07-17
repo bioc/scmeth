@@ -28,10 +28,10 @@ createRDA<-function(CpG_file, readmetric_file,bsConv_file){
 
     # Get the phenotypic data
     readInfo<-read.table(readmetric_file,sep=' ')
-    bsconvInfo<-read.table(bsConv_file,sep=' ')
+    bsconvInfo<-read.table(bsConv_file,sep=' ', header=TRUE)
     pd<-data.frame(row.names=sample,totalReads=as.numeric(readInfo[2]),
                     mappedReads=as.numeric(readInfo[3]),
-                    bsconversion=as.numeric(bsconvInfo[2]),
+                    bsconversion=as.numeric(bsconvInfo[1,1]),
                     stringsAsFactors=FALSE)
 
     message("generating bs object")

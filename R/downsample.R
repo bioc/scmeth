@@ -24,7 +24,7 @@ downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1),0.99,1)){
 
     for (i in 1:length(dsRates)){
         for (j in 1:ncol(covMatrix)){
-            cellCoverage<-covMatrix[,j]
+            cellCoverage<-as.vector(covMatrix[,j])
             cellNonZeroCoverage<-cellCoverage[cellCoverage>0]
             covSubList<-lapply(cellNonZeroCoverage,rbinom,n=1,prob=dsRates[i])
             downSampleMatrix[i,j]<- sum(covSubList>0)

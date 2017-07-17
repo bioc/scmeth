@@ -1,16 +1,5 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: R
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-install:
-  ## For installing all CRAN dependencies using rpack's DESCRIPTION
-  - ./travis-tool.sh install_deps
-
-  ## For installing all Bioconductor dependencies using rpack's DESCRIPTION
-  - ./travis-tool.sh install_bioc_deps
-env:
-  global:
-    - BIOC_USE_DEVEL="FALSE"
+language: r
+cache: packages
+r: bioc-devel

@@ -1,7 +1,13 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: false
-cache: packages
 
+install:
+  ## For installing all CRAN dependencies using rpack's DESCRIPTION
+  - ./travis-tool.sh install_deps
 
+  ## For installing all Bioconductor dependencies using rpack's DESCRIPTION
+  - ./travis-tool.sh install_bioc_deps
+env:
+  global:
+    - BIOC_USE_DEVEL="FALSE"

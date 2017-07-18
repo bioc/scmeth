@@ -9,6 +9,6 @@ before_install:
 
 install:
   ## For a CRAN package
-  - ./travis-tool.sh install_r knitr
+  - ./travis-tool.sh install_deps
   ## For a Bioconductor package
-  - ./travis-tool.sh install_bioc affxparser
+  - ./travis-tool.sh install_bioc_deps

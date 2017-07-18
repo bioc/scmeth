@@ -8,5 +8,7 @@ before_install:
   - chmod 755 ./travis-tool.sh
 
 install:
+  ## For a CRAN package
+  - ./travis-tool.sh install_r knitr
   ## For a Bioconductor package
   - ./travis-tool.sh install_bioc affxparser

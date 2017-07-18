@@ -3,4 +3,4 @@
 language: r
 cache: packages
 r: bioc-devel
-install: travis_wait mvn install
+

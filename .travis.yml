@@ -3,4 +3,6 @@
 language: r
 cache: packages
 r: bioc-devel
-
+install:
+  ## For a Bioconductor package
+  - ./travis-tool.sh install_bioc affxparser

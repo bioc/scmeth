@@ -14,7 +14,8 @@ Imports:
   reshape2,
   stats,
   utils,
-  BSgenome
+  BSgenome,
+  DelayedArray
 Suggests:
   rmarkdown,
   BSgenome.Mmusculus.UCSC.mm10,

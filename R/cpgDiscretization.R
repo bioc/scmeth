@@ -16,7 +16,7 @@
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'cpgDiscretization(bs)
 #'@export
-#
+#'@importFrom DelayedArray colSums
 
 cpgDiscretization<-function(bs){
     covMatrix<-as.matrix(bsseq::getCoverage(bs))

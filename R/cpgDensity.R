@@ -10,6 +10,7 @@
 #'cpgDensity(bs,Mmusculus,1000)
 #'@import BSgenome
 #'@export
+#'@importFrom DelayedArray colSums
 
 
 cpgDensity<-function(bs,organism,windowLength=1000){

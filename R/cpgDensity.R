@@ -10,7 +10,7 @@
 #'cpgDensity(bs,Mmusculus,1000)
 #'@import BSgenome
 #'@export
-#'@importFrom DelayedArray colSums
+
 
 
 cpgDensity<-function(bs,organism,windowLength=1000){
@@ -22,7 +22,7 @@ cpgDensity<-function(bs,organism,windowLength=1000){
     }else{
         cpgdBin<-cut(cpgd,c(seq(0,20),max(cpgd)))
     }
-    cpgdCov <- by(cov>0, cpgdBin, DelayedArray::colSums)
+    cpgdCov <- by(cov>0, cpgdBin, colSums)
     cpgdCov <- do.call("rbind", cpgdCov)
     return(cpgdCov)
 }

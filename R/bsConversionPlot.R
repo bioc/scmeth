@@ -23,5 +23,5 @@ bsConversionPlot<-function(bs){
     g<-g+ggplot2::ggtitle('Bisulfite conversion rate across samples')
     return(g)
   }else
-    warning("Provide a bs object with bisufite conversion to produce the plot")
+    warning("Provide a bs object with bisufite conversion info to produce the plot")
 }

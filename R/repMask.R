@@ -11,7 +11,7 @@
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'repMask(bs,Mmusculus,'mm10')
 #'@export
-#'@importFrom DelayedArray colSums
+
 
 repMask<-function(bs,organism,genome){
     hub <- AnnotationHub::AnnotationHub()

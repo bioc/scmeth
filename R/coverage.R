@@ -6,7 +6,9 @@
 #'@examples
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'coverage(bs)
+#'@importFrom DelayedArray colSums
 #'@export
+
 
 coverage <- function(bs) {
     covMatrix<-bsseq::getCoverage(bs)

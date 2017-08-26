@@ -16,6 +16,7 @@
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'cpgDiscretization(bs)
 #'@importFrom DelayedArray colSums
+#'@importFrom bsseq getCoverage
 #'@export
 
 

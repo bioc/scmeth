@@ -15,6 +15,7 @@
 #'downsample(bs,seq(0,1,length.out=20))
 #'
 #'@importFrom stats rbinom
+#'@importFrom bsseq getCoverage
 #'@export
 
 

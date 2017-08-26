@@ -14,9 +14,10 @@
 #'downsample(bs)
 #'downsample(bs,seq(0,1,length.out=20))
 #'
-#'@export
 #'@importFrom stats rbinom
-#'@importFrom bsseq getCoverage
+#'@export
+
+
 
 downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1),0.99,1)){
     covMatrix<-bsseq::getCoverage(bs)

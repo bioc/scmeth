@@ -115,6 +115,7 @@ g
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
+sampleNames<-bsseq::sampleNames(bs)
 discardedDf <- data.frame(sample=sampleNames, value=percentDiscarded)
 meltedDiscardedDf<- reshape2::melt(discardedDf, 
                                    id.vars = c("sample", "discard.perc"))

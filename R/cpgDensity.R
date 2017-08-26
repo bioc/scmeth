@@ -9,7 +9,6 @@
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'cpgDensity(bs,Mmusculus,1000)
 #'@import BSgenome
-#'@importFrom bsseq getCoverage
 #'@export
 
 

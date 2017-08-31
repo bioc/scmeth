@@ -10,10 +10,11 @@
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'methylationDist(bs)
 #'methylationDist(bs,all = TRUE)
+#'@importFrom bsseq getCoverage
 #'@export
 
 
-methylationDist<-function(bs,all=FALSE){
+methylationDist<-function(bs,all=TRUE){
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
     df <- as.data.frame(matrix(unlist(methMatrix), nrow = nrow(methMatrix)))

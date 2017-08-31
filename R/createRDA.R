@@ -15,7 +15,6 @@
 #'bsConversionFile<-system.file("extdata",'sc-RRBS-zygote_01.bsConv.txt',
 #'package='scmeth')
 #'createRDA(CpGBedGraphFile,readMetricsFile,bsConversionFile)
-#'@importFrom bsseq BSseq
 #'@export
 
 

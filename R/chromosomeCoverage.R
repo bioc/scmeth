@@ -7,6 +7,7 @@
 #'@examples
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'chromosomeCoverage(bs)
+#'@importFrom bsseq getCoverage
 #'@export
 
 

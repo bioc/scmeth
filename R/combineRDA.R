@@ -22,6 +22,7 @@
 #'bsObject1<-createRDA(CpGBedGraphFile_1,readMetricsFile_1,bsConversionFile_1)
 #'bsObject2<-createRDA(CpGBedGraphFile_2,readMetricsFile_2,bsConversionFile_2)
 #'combineRDA(c(bsObject1, bsObject2))
+#'@importFrom BiocGenerics combine
 #'@export
 
 

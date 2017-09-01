@@ -31,19 +31,19 @@ Contents
 Though a small chemical change in the genome, DNA methylation has significant
 impact in several diseases, developmental processes and other biological 
 changes. Hence methylation data should be analyzed carefully to gain 
-biological insights. **scmeth** package offers some tools to conduct methylatio
-n analysis properly. 
+biological insights. **scmeth** package offers some tools to conduct 
+methylation analysis properly. 
 </p>
 
 <p style="text-align: justify;">
-This bioconductor package contains functions to do quality control and 
+This bioconductor package contains functions to perform quality control and 
 preprocessing analysis for methylation data. This package is especially 
-customized to use the output from the firecloud implementation of methylatio
-n pipeline. However it still has function to generate bsseq objects with
+customized to use the output from the firecloud implementation of methylation 
+pipeline. However it still has functions to generate bsseq objects with
 methylation information given the bedgraph file obtained from *methyldackel*. 
 For now only human and mouse genomes are supported in this package but in the 
 future we will expand to other organisms. In addition to individual functions, 
-**report** function in the **scmeth** provides all inclusive report with most 
+**report** function in the **scmeth** provides all inclusive report using most 
 of the functions in this package. If users prefer they can just use the 
 **report** function to gain summary of their data.
 </p>
@@ -139,9 +139,9 @@ to expected ratio of CpGs and length over 500 bp. However some repeat regions
 in the genome also fit the same criteria although they are not bona fide CpG 
 Island. Therefore it is important to see how many CpGs are observed in the non 
 repeat regions of the genome. **repMask** functions provide information on the 
-CpG coverage in repeat regions of the genome. In order to build the repeat mask
-regions of the genome **repmask** function will require the organism and the
-genome build information.
+CpG coverage in non repeat regions of the genome. In order to build the repeat 
+mask regions of the genome **repmask** function will require the organism and 
+the genome build information.
 </p>
 
 ```{r, warning=FALSE,message=FALSE}
@@ -152,7 +152,9 @@ scmeth::repMask(bs,Mmusculus,"mm10")
 <p style="text-align: justify;">
 There are several other ways the number of CpGs captured can be observed. 
 One of the way is to observe how the CpGs are distributed across different 
-chromosomes. 
+chromosomes. (Since the example data only contains infroamtion in chromosome 1
+only the CpGs covered in chromosome 1 is shown.)
+
 </p>
 
 ```{r, warning=FALSE}
@@ -190,9 +192,10 @@ however reduced representation bisulfite sequencing (RRBS) target CpG dense CpG
 islands. Therefore CpG density plot will be a great diagnostic to see whether 
 the protocol succeeded. In order to calculate the CpG density a window length 
 should be specified. By default **cpgDensity** function chooses 1kB regions. 
-Therefore CpG density plot will be a great diagnostic tool to observed whether
-the protocol specifically targeted CpG dense or CpG sparse regions or whether 
-CpGs were obtained uniformly across the regions. 
+
+Therefore CpG density plot can be used to check if the whether the protocol
+specifically targeted CpG dense or CpG sparse regions or whether CpGs were 
+obtained uniformly across the regions.
 </p>
 
 ```{r,warning=FALSE,message=FALSE}
@@ -210,7 +213,7 @@ analysis the CpGs that are covered at least once sampled via binomial random
 sampling with given probability. At each probability level the number of CpGs
 captured is assessed. If the number of CpG captured attains a plateau then the
 sequencing was successful. **downsample** function provides a matrix of CpG 
-coverage for each sample at various down sampling rates. The report renders  
+coverage for each sample at various down sampling rates. The report renders 
 this information into a plot. Downsampling rate ranges from 0.01 to 0.99, 
 however users can change the donwsampling rates.
 </p>
@@ -224,25 +227,24 @@ scmeth::downsample(bs)
 <p style="text-align: justify;">
 Methylation bias plot shows the methylation along the reads. In a high quality 
 samples methylation across the read would be more or less a horizontal line. 
-However there could be fluctuations in the beginning or the end of the read. 
-Single cell sequencing samples also can show jagged trend in the methylation 
-bias plot due to lower read count. Methylation bias can be assessed via 
-**mbiasPlot** function. This function takes the mbias file generated from 
-*methyldackel* and generates the methylation bias plot
+However there could be fluctuations in the beginning or the end of the read due
+to the quality of the bases. Single cell sequencing samples also can show 
+jagged trend in the methylation bias plot due to lower read count. Methylation
+bias can be assessed via **mbiasPlot** function. This function takes the mbias
+file generated from *methyldackel* and generates the methylation bias plot.
 </p>
 
 ```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
 library(ggplot2)
 scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'))
 ```
-
 </p>
 
 ### methylationDist
 <p style="text-align: justify;">
 **methylationDist** function provides the methylation distribution of the 
-samples. By default it will produce distribution for single sample but users
-can change it by specifying all=TRUE.
+samples. By default it will produce distribution for all the sample but users
+can change it by specifying all=FALSE.
 </p>
 ```{r,warning=FALSE,message=FALSE,fig.width=6}
 #library(ggplot2)
@@ -256,7 +258,7 @@ Another important metric in methylation analysis is the bisulfite conversion
 rate. Bisulfite conversion rate indicates out of all the Cytosines in the non
 CpG context what fraction of them were methylated. Ideally this number should
 be 1 or 100% indicating none of the non CpG context cytosines are methylated. 
-However in real experiment this won't be the case, yet a bisulfite conversion
+However in real data this won't be the case, yet a bisulfite conversion
 rate below 95% indicates some problem with sample preparation. 
 **bsConversionPlot** function generates a plot showing this metric for each 
 sample.

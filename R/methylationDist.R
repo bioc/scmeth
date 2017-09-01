@@ -21,8 +21,8 @@ methylationDist<-function(bs,all=TRUE){
     colnames(df)<-colnames(methMatrix)
 
     if (all==TRUE){
-        meltedDf<-reshape2::melt(df)
-    if (requireNamespace("ggplot2",quietly = TRUE)){
+        meltedDf<-reshape2::melt(df,id.vars=c())
+
         g<-ggplot2::ggplot(meltedDf)
         g<-g+ggplot2::geom_density(ggplot2::aes_string(x='value'))
         g<-g+ggplot2::facet_wrap(~variable,ncol=3)
@@ -30,22 +30,14 @@ methylationDist<-function(bs,all=TRUE){
         g<-g+ggplot2::xlab('Methylation')
 
     return(g)
-    }else{
-        warning('ggplot2 required for plot rendering')
-    }
-
   }else if (all==FALSE){
       indCell<-data.frame(x=df[,sample(ncol(df),1)])
-      if (requireNamespace("ggplot2",quietly = TRUE)){
+
           g<-ggplot2::ggplot()+ggplot2::geom_density(ggplot2::aes_string(x='x'),data=indCell)
           g<-g+ggplot2::ggtitle('Methylation Distribution for an arbitrary cell')
           g<-g+ggplot2::xlab('Methylation rate')
 
       return(g)
-
-    }else{
-        warning('ggplot2 required for plot rendering')
-    }
 
   }
 }

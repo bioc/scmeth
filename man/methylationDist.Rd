@@ -4,7 +4,7 @@
 \alias{methylationDist}
 \title{Provide graphics for methylation distribution}
 \usage{
-methylationDist(bs, all = FALSE)
+methylationDist(bs, all = TRUE)
 }
 \arguments{
 \item{bs}{bsseq object}

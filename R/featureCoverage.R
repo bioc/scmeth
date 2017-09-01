@@ -39,8 +39,8 @@ featureCoverage <-function(bs,features,genomebuild){
         sumAnnotDf<-as.data.frame(sumAnnot)
         return(sumAnnotDf)
 
-  }else{
-      stop("annotar package needed for this function to work.
-           Please install it")
-  }
+    }else{
+        stop("annotar package needed for this function to work.
+                Please install it")
+    }
 }

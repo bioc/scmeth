@@ -32,9 +32,9 @@ readmetrics<-function(bs){
         g<-g+ggplot2::theme_bw()
         return(g)
 
-  }else{
-      warning('Read information not provided in the phenotypic data')
-  }
+    }else{
+        warning('Read information not provided in the phenotypic data')
+    }
 }
 
 

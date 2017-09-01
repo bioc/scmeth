@@ -21,8 +21,8 @@
 report <- function(bsObj,outdirectory,organism,genome) {
     RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
     rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj
-                           ,organism=organism,genome=genome)
-                           ,output_file=paste0(outdirectory,"/qcReport.html"))
+                        ,organism=organism,genome=genome)
+                        ,output_file=paste0(outdirectory,"/qcReport.html"))
 
 }
 

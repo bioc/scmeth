@@ -29,16 +29,17 @@ methylationDist<-function(bs,all=TRUE){
         g<-g+ggplot2::ggtitle('Methylation distribution for all the cells')
         g<-g+ggplot2::xlab('Methylation')
 
-    return(g)
-  }else if (all==FALSE){
-      indCell<-data.frame(x=df[,sample(ncol(df),1)])
+        return(g)
+    }else if (all==FALSE){
+        indCell<-data.frame(x=df[,sample(ncol(df),1)])
 
-          g<-ggplot2::ggplot()+ggplot2::geom_density(ggplot2::aes_string(x='x'),data=indCell)
-          g<-g+ggplot2::ggtitle('Methylation Distribution for an arbitrary cell')
-          g<-g+ggplot2::xlab('Methylation rate')
+        g<-ggplot2::ggplot()
+        g<-g+ggplot2::geom_density(ggplot2::aes_string(x='x'),data=indCell)
+        g<-g+ggplot2::ggtitle('Methylation Distribution for a single cell')
+        g<-g+ggplot2::xlab('Methylation rate')
 
-      return(g)
+        return(g)
 
-  }
+    }
 }
 

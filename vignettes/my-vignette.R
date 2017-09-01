@@ -38,7 +38,6 @@ scmeth::cpgDensity(bs,Mmusculus,windowLength=1000)
 scmeth::downsample(bs)
 
 ## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
-library(ggplot2)
 scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6-----------------------------

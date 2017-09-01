@@ -135,10 +135,10 @@ g
 # Feature level coverage
 #pandoc.header("Feature level coverage of the CpGs", level = 2)
 #library(annotatr)
-#featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
+featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
 
-#colnames(featureCovDf)<-c('feature annotation','number of CpGs')
-#print(featureCovDf)
+colnames(featureCovDf)<-c('feature annotation','number of CpGs')
+print(featureCovDf)
 ```
 
 ## Downsampling Analysis

@@ -235,7 +235,6 @@ file generated from *methyldackel* and generates the methylation bias plot.
 </p>
 
 ```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
-library(ggplot2)
 scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'))
 ```
 </p>

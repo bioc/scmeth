@@ -12,7 +12,9 @@
 
 bsConversionPlot<-function(bs){
     phenoData<-bsseq::pData(bs)
-    if ('bsconversion' %in% colnames(phenoData)) {
+    if (all(c("CHH_meth", "CHG_meth", "CHH_unmeth", "CHG_unmeth") %in% colnames(phenoData))) {
+
+        phenoData$bsconversion <- 1 - (phenoData$CHH_meth + phenoData$CHG_meth) / (phenoData$CHH_unmeth + phenoData$CHG_unmeth)
         bscDf<-data.frame(sample=rownames(phenoData),bsc=phenoData$bsconversion)
 
         g<-ggplot2::ggplot(bscDf,ggplot2::aes_string('sample','bsc'))
@@ -24,5 +26,5 @@ bsConversionPlot<-function(bs){
         g<-g+ggplot2::ggtitle('Bisulfite conversion rate across samples')
         return(g)
     }else
-        warning("Provide a bs object with BS conversion info to produce the plot")
+        warning("Provide a bs object with CHH_meth, CHG_meth, CHH_unmeth, and CHG_unmeth columns to esimtate BS conversion rates")
 }

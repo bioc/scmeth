@@ -18,6 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(bsseq)
+options(DelayedArray.block.size=4500e6)
 bs<-params$samples
 nSamples<-length(Biobase::sampleNames(bs))
 ```

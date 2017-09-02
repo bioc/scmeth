@@ -56,16 +56,17 @@ g
 #############################
 ```
 
-## Bisulfite conversion rate for the samples
+## Bisulfite conversion rate
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 scmeth::bsConversionPlot(bs)
 
 ```
 
 
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples, eval=FALSE}
 ## Methylation Density plot
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
-cpgDenMatrix<-scmeth::cpgDensity(bs,organism = params$organism,windowLength=1000)
+cpgDenMatrix<-scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000)
 cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
 m <- reshape2::melt(cpgDenMatrix, varnames = c("Sample", "Density"))
 
@@ -82,8 +83,8 @@ g
 
 
 
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4, eval}
 ## Non-repatmasker Coverage
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 covDf$sample<-rownames(covDf)
 m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
@@ -106,7 +107,7 @@ g
 # Data Preprocessing
 ## CpG Discretization
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4, eval=FALSE}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
@@ -154,7 +155,7 @@ g
 ```
 
 ## Methylation Distribution
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples, eval=FALSE}
 # Methylation distribution for all the cells
 scmeth::methylationDist(bs,all=TRUE)
 

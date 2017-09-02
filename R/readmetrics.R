@@ -11,12 +11,15 @@
 
 
 readmetrics<-function(bs){
-    phenptypicData<-Biobase::pData(bs)
-    pDcolNames<-colnames(phenptypicData)
-    if (('totalReads' %in% pDcolNames & 'mappedReads' %in% pDcolNames)){
-        dat<-data.frame(sample=rownames(phenptypicData),
-                        total=phenptypicData$totalReads,
-                        mapped=phenptypicData$mappedReads)
+    phenotypicData<-Biobase::pData(bs)
+    pDcolNames<-colnames(phenotypicData)
+    if (('total_reads' %in% pDcolNames & 'uniquely_aligned_reads' %in% pDcolNames)){
+        dat<-data.frame(sample=rownames(phenotypicData),
+                        total=phenotypicData$total_reads,
+                        mapped=phenotypicData$uniquely_aligned_reads)
+        # Attempt to convert to numeric (from factor or string) if necessary
+        if (!is.numeric(dat$mapped)) dat$mapped <- as.numeric(as.character(dat$mapped))
+        if (!is.numeric(dat$total)) dat$total <- as.numeric(as.character(dat$total))
         dat$unmapped<-dat$total-dat$mapped
         o<-order(dat$total,dat$sample)
         sampleOrder<-dat$sample[o]
@@ -28,12 +31,12 @@ readmetrics<-function(bs){
         g<-g+ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()
         g<-g+ggplot2::scale_y_continuous(name="Number of reads")
         g<-g+ggplot2::xlab("samples")
-        g<-g+ggplot2::ggtitle("Number of reads in Samples")
+        g<-g+ggplot2::ggtitle("Read mapping stats")
         g<-g+ggplot2::theme_bw()
         return(g)
 
     }else{
-        warning('Read information not provided in the phenotypic data')
+        warning('Read information not provided in the pData slot')
     }
 }
 

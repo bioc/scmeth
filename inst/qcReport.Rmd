@@ -34,28 +34,22 @@ scmeth::readmetrics(bs)
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
 
+# Coverage
 covVec<-scmeth::coverage(bs)
 sampleNames<-bsseq::sampleNames(bs)
 covDf <- data.frame(sample=sampleNames, coveredCpgs=covVec)
-covDf$grp <- substr(covDf$sample, 1, 1)
-m <- reshape2::melt(covDf, id.vars = c("grp", "sample"))
-o <- order(covDf$grp, covDf$coveredCpgs)
+o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
-m$sample <- factor(m$sample, levels=sampleOrder)
+covDf$sample <- factor(covDf$sample, levels=sampleOrder)
 
-summary<-c('min','max','mean','median')
-numericValues<-c(min(m$value),max(m$value),mean(m$value),median(m$value))
-summaryDF<-as.data.frame(cbind(summary,numericValues))
-
-
-g<-ggplot2::ggplot(m, ggplot2::aes(sample, value))
-g<-g+ggplot2::geom_hline(data = m, 
-                         ggplot2::aes(yintercept = as.numeric(median(value))), 
+g<-ggplot2::ggplot(covDf, ggplot2::aes(sample, coveredCpgs))
+g<-g+ggplot2::geom_hline(data = covDf,
+                         ggplot2::aes(yintercept = as.numeric(median(coveredCpgs))),
                          linetype=2, color="blue")
-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() 
-g<-g+ggplot2::scale_y_continuous(name="Number of CpGs") 
-g<-g+ggplot2::xlab("Sample") 
-g<-g+ggplot2::ggtitle("Number of Covered CpGs")  
+g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
+g<-g+ggplot2::scale_y_continuous(name="Number of CpGs")
+g<-g+ggplot2::xlab("Sample")
+g<-g+ggplot2::ggtitle("Number of Covered CpGs (1+ reads)")
 g<-g+ggplot2::theme_bw()
 g
 #############################

@@ -26,6 +26,7 @@ readmetrics<-function(bs){
         m<-reshape2::melt(dat[,c("sample","mapped","unmapped")],
                         id.vars="sample",variable.name="Mapping_status")
         m$sample<-factor(m$sample,levels=sampleOrder)
+        m$Mapping_status <- relevel(m$Mapping_status, ref="unmapped")
         g<-ggplot2::ggplot(m,ggplot2::aes_string('sample','value',
                                                 fill='Mapping_status'))
         g<-g+ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()

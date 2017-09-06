@@ -9,8 +9,10 @@
 #'and original bottom strand both in forward and reverse reads
 #'@examples
 #'mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'))
-#'@export
 #'@importFrom utils read.table
+#'@import ggplot2
+#'@export
+
 
 
 mbiasplot<-function(mbiasFile){

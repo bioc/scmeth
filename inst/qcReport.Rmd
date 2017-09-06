@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Rendered by scmeth
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
-library(bsseq)
+#library(bsseq)
 bs<-params$samples
 nSamples<-length(Biobase::sampleNames(bs))
 ```

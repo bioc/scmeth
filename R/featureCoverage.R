@@ -16,8 +16,7 @@
 #'library(annotatr)
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'featureCoverage(bs,c('cpg_islands','genes_exons'),'mm10')
-#'@importFrom annotatr build_annotations
-#'@importFrom annotatr builtin_genomes
+#'@import annotatr
 #'@export
 
 

@@ -6,8 +6,10 @@
 #'@examples
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'readmetrics(bs)
-#'@export
 #'@importFrom utils read.delim
+#'@import ggplot2
+#'@export
+
 
 
 readmetrics<-function(bs){

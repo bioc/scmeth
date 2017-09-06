@@ -12,6 +12,7 @@
 #'repMask(bs,Mmusculus,'mm10')
 #'@importFrom DelayedArray colSums
 #'@importFrom bsseq getCoverage
+#'@importFrom GenomicRanges countOverlaps
 #'@export
 
 

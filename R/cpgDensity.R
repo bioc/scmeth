@@ -16,8 +16,9 @@
 
 cpgDensity<-function(bs,organism,windowLength=1000){
     cov<-bsseq::getCoverage(bs)
-    cpgd<-Repitools::cpgDensityCalc(GenomicRanges::granges(bs),
-                                organism,window = windowLength)
+    gr <- granges(bs)
+    seqlevelsStyle(gr) <- "UCSC"
+    cpgd<-Repitools::cpgDensityCalc(gr, organism, window = windowLength)
     if (max(cpgd)>50){
         cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))
     }else{

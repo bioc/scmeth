@@ -25,7 +25,7 @@ nSamples<-length(Biobase::sampleNames(bs))
 
 ## Read information
 #### If read data provided the following plot is shown
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=10}
 # Methylation distribution for all the cells
 scmeth::readmetrics(bs)
 ```
@@ -33,7 +33,7 @@ scmeth::readmetrics(bs)
 
 ## CpG Coverage 
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+```{r cpg_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10}
 
 # Coverage
 covVec<-scmeth::coverage(bs)
@@ -57,14 +57,14 @@ g
 ```
 
 ## Bisulfite conversion rate
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10}
 scmeth::bsConversionPlot(bs)
 
 ```
 
 
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples, eval=FALSE}
+```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
 ## Methylation Density plot
 cpgDenMatrix<-scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000)
 cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
@@ -83,7 +83,7 @@ g
 
 
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4, eval}
+```{r non_rm_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
 ## Non-repatmasker Coverage
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 covDf$sample<-rownames(covDf)
@@ -107,7 +107,7 @@ g
 # Data Preprocessing
 ## CpG Discretization
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4, eval=FALSE}
+```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
@@ -138,7 +138,7 @@ print(featureCovDf)
 ```
 
 ## Downsampling Analysis
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r downsampling,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
 
 ##############################
 # Downsample Plots
@@ -155,7 +155,7 @@ g
 ```
 
 ## Methylation Distribution
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples, eval=FALSE}
+```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
 # Methylation distribution for all the cells
 scmeth::methylationDist(bs,all=TRUE)
 

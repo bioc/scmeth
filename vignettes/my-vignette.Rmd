@@ -173,12 +173,11 @@ genome build.
 </p>
 ```{r, warning=FALSE,message=FALSE}
 library(annotatr)
-scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns',
-                            'cpg_islands'),"mm10")
+DT::datatable(scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns',
+                            'cpg_islands'),"mm10"))
 
 
 ```
-
 </p>
 
 
@@ -200,7 +199,7 @@ obtained uniformly across the regions.
 
 ```{r,warning=FALSE,message=FALSE}
 library(BSgenome.Mmusculus.UCSC.mm10)
-scmeth::cpgDensity(bs,Mmusculus,windowLength=1000)
+DT::datatable(scmeth::cpgDensity(bs,Mmusculus,windowLength=1000))
 ```
 
 ### downsample
@@ -219,7 +218,7 @@ however users can change the donwsampling rates.
 </p>
 
 ```{r,warning=FALSE}
-scmeth::downsample(bs)
+DT::datatable(scmeth::downsample(bs))
 ```
 
 
@@ -247,7 +246,6 @@ samples. By default it will produce distribution for all the sample but users
 can change it by specifying all=FALSE.
 </p>
 ```{r,warning=FALSE,message=FALSE,fig.width=6}
-#library(ggplot2)
 scmeth::methylationDist(bs,all=TRUE)
 ```
 

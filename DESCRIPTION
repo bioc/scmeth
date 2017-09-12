@@ -24,7 +24,8 @@ Suggests:
   Biobase,
   BiocGenerics,
   GenomeInfoDb,
-  Biostrings
+  Biostrings,
+  DT
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: Functions to analyze methylation data can be found here.
              Some functions are relevant for single cell methylation data but most other

@@ -263,6 +263,7 @@ rate below 95% indicates some problem with sample preparation.
 **bsConversionPlot** function generates a plot showing this metric for each 
 sample.
 </p>
+
 ```{r}
 scmeth::bsConversionPlot(bs)
 ```

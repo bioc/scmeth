@@ -12,19 +12,18 @@
 
 bsConversionPlot<-function(bs){
     phenoData<-bsseq::pData(bs)
-    if (all(c("CHH_meth", "CHG_meth", "CHH_unmeth", "CHG_unmeth") %in% colnames(phenoData))) {
+    phenoData$bsconversion <- 1 - (phenoData$CHH_meth+phenoData$CHG_meth)/
+                                  (phenoData$CHH_meth+phenoData$CHH_unmeth+
+                                   phenoData$CHG_meth+phenoData$CHG_unmeth)
+    bscDf<-data.frame(sample=phenoData$cell_id,bsc=phenoData$bsconversion)
 
-        phenoData$bsconversion <- 1 - (phenoData$CHH_meth + phenoData$CHG_meth) / (phenoData$CHH_unmeth + phenoData$CHG_unmeth)
-        bscDf<-data.frame(sample=rownames(phenoData),bsc=phenoData$bsconversion)
-
-        g<-ggplot2::ggplot(bscDf,ggplot2::aes_string('sample','bsc'))
-        g<-g+ggplot2::geom_point()
-        g<-g+ggplot2::ylim(max(min(bscDf$bsc)-0.05,0),min(max(bscDf$bsc)+0.05,1))
-        g<-g+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60,
+    g<-ggplot2::ggplot(bscDf, aes(x="", y=bsc))
+    g<-g+ggplot2::geom_boxplot()
+    g<-g+ggplot2::ylim(max(min(bscDf$bsc)-0.02,0),min(max(bscDf$bsc)+0.02,1))
+    g<-g+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60,
                                                             hjust = 1))
-        g<-g+ggplot2::xlab('samples')+ggplot2::ylab('bisulfite conversion rate')
-        g<-g+ggplot2::ggtitle('Bisulfite conversion rate across samples')
-        return(g)
-    }else
-        warning("Provide a bs object with CHH_meth, CHG_meth, CHH_unmeth, and CHG_unmeth columns to esimtate BS conversion rates")
+    g<-g+ggplot2::xlab('')+ggplot2::ylab('bisulfite conversion rate')
+    g<-g+ggplot2::ggtitle('Bisulfite conversion rate across samples')
+    return(g)
+
 }

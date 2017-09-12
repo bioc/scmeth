@@ -26,7 +26,6 @@ Provides Coverage metrics for the sample by each genomic features provided
 by the user
 }
 \examples{
-library(annotatr)
 load(system.file("extdata",'bsObject.rda',package='scmeth'))
-featureCoverage(bs,c('cpg_islands','genes_exons'),'mm10')
+featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns'),'mm10')
 }

@@ -13,33 +13,26 @@
 #'CpG covered in each feature
 #'
 #'@examples
-#'library(annotatr)
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
-#'featureCoverage(bs,c('cpg_islands','genes_exons'),'mm10')
+#'featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns'),'mm10')
 #'@import annotatr
 #'@export
 
 
 featureCoverage <-function(bs,features,genomebuild){
-    if (requireNamespace('annotatr',quietly=TRUE)){
-        annotationFeatures<-c()
-        for (i in features){
-            annotationFeatures<-c(paste0(genomebuild,'_',i),annotationFeatures)
-        }
-        annots_gr = annotatr::build_annotations(genome = genomebuild, annotations = annotationFeatures)
-
-        # Intersect the regions with the reference annotations
-        dm_annotated = annotatr::annotate_regions(
-        regions = GenomicRanges::granges(bs),
-        annotations = annots_gr,
-        ignore.strand = TRUE,
-        quiet = TRUE)
-        sumAnnot<-annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
-        sumAnnotDf<-as.data.frame(sumAnnot)
-        return(sumAnnotDf)
-
-    }else{
-        stop("annotar package needed for this function to work.
-                Please install it")
+    annotationFeatures<-c()
+    for (i in features){
+         annotationFeatures<-c(paste0(genomebuild,'_',i),annotationFeatures)
     }
+    annots_gr = annotatr::build_annotations(genome = genomebuild, annotations = annotationFeatures)
+
+    # Intersect the regions with the reference annotations
+    dm_annotated = annotatr::annotate_regions(
+    regions = GenomicRanges::granges(bs),
+    annotations = annots_gr,
+    ignore.strand = TRUE,
+    quiet = TRUE)
+    sumAnnot<-annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
+    sumAnnotDf<-as.data.frame(sumAnnot)
+    return(sumAnnotDf)
 }

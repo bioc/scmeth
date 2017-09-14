@@ -12,8 +12,8 @@
 #'@return Report will be an html file
 #'@examples
 #'library(BSgenome.Mmusculus.UCSC.mm10)
-#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
-#'report(bs,'~',Mmusculus,'mm10')
+#'directory<-system.file("extdata/bismark_data",package='scmeth')
+#'report(directory,'~',Mmusculus,'mm10')
 #'@import knitr
 #'@export
 #

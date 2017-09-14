@@ -27,6 +27,6 @@ generate a report for the user
 }
 \examples{
 library(BSgenome.Mmusculus.UCSC.mm10)
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
-report(bs,'~',Mmusculus,'mm10')
+directory<-system.file("extdata/bismark_data",package='scmeth')
+report(directory,'~',Mmusculus,'mm10')
 }

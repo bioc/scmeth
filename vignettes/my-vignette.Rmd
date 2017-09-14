@@ -234,8 +234,8 @@ file generated from *methyldackel* and generates the methylation bias plot.
 </p>
 
 ```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
-scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',
-                        package='scmeth'))
+methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
+scmeth::mbiasplot(system.file("extdata",methylationBiasFile,package='scmeth'))
 ```
 </p>
 
@@ -262,7 +262,7 @@ rate below 95% indicates some problem with sample preparation.
 sample.
 </p>
 ```{r}
-scmeth::bsConversionPlot(bs)
+#scmeth::bsConversionPlot(bs)
 ```
 
 

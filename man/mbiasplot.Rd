@@ -19,5 +19,6 @@ the methylation
 based on the read position
 }
 \examples{
-mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',package='scmeth'))
+mbiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
+mbiasplot(system.file("extdata",mbiasFile,package='scmeth'))
 }

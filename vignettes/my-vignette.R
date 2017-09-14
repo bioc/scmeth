@@ -45,7 +45,7 @@ scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',
 scmeth::methylationDist(bs,all=TRUE)
 
 ## ------------------------------------------------------------------------
-scmeth::bsConversionPlot(bs)
+#scmeth::bsConversionPlot(bs)
 
 ## ----warning=FALSE-------------------------------------------------------
 CpGBedGraphFile_1<-system.file("extdata",

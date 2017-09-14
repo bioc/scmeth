@@ -4,10 +4,10 @@
 \alias{bsConversionPlot}
 \title{Bisulfite conversion rate visualization}
 \usage{
-bsConversionPlot(bs)
+bsConversionPlot(dir)
 }
 \arguments{
-\item{bs}{bsseq object}
+\item{dir}{directory that contains bismakr output}
 }
 \value{
 Plot showing bisulfite conversion rate for each sample
@@ -17,6 +17,5 @@ Plot the bisulfite conversion rate for each sample
 based on the pheno data in the bs object
 }
 \examples{
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
-bsConversionPlot(bs)
+bsConversionPlot(system.file("extdata/bismark_data",package='scmeth'))
 }

@@ -4,10 +4,10 @@
 \alias{readmetrics}
 \title{Provide graphics for read information}
 \usage{
-readmetrics(bs)
+readmetrics(dir)
 }
 \arguments{
-\item{bs}{bsseq object}
+\item{dir}{directory that contains bismakr output}
 }
 \value{
 Plot showing the mapped and unmapped read information for each cell
@@ -16,6 +16,5 @@ Plot showing the mapped and unmapped read information for each cell
 Plot the mapped and unmapped reads
 }
 \examples{
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
-readmetrics(bs)
+readmetrics(system.file("extdata/bismark_data",package='scmeth'))
 }

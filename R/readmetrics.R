@@ -1,16 +1,16 @@
 #' Provide graphics for read information
 #'
 #'Plot the mapped and unmapped reads
-#'@param bs bsseq object
+#'@param dir directory that contains bismark output
 #'@return Plot showing the mapped and unmapped read information for each cell
 #'@examples
-#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
-#'readmetrics(bs)
+#'readmetrics(system.file("extdata/bismark_data",package='scmeth'))
 #'@export
 #'@importFrom utils read.delim
 #'@importFrom stats relevel
 
-readmetrics<-function(bs){
+readmetrics<-function(dir){
+    bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(dir)
     phenotypicData<-Biobase::pData(bs)
     dat<-data.frame(sample=phenotypicData$cell_id,
                     total=as.vector(phenotypicData$total_reads),

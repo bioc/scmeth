@@ -13,6 +13,7 @@
 #'CpG covered in each feature
 #'
 #'@examples
+#'library(annotatr)
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns'),'mm10')
 #'@import annotatr

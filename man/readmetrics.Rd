@@ -7,7 +7,7 @@
 readmetrics(dir)
 }
 \arguments{
-\item{dir}{directory that contains bismakr output}
+\item{dir}{directory that contains bismark output}
 }
 \value{
 Plot showing the mapped and unmapped read information for each cell

@@ -38,8 +38,8 @@ DT::datatable(scmeth::cpgDensity(bs,Mmusculus,windowLength=1000))
 DT::datatable(scmeth::downsample(bs))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
-scmeth::mbiasplot(system.file("extdata",'16_trimmed_sorted.txt',
-                        package='scmeth'))
+methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
+scmeth::mbiasplot(system.file("extdata",methylationBiasFile,package='scmeth'))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6-----------------------------
 scmeth::methylationDist(bs,all=TRUE)

@@ -7,7 +7,7 @@
 bsConversionPlot(dir)
 }
 \arguments{
-\item{dir}{directory that contains bismakr output}
+\item{dir}{directory that contains bismark output}
 }
 \value{
 Plot showing bisulfite conversion rate for each sample

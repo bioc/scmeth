@@ -14,24 +14,33 @@
 #'
 #'@examples
 #'library(annotatr)
-#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
-#'featureCoverage(bs,c('cpg_islands','genes_exons'),'mm10')
+#'directory<-system.file("extdata/bismark_data",package='scmeth')
+#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'featureCoverage(bs,c('cpg_islands','genes_exons'),'hg38')
+#'@importFrom DelayedArray rowSums
+#'@importFrom GenomeInfoDb seqlevelsStyle
 #'@import annotatr
 #'@import GenomicRanges
 #'@export
 
 
 featureCoverage <-function(bs,features,genomebuild){
-    #if (requireNamespace('annotatr',quietly=TRUE)){
+
     annotationFeatures<-c()
     for (i in features){
         annotationFeatures<-c(paste0(genomebuild,'_',i),annotationFeatures)
     }
     annots_gr = annotatr::build_annotations(genome = genomebuild, annotations = annotationFeatures)
 
+    GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"
+
+    # CpGs that are observed
+    coverageMatrix<-getCoverage(bs)
+    ind<-DelayedArray::rowSums(coverageMatrix)>0
+
     # Intersect the regions with the reference annotations
     dm_annotated = annotatr::annotate_regions(
-    regions = GenomicRanges::granges(bs),
+    regions = GenomicRanges::granges(bs)[ind,],
     annotations = annots_gr,
     ignore.strand = TRUE,
     quiet = TRUE)

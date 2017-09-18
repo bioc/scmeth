@@ -26,7 +26,7 @@ This function uses most of the functions in this package to
 generate a report for the user
 }
 \examples{
-library(BSgenome.Mmusculus.UCSC.mm10)
+library(BSgenome.Hsapiens.NCBI.GRCh38)
 directory<-system.file("extdata/bismark_data",package='scmeth')
-report(directory,'~',Mmusculus,'mm10')
+report(directory,'~',Hsapiens,'hg38')
 }

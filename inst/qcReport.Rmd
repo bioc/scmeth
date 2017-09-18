@@ -65,7 +65,7 @@ scmeth::bsConversionPlot(dir)
 
 
 
-```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
+```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=TRUE}
 ## Methylation Density plot
 cpgDenMatrix<-scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000)
 cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
@@ -108,7 +108,7 @@ g
 # Data Preprocessing
 ## CpG Discretization
 
-```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
+```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=TRUE}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
@@ -139,7 +139,7 @@ DT::datatable(featureCovDf)
 ```
 
 ## Downsampling Analysis
-```{r downsampling,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
+```{r downsampling,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=TRUE}
 
 ##############################
 # Downsample Plots
@@ -156,7 +156,7 @@ g
 ```
 
 ## Methylation Distribution
-```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
+```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=TRUE}
 # Methylation distribution for all the cells
 scmeth::methylationDist(bs,all=TRUE)
 

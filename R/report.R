@@ -11,9 +11,9 @@
 #'the report will have graphics on read information
 #'@return Report will be an html file
 #'@examples
-#'library(BSgenome.Mmusculus.UCSC.mm10)
+#'library(BSgenome.Hsapiens.NCBI.GRCh38)
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'report(directory,'~',Mmusculus,'mm10')
+#'report(directory,'~',Hsapiens,'hg38')
 #'@import knitr
 #'@export
 #

@@ -23,7 +23,8 @@ sampling rate
 Downsample the CpG covergae matrix for saturation analysis
 }
 \examples{
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
+directory<-system.file("extdata/bismark_data",package='scmeth')
+bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 downsample(bs)
 downsample(bs,seq(0,1,length.out=20))
 

@@ -7,7 +7,8 @@
 #'a single cell
 #'@return plot of the methylation distribution
 #'@examples
-#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'directory<-system.file("extdata/bismark_data",package='scmeth')
+#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 #'methylationDist(bs)
 #'methylationDist(bs,all = TRUE)
 #'@importFrom bsseq getCoverage

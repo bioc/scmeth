@@ -11,15 +11,16 @@
 #'@param genomebuild reference alignment, i.e. mm10 or hg38
 #'@return a data frame with genomic feature names and the number of
 #'CpG covered in each feature
-#'
 #'@examples
-#'library(annotatr)
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
 #'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 #'featureCoverage(bs,c('cpg_islands','genes_exons'),'hg38')
 #'@importFrom DelayedArray rowSums
 #'@importFrom GenomeInfoDb seqlevelsStyle
-#'@import annotatr
+#'@importFrom annotatr builtin_genomes
+#'@importFrom annotatr build_annotations
+#'@importFrom annotatr annotate_regions
+#'@importFrom annotatr summarize_annotations
 #'@import GenomicRanges
 #'@export
 
@@ -30,6 +31,7 @@ featureCoverage <-function(bs,features,genomebuild){
     for (i in features){
         annotationFeatures<-c(paste0(genomebuild,'_',i),annotationFeatures)
     }
+
     annots_gr = annotatr::build_annotations(genome = genomebuild, annotations = annotationFeatures)
 
     GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"

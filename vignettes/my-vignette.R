@@ -17,8 +17,8 @@ load(system.file("extdata",'bsObject.rda',package='scmeth'))
 scmeth::coverage(bs)
 
 ## ---- warning=FALSE,message=FALSE----------------------------------------
-library(BSgenome.Mmusculus.UCSC.mm10)
-scmeth::repMask(bs,Mmusculus,"mm10")
+#library(BSgenome.Mmusculus.UCSC.mm10)
+#scmeth::repMask(bs,Mmusculus,"mm10")
 
 ## ---- warning=FALSE------------------------------------------------------
 scmeth::chromosomeCoverage(bs)

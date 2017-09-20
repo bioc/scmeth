@@ -16,15 +16,15 @@ Imports:
   utils,
   BSgenome,
   DelayedArray,
-  annotatr (>= 1.0.3),
-  SummarizedExperiment
+  annotatr (>= 1.2.1),
+  SummarizedExperiment,
+  GenomeInfoDb
 Suggests:
   rmarkdown,
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,
   Biobase,
   BiocGenerics,
-  GenomeInfoDb,
   Biostrings,
   DT
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>

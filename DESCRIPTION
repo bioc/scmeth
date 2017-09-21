@@ -16,7 +16,7 @@ Imports:
   utils,
   BSgenome,
   DelayedArray,
-  annotatr(>= 1.2.1),
+  annotatr,
   SummarizedExperiment,
   GenomeInfoDb
 Suggests:

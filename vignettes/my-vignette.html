@@ -12,7 +12,7 @@
 
 <meta name="author" content="Divy S. Kangeyan" />
 
-<meta name="date" content="2017-09-17" />
+<meta name="date" content="2017-09-21" />
 
 <title>scmeth Vignette</title>
 
@@ -76,7 +76,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">scmeth Vignette</h1>
 <h4 class="author"><em>Divy S. Kangeyan</em></h4>
-<h4 class="date"><em>2017-09-17</em></h4>
+<h4 class="date"><em>2017-09-21</em></h4>
 
 
 
@@ -153,12 +153,8 @@ Following the command an html report will be stored in the indicated directory.
 <p style="text-align: justify;">
 CpG Islands are characterized by their high GC content, high level of observed to expected ratio of CpGs and length over 500 bp. However some repeat regions in the genome also fit the same criteria although they are not bona fide CpG Island. Therefore it is important to see how many CpGs are observed in the non repeat regions of the genome. <strong>repMask</strong> functions provide information on the CpG coverage in non repeat regions of the genome. In order to build the repeat mask regions of the genome <strong>repmask</strong> function will require the organism and the genome build information.
 </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BSgenome.Mmusculus.UCSC.mm10)
-scmeth::<span class="kw">repMask</span>(bs,Mmusculus,<span class="st">&quot;mm10&quot;</span>)</code></pre></div>
-<pre><code>##                     coveredCpgs
-## sc-RRBS_zyg_01_chr1       12208
-## sc-RRBS_zyg_02_chr1        3056
-## sc-RRBS_zyg_03_chr1        6666</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#library(BSgenome.Mmusculus.UCSC.mm10)</span>
+<span class="co">#scmeth::repMask(bs,Mmusculus,&quot;mm10&quot;)</span></code></pre></div>
 <p style="text-align: justify;">
 <p>There are several other ways the number of CpGs captured can be observed. One of the way is to observe how the CpGs are distributed across different chromosomes. (Since the example data only contains infroamtion in chromosome 1 only the CpGs covered in chromosome 1 is shown.)</p>
 </p>
@@ -174,8 +170,8 @@ Another way to observe the distribution of CpGs is to classify them by the genom
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(annotatr)
 DT::<span class="kw">datatable</span>(scmeth::<span class="kw">featureCoverage</span>(bs,<span class="dt">features=</span><span class="kw">c</span>(<span class="st">'genes_exons'</span>,<span class="st">'genes_introns'</span>,
                             <span class="st">'cpg_islands'</span>),<span class="st">&quot;mm10&quot;</span>))</code></pre></div>
-<div id="htmlwidget-9d2b414d193dfae7d849" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9d2b414d193dfae7d849">{"x":{"filter":"none","data":[["1","2","3"],["mm10_cpg_islands","mm10_genes_exons","mm10_genes_introns"],[4657,5018,13307]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>annot.type<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-951befa860ae4e85ceed" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-951befa860ae4e85ceed">{"x":{"filter":"none","data":[["1","2","3"],["mm10_cpg_islands","mm10_genes_exons","mm10_genes_introns"],[4657,5018,13307]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>annot.type<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
 </p>
 </div>
 <div id="cpgdensity" class="section level3">
@@ -186,8 +182,8 @@ Therefore CpG density plot can be used to check if the whether the protocol spec
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BSgenome.Mmusculus.UCSC.mm10)
 DT::<span class="kw">datatable</span>(scmeth::<span class="kw">cpgDensity</span>(bs,Mmusculus,<span class="dt">windowLength=</span><span class="dv">1000</span>))</code></pre></div>
-<div id="htmlwidget-846c1cf1699c26c15602" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-846c1cf1699c26c15602">{"x":{"filter":"none","data":[["(0,5]","(5,10]","(10,15]","(15,20]","(20,25]","(25,30]","(30,35]","(35,40]","(40,45]","(45,50]","(50,167]"],[1566,4558,4258,2494,1260,659,420,317,266,198,3044],[407,1161,1106,583,335,175,106,113,77,43,665],[921,2729,2329,1429,742,313,236,190,177,172,1458]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>sc-RRBS_zyg_01_chr1<\/th>\n      <th>sc-RRBS_zyg_02_chr1<\/th>\n      <th>sc-RRBS_zyg_03_chr1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-56624ce77c96e1a056c0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-56624ce77c96e1a056c0">{"x":{"filter":"none","data":[["(0,5]","(5,10]","(10,15]","(15,20]","(20,25]","(25,30]","(30,35]","(35,40]","(40,45]","(45,50]","(50,167]"],[1566,4558,4258,2494,1260,659,420,317,266,198,3044],[407,1161,1106,583,335,175,106,113,77,43,665],[921,2729,2329,1429,742,313,236,190,177,172,1458]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>sc-RRBS_zyg_01_chr1<\/th>\n      <th>sc-RRBS_zyg_02_chr1<\/th>\n      <th>sc-RRBS_zyg_03_chr1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="downsample" class="section level3">
 <h3>downsample</h3>
@@ -195,8 +191,8 @@ DT::<span class="kw">datatable</span>(scmeth::<span class="kw">cpgDensity</span>
 In addition to the CpG coverage the methylation data can be assessed via down sampling analysis, methylation bias plot and methylation distribution. Down sampling analysis is a tool to assess whether the sequencing process achieved the saturation level in terms of CpG capture. In order to perform down sampling analysis the CpGs that are covered at least once sampled via binomial random sampling with given probability. At each probability level the number of CpGs captured is assessed. If the number of CpG captured attains a plateau then the sequencing was successful. <strong>downsample</strong> function provides a matrix of CpG coverage for each sample at various down sampling rates. The report renders this information into a plot. Downsampling rate ranges from 0.01 to 0.99, however users can change the donwsampling rates.
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DT::<span class="kw">datatable</span>(scmeth::<span class="kw">downsample</span>(bs))</code></pre></div>
-<div id="htmlwidget-ca8fbdbc1613263e5f52" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ca8fbdbc1613263e5f52">{"x":{"filter":"none","data":[["0.01","0.02","0.05","0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","0.99","1"],[3591,6177,10944,13853,15989,16936,17448,17823,18165,18392,18656,18849,19019,19040],[658,1087,2053,2870,3504,3882,4086,4313,4431,4526,4597,4696,4762,4771],[1794,3016,5524,7243,8615,9150,9597,9843,10055,10274,10428,10570,10682,10696]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>V1<\/th>\n      <th>V2<\/th>\n      <th>V3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-108ac569b732a66b4f95" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-108ac569b732a66b4f95">{"x":{"filter":"none","data":[["0.01","0.02","0.05","0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","0.99","1"],[3671,6236,10880,13918,16011,16937,17433,17818,18144,18421,18678,18840,19022,19040],[636,1049,2010,2808,3528,3873,4136,4296,4412,4524,4607,4704,4765,4771],[1737,3039,5463,7219,8597,9218,9580,9881,10038,10254,10427,10564,10683,10696]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>V1<\/th>\n      <th>V2<\/th>\n      <th>V3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="mbiasplot" class="section level3">
 <h3>mbiasPlot</h3>

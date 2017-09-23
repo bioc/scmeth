@@ -4,7 +4,7 @@
 \alias{readmetrics}
 \title{Provide graphics for read information}
 \usage{
-readmetrics(dir)
+readmetrics(bs)
 }
 \arguments{
 \item{dir}{directory that contains bismark output}
@@ -16,5 +16,7 @@ Plot showing the mapped and unmapped read information for each cell
 Plot the mapped and unmapped reads
 }
 \examples{
-readmetrics(system.file("extdata/bismark_data",package='scmeth'))
+directory<-system.file("extdata/bismark_data",package='scmeth')
+bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+readmetrics(bs)
 }

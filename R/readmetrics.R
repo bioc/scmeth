@@ -4,13 +4,14 @@
 #'@param dir directory that contains bismark output
 #'@return Plot showing the mapped and unmapped read information for each cell
 #'@examples
-#'readmetrics(system.file("extdata/bismark_data",package='scmeth'))
+#'directory<-system.file("extdata/bismark_data",package='scmeth')
+#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'readmetrics(bs)
 #'@export
 #'@importFrom utils read.delim
 #'@importFrom stats relevel
 
-readmetrics<-function(dir){
-    bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(dir)
+readmetrics<-function(bs){
     phenotypicData<-Biobase::pData(bs)
     dat<-data.frame(sample=phenotypicData$cell_id,
                     total=as.vector(phenotypicData$total_reads),

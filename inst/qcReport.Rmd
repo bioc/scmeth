@@ -18,8 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 options(DelayedArray.block.size=4500e6)
-dir<-params$samples
-bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(dir)
+bs<-params$samples
 nSamples<-length(Biobase::sampleNames(bs))
 ```
 
@@ -27,7 +26,7 @@ nSamples<-length(Biobase::sampleNames(bs))
 #### If read data provided the following plot is shown
 ```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=10}
 # Methylation distribution for all the cells
-scmeth::readmetrics(dir)
+scmeth::readmetrics(bs)
 ```
 
 
@@ -58,7 +57,7 @@ g
 
 ## Bisulfite conversion rate
 ```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10}
-scmeth::bsConversionPlot(dir)
+scmeth::bsConversionPlot(bs)
 
 ```
 

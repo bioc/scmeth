@@ -5,12 +5,13 @@
 #'@param dir directory that contains bismark output
 #'@return Plot showing bisulfite conversion rate for each sample
 #'@examples
-#'bsConversionPlot(system.file("extdata/bismark_data",package='scmeth'))
+#'directory<-system.file("extdata/bismark_data",package='scmeth')
+#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'bsConversionPlot(bs)
 #'@export
 
 
-bsConversionPlot<-function(dir){
-    bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(dir)
+bsConversionPlot<-function(bs){
     phenoData<-bsseq::pData(bs)
     phenoData$bsconversion <- 1 - (phenoData$CHH_meth+phenoData$CHG_meth)/
                                   (phenoData$CHH_meth+phenoData$CHH_unmeth+

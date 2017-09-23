@@ -1,7 +1,7 @@
 #' Provide graphics for read information
 #'
 #'Plot the mapped and unmapped reads
-#'@param dir directory that contains bismark output
+#'@param bs bsseq object
 #'@return Plot showing the mapped and unmapped read information for each cell
 #'@examples
 #'directory<-system.file("extdata/bismark_data",package='scmeth')

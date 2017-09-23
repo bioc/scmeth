@@ -2,7 +2,7 @@
 #'
 #'Plot the bisulfite conversion rate for each sample
 #'based on the pheno data in the bs object
-#'@param dir directory that contains bismark output
+#'@param bs bsseq object
 #'@return Plot showing bisulfite conversion rate for each sample
 #'@examples
 #'directory<-system.file("extdata/bismark_data",package='scmeth')

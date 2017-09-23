@@ -21,7 +21,6 @@ Imports:
   SummarizedExperiment,
   GenomeInfoDb
 Suggests:
-  rmarkdown,
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,
   Biobase,

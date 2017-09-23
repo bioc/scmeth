@@ -15,6 +15,7 @@
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'report(bs,'~',Mmusculus,'mm10')
 #'@import knitr
+#'@importFrom rmarkdown render
 #'@export
 #
 

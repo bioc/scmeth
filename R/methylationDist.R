@@ -11,6 +11,7 @@
 #'methylationDist(bs)
 #'methylationDist(bs,all = TRUE)
 #'@importFrom bsseq getCoverage
+#'@importFrom reshape2 melt
 #'@export
 
 

@@ -16,7 +16,11 @@
 #'library(annotatr)
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns'),'mm10')
-#'@import annotatr
+#'@importFrom annotatr build_annotations
+#'@importFrom annotatr builtin_genomes
+#'@importFrom annotatr annotate_regions
+#'@importFrom annotatr summarize_annotations
+#'@importFrom GenomicRanges granges
 #'@export
 
 

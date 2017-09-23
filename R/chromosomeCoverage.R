@@ -8,6 +8,8 @@
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'chromosomeCoverage(bs)
 #'@importFrom bsseq getCoverage
+#'@importFrom GenomicRanges granges
+#'@importFrom GenomeInfoDb keepStandardChromosomes
 #'@export
 
 

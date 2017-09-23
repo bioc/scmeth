@@ -7,6 +7,7 @@
 #'@examples
 #'load(system.file("extdata",'bsObject.rda',package='scmeth'))
 #'bsConversionPlot(bs)
+#'@import ggplot2
 #'@export
 
 

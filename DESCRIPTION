@@ -16,9 +16,10 @@ Imports:
   utils,
   BSgenome,
   DelayedArray,
-  annotatr (>= 1.0.3)
+  annotatr,
+  rmarkdown
 Suggests:
-  rmarkdown,
+  
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,
   GenomeInfoDb,

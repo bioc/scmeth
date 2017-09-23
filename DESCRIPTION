@@ -19,7 +19,6 @@ Imports:
   annotatr,
   rmarkdown
 Suggests:
-  
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,
   GenomeInfoDb,

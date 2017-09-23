@@ -7,7 +7,7 @@
 readmetrics(bs)
 }
 \arguments{
-\item{dir}{directory that contains bismark output}
+\item{bs}{bsseq object}
 }
 \value{
 Plot showing the mapped and unmapped read information for each cell

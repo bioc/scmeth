@@ -7,7 +7,7 @@
 bsConversionPlot(bs)
 }
 \arguments{
-\item{dir}{directory that contains bismark output}
+\item{bs}{bsseq object}
 }
 \value{
 Plot showing bisulfite conversion rate for each sample

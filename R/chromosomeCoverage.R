@@ -9,7 +9,6 @@
 #'chromosomeCoverage(bs)
 #'@importFrom bsseq getCoverage
 #'@importFrom GenomicRanges granges
-#'@importFrom GenomeInfoDb keepStandardChromosomes
 #'@export
 
 

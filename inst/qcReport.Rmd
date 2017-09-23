@@ -84,20 +84,20 @@ g
 
 ```{r non_rm_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
 ## Non-repatmasker Coverage
-covDf <- scmeth::repMask(bs,params$organism, params$genome)
-covDf$sample<-rownames(covDf)
-m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
-o <- order(covDf$coveredCpgs)
-sampleOrder <- covDf$sample[o]
-m$sample <- factor(m$sample, levels=sampleOrder)
+#covDf <- scmeth::repMask(bs,params$organism, params$genome)
+#covDf$sample<-rownames(covDf)
+#m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
+#o <- order(covDf$coveredCpgs)
+#sampleOrder <- covDf$sample[o]
+#m$sample <- factor(m$sample, levels=sampleOrder)
 
-g<-ggplot2::ggplot(m, ggplot2::aes_string('sample', 'coveredCpgs'))
-g<-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
-g<-g+ggplot2::scale_y_continuous(name="Number of CpGs") 
-g<-g+ggplot2::xlab("Sample") 
-g<-g+ggplot2::ggtitle("Number of Covered Non-repeatmasker CpGs")  
-g<-g+ggplot2::theme_bw()
-g
+#g<-ggplot2::ggplot(m, ggplot2::aes_string('sample', 'coveredCpgs'))
+#g<-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
+#g<-g+ggplot2::scale_y_continuous(name="Number of CpGs") 
+#g<-g+ggplot2::xlab("Sample") 
+#g<-g+ggplot2::ggtitle("Number of Covered Non-repeatmasker CpGs")  
+#g<-g+ggplot2::theme_bw()
+#g
 
 
 ## Chromosomal Coverage

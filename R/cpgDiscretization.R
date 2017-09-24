@@ -22,13 +22,15 @@
 
 
 cpgDiscretization<-function(bs){
-    covMatrix<-as.matrix(bsseq::getCoverage(bs))
-    methMatrix<-as.matrix(bsseq::getCoverage(bs,type='M'))
+    covMatrix<-bsseq::getCoverage(bs)
+    methMatrix<-bsseq::getCoverage(bs,type='M')
+    nSamples<-ncol(methMatrix)
     methMatrix<-methMatrix/covMatrix
-    tempMethylationMatrix<-methMatrix
-    methMatrix[methMatrix<=0.2]<-0
-    methMatrix[methMatrix>=0.8]<-1
-    removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8,
+    tempMethylationMatrix<-as.matrix(methMatrix)
+    tempMethylationMatrix[tempMethylationMatrix>=0.8]<-1
+    tempMethylationMatrix[tempMethylationMatrix<=0.2]<-0
+
+    removedCpGs<-DelayedArray::colSums(tempMethylationMatrix>0.2 & tempMethylationMatrix<0.8,
                                         na.rm=TRUE)
     removedCpGFrac<-(removedCpGs/(scmeth::coverage(bs)))*100
     returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,

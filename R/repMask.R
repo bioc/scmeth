@@ -16,6 +16,7 @@
 
 
 repMask<-function(bs,organism,genome){
+    GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"
     hub <- AnnotationHub::AnnotationHub()
     repeatGr <- hub[[names(AnnotationHub::query(hub,
                         c("rmsk", GenomeInfoDb::organism(organism), genome)))]]

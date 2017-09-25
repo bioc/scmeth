@@ -2,8 +2,9 @@
 title: "QC Report"
 author: 
 date: 
-output: html_document
-smart: false
+output: 
+    html_document:
+        smart: false      
 params:
   samples: bs
   outdir: outdirectory

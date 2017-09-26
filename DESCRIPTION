@@ -16,7 +16,7 @@ Imports:
   stats,
   utils,
   BSgenome,
-  DelayedArray,
+  DelayedArray (>= 0.3.20),
   annotatr,
   SummarizedExperiment,
   GenomeInfoDb,

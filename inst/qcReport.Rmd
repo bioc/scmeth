@@ -67,7 +67,7 @@ scmeth::bsConversionPlot(bs)
 
 
 
-```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=TRUE}
+```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
 ## Methylation Density plot
 cpgDenMatrix<-scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000)
 cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))

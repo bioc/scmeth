@@ -113,7 +113,8 @@ g
 ```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=TRUE}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
-percentDiscarded<-discretizedCpG[3]
+#percentDiscarded<-discretizedCpG[3]
+percentDiscarded<-discretizedCpG[2]
 sampleNames<-bsseq::sampleNames(bs)
 discardedDf <- data.frame(sample=sampleNames, value=percentDiscarded)
 meltedDiscardedDf<- reshape2::melt(discardedDf, 

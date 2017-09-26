@@ -33,7 +33,11 @@ cpgDiscretization<-function(bs){
     removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8,
                                         na.rm=TRUE)
     removedCpGFrac<-(removedCpGs/(scmeth::coverage(bs)))*100
-    returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
+    # Avoid returning the corrected methylation matrix until DelayeArray
+    # is updated
+    #returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
+    #                    'discard-perc' = removedCpGFrac)
+    returnList<-list('discard' = removedCpGs,
                         'discard-perc' = removedCpGFrac)
     return(returnList)
 }

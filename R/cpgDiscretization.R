@@ -27,8 +27,8 @@ cpgDiscretization<-function(bs){
     nSamples<-ncol(methMatrix)
     methMatrix<-methMatrix/covMatrix
 
-    methMatrix[methMatrix>=0.8]<-1
-    methMatrix[methMatrix<=0.2]<-0
+    #methMatrix[methMatrix>=0.8]<-1
+    #methMatrix[methMatrix<=0.2]<-0
 
     removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8,
                                         na.rm=TRUE)

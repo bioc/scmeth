@@ -34,7 +34,7 @@ readmetrics<-function(bs){
     g<-g+ggplot2::ggtitle("Read mapping stats")
     g<-g+ggplot2::theme(panel.background =
                       ggplot2::element_rect(fill = "white",colour = "grey50"),
-                        axis.title.x=ggplot2::element_blank())
+                        axis.text.y=ggplot2::element_blank())
     return(g)
 
 }

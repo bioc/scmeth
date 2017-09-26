@@ -52,7 +52,9 @@ g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
 g<-g+ggplot2::scale_y_continuous(name="Number of CpGs")
 g<-g+ggplot2::xlab("Sample")
 g<-g+ggplot2::ggtitle("Number of Covered CpGs (1+ reads)")
-g<-g+ggplot2::theme_bw()
+g<-g+ggplot2::theme(panel.background = ggplot2::element_rect(fill = "white",
+                    colour = "grey50"),
+                    axis.text.y=ggplot2::element_blank())
 g
 #############################
 ```
@@ -77,7 +79,7 @@ g<-g+ggplot2::geom_line(ggplot2::aes_string(group='Sample'))
 g<-g+ggplot2::ggtitle("Fraction of covered CpGs by CpG density") 
 g<-g+ggplot2::xlab("CpG coverage based on the CpG density") 
 g<-g+ggplot2::xlab('CpG Density')+ggplot2::ylab('Fraction of CpGs')
-g<-g+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust = 1))
+g<-g+ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 60, hjust = 1))
 g
 
 ```
@@ -126,7 +128,9 @@ g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
 g<-g+ggplot2::scale_y_continuous(name="Percentage of discarded CpGs") 
 g<-g+ggplot2::xlab("Sample") 
 g<-g+ggplot2::ggtitle("Discarded CpGs from each sample after discretization")
-g<-g+ggplot2::theme_bw()
+g<-g+ggplot2::theme(panel.background =
+                      ggplot2::element_rect(fill = "white",colour = "grey50"),
+                        axis.text.y=ggplot2::element_blank())
 g
 
 # Feature level coverage

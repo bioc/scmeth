@@ -42,7 +42,7 @@ methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
 scmeth::mbiasplot(system.file("extdata",methylationBiasFile,package='scmeth'))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6-----------------------------
-scmeth::methylationDist(bs,all=TRUE)
+scmeth::methylationDist(bs)
 
 ## ------------------------------------------------------------------------
 #scmeth::bsConversionPlot(bs)

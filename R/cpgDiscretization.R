@@ -38,6 +38,6 @@ cpgDiscretization<-function(bs){
     #returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
     #                    'discard-perc' = removedCpGFrac)
     returnList<-list('discard' = removedCpGs,
-                        'discard-perc' = removedCpGFrac)
+                        'discardPerc' = removedCpGFrac)
     return(returnList)
 }

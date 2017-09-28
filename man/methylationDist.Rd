@@ -4,14 +4,10 @@
 \alias{methylationDist}
 \title{Provide graphics for methylation distribution}
 \usage{
-methylationDist(bs, all = TRUE)
+methylationDist(bs)
 }
 \arguments{
 \item{bs}{bsseq object}
-
-\item{all}{Indicator of whether to plot the distribution for all the
-cells or for
-a single cell}
 }
 \value{
 plot of the methylation distribution
@@ -23,5 +19,4 @@ Plot the methylation distribution for the cells in bsseq object
 directory<-system.file("extdata/bismark_data",package='scmeth')
 bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 methylationDist(bs)
-methylationDist(bs,all = TRUE)
 }

@@ -26,7 +26,10 @@ Suggests:
   BSgenome.Hsapiens.NCBI.GRCh38,
   Biobase,
   BiocGenerics,
-  Biostrings
+  Biostrings,
+  ggthemes,
+  scales,
+  viridis
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: Functions to analyze methylation data can be found here.
              Some functions are relevant for single cell methylation data but most other

@@ -35,21 +35,30 @@ featureCoverage <-function(bs,features,genomebuild){
 
 
     annots_gr = annotatr::build_annotations(genome = genomebuild, annotations = annotationFeatures)
-
     GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"
 
-    # CpGs that are observed
-    coverageMatrix<-getCoverage(bs)
-    ind<-DelayedArray::rowSums(coverageMatrix)>0
+    nSamples<-dim(bs)[2]
 
-    # Intersect the regions with the reference annotations
-    dm_annotated = annotatr::annotate_regions(
-    regions = GenomicRanges::granges(bs)[ind,],
-    annotations = annots_gr,
-    ignore.strand = TRUE,
-    quiet = TRUE)
-    sumAnnot<-annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
-    sumAnnotDf<-as.data.frame(sumAnnot)
-    return(sumAnnotDf)
+    sumAnnotMatrix<-matrix(nrow=length(features),ncol=nSamples)
+    for (i in 1:nSamples){
+      bsCell<-bs[,i]
 
+      # CpGs that are observed
+      coverageMatrix<-getCoverage(bsCell)
+      ind<-DelayedArray::rowSums(coverageMatrix)>0
+      # Intersect the regions with the reference annotations
+
+      dm_annotated = annotatr::annotate_regions(
+        regions = GenomicRanges::granges(bsCell)[ind,],
+        annotations = annots_gr,
+        ignore.strand = TRUE,
+        quiet = TRUE)
+      sumAnnot<-annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
+      sumAnnotMatrix[,i]<-sumAnnot$n/sum(ind)
+
+    }
+    colnames(sumAnnotMatrix)<-colnames(bs)
+    rownames(sumAnnotMatrix)<-features
+
+    return(sumAnnotMatrix)
 }

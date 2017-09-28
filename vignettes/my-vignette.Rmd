@@ -246,7 +246,7 @@ samples. By default it will produce distribution for all the sample but users
 can change it by specifying all=FALSE.
 </p>
 ```{r,warning=FALSE,message=FALSE,fig.width=6}
-scmeth::methylationDist(bs,all=TRUE)
+scmeth::methylationDist(bs)
 ```
 
 

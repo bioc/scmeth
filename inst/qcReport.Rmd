@@ -44,17 +44,11 @@ o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 covDf$sample <- factor(covDf$sample, levels=sampleOrder)
 
-g<-ggplot2::ggplot(covDf, ggplot2::aes(sample, coveredCpgs))
-g<-g+ggplot2::geom_hline(data = covDf,
-                         ggplot2::aes(yintercept = as.numeric(median(coveredCpgs))),
-                         linetype=2, color="blue")
-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
-g<-g+ggplot2::scale_y_continuous(name="Number of CpGs")
-g<-g+ggplot2::xlab("Sample")
+g<-ggplot2::ggplot(covDf, ggplot2::aes_string(x="''", y='coveredCpgs'))
+g<-g+ggplot2::geom_boxplot()
+g<-g+ggplot2::stat_boxplot(geom = "errorbar", width = 0.5) 
+g<-g+ggplot2::xlab("")+ggplot2::ylab("Covered CpGs")
 g<-g+ggplot2::ggtitle("Number of Covered CpGs (1+ reads)")
-g<-g+ggplot2::theme(panel.background = ggplot2::element_rect(fill = "white",
-                    colour = "grey50"),
-                    axis.text.y=ggplot2::element_blank())
 g
 #############################
 ```
@@ -118,29 +112,36 @@ percentDiscarded<-discretizedCpG[2]
 sampleNames<-bsseq::sampleNames(bs)
 discardedDf <- data.frame(sample=sampleNames, value=percentDiscarded)
 meltedDiscardedDf<- reshape2::melt(discardedDf, 
-                                   id.vars = c("sample", "discard.perc"))
+                                   id.vars = c("sample", "discardPerc"))
 
-o <- order(meltedDiscardedDf$discard.perc,meltedDiscardedDf$sample)
+o <- order(meltedDiscardedDf$discardPerc,meltedDiscardedDf$sample)
 sampleOrder <- meltedDiscardedDf$sample[o]
 meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
 
-g<-ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes(sample, discard.perc))
-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() 
-g<-g+ggplot2::scale_y_continuous(name="Percentage of discarded CpGs") 
-g<-g+ggplot2::xlab("Sample") 
-g<-g+ggplot2::ggtitle("Discarded CpGs from each sample after discretization")
-g<-g+ggplot2::theme(panel.background =
-                      ggplot2::element_rect(fill = "white",colour = "grey50"),
-                        axis.text.y=ggplot2::element_blank())
+g<-ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes_string(x="''", y='discardPerc'))
+g<-g+ggplot2::geom_boxplot()
+g<-g+ggplot2::stat_boxplot(geom = "errorbar", width = 0.5) 
+g<-g+ggplot2::xlab("")+ggplot2::ylab("Covered CpGs")
+g<-g+ggplot2::ggtitle("Percentage of Discarded CpGs")
 g
 
 # Feature level coverage
 #pandoc.header("Feature level coverage of the CpGs", level = 2)
 library(annotatr)
-featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
+featureCovMatrix<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
 
-colnames(featureCovDf)<-c('feature annotation','number of CpGs')
-DT::datatable(featureCovDf)
+featureCovDf<-reshape2::melt(featureCovMatrix)
+
+
+g<-ggplot2::ggplot(featureCovDf, ggplot2::aes_string(x="Var1", y='value'))
+g<-g+ggplot2::geom_boxplot()+ggplot2::ylim(0,1)
+g<-g+ggplot2::stat_boxplot(geom = "errorbar", width = 0.5) 
+g<-g+ggplot2::xlab("Features")+ggplot2::ylab("Fraction of CpGs")
+g<-g+ggplot2::ggtitle("Feature Coverage Distribution")
+g<-g+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust=1))
+g
+
+
 ```
 
 ## Downsampling Analysis
@@ -150,11 +151,12 @@ DT::datatable(featureCovDf)
 # Downsample Plots
 dsMatrix<-scmeth::downsample(bs)
 meltedDsMatrix<-reshape2::melt(dsMatrix)
-g<-ggplot2::ggplot(meltedDsMatrix, ggplot2::aes(Var1, value, group=Var2))
-g<-g+ggplot2::geom_line() 
+g<-ggplot2::ggplot(meltedDsMatrix, ggplot2::aes_string(x='Var1', y='value', group='Var2'))
+g<-g+ggplot2::geom_line(alpha=0.2) 
 g<-g+ ggplot2::scale_x_continuous(name="Fraction of Reads")
 g<-g+ggplot2::scale_y_continuous(name="Number of CpG covered") 
 g<-g+ ggplot2::ggtitle("Saturation Analysis Plot") 
+g<-g+ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'),fun.y=median, lwd=2,geom="point",aes=1.0)
 g<-g+ggplot2::theme_bw()
 g
 
@@ -163,7 +165,7 @@ g
 ## Methylation Distribution
 ```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=TRUE}
 # Methylation distribution for all the cells
-scmeth::methylationDist(bs,all=TRUE)
+scmeth::methylationDist(bs)
 
 ```
 

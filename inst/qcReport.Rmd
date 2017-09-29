@@ -145,7 +145,7 @@ g
 ```
 
 ## Downsampling Analysis
-```{r downsampling,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=TRUE}
+```{r downsampling,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10,fig.width=10, eval=TRUE}
 
 ##############################
 # Downsample Plots

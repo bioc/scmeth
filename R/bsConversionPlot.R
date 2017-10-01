@@ -21,9 +21,8 @@ bsConversionPlot<-function(bs){
     g<-ggplot2::ggplot(bscDf, ggplot2::aes_string(x="''", y='bsc'))
     g<-g+ggplot2::geom_boxplot()
     g<-g+ggplot2::ylim(max(min(bscDf$bsc)-0.02,0),min(max(bscDf$bsc)+0.02,1))
-    g<-g+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60,
-                                                            hjust = 1))
-    g<-g+ggplot2::stat_boxplot(geom = "errorbar", width = 0.5)
+    g<-g+ggplot2::theme_bw()
+    g<-g+ggplot2::geom_jitter()
     g<-g+ggplot2::xlab('')+ggplot2::ylab('bisulfite conversion rate')
     g<-g+ggplot2::ggtitle('Bisulfite conversion rate across samples')
     return(g)

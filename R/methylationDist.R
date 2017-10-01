@@ -35,8 +35,13 @@ methylationDist<-function(bs){
     }
 
     methylationDistMatrix<-apply(methylationDistMatrix,2,function(x) x/totCpGs)
+    orderdMeth<-order(methylationDistMatrix[,1])
+    methylationDistMatrix<-methylationDistMatrix[orderdMeth,]
+
     colnames(methylationDistMatrix)<-c('[0,0.2]','(0.2,0.4]','(0.4,0.6]','(0.6,0.8]','(0.8,1]')
     meltedMDistMatrix<-reshape2::melt(methylationDistMatrix)
+
+
     g <- ggplot2::ggplot(meltedMDistMatrix, ggplot2::aes_string(x='Var2', y='Var1',fill='value'))
     g <- g + ggplot2::geom_tile(color="white", size=0.1)
     g <- g + viridis::scale_fill_viridis(name="Fraction of \n CpGs observed", label=scales::comma)

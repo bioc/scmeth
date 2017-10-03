@@ -26,13 +26,14 @@ cpgDiscretization<-function(bs){
     methMatrix<-bsseq::getCoverage(bs,type='M')
     nSamples<-ncol(methMatrix)
     methMatrix<-methMatrix/covMatrix
+    covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
 
     #methMatrix[methMatrix>=0.8]<-1
     #methMatrix[methMatrix<=0.2]<-0
 
     removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8,
                                         na.rm=TRUE)
-    removedCpGFrac<-(removedCpGs/(scmeth::coverage(bs)))*100
+    removedCpGFrac<-(removedCpGs/(covVec))*100
     # Avoid returning the corrected methylation matrix until DelayeArray
     # is updated
     #returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,

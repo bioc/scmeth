@@ -46,6 +46,7 @@ mbiasplot<-function(mbiasFile){
     g<-g+ggplot2::geom_line(ggplot2::aes_string(x='position',
                             y='X..methylation',colour='read'))
     g<-g+ggplot2::ylim(0,100)+ggplot2::ggtitle('Mbias Plot')
+    g<-g+ggplot2::ylab('methylation')
 
     return(g)
 }

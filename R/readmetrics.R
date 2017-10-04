@@ -20,7 +20,7 @@ readmetrics<-function(bs){
     dat$unmapped<-dat$total-dat$mapped
     o<-order(dat$total,dat$sample)
     sampleOrder<-dat$sample[o]
-    dat$sample<-factor(dat$sample,levels=sampleOrder)
+    #dat$sample<-factor(dat$sample,levels=sampleOrder)
 
     m<-reshape2::melt(dat[,c("sample","mapped","unmapped")],
                       id.vars="sample",variable.name="Mapping_status")
@@ -34,7 +34,8 @@ readmetrics<-function(bs){
     g<-g+ggplot2::ggtitle("Read mapping stats")
     g<-g+ggplot2::theme(panel.background =
                       ggplot2::element_rect(fill = "white",colour = "grey50"),
-                        axis.text.y=ggplot2::element_blank())
+                        axis.text.y=ggplot2::element_blank(),
+                      axis.ticks=ggplot2::element_blank())
     return(g)
 
 }

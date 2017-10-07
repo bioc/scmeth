@@ -62,11 +62,9 @@ scmeth::bsConversionPlot(bs)
 
 
 
-<<<<<<< HEAD
+
+
 ```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5, eval=TRUE}
-=======
-```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5, eval=FALSE}
->>>>>>> dae3bc3d414210be1058bc9f197c7b0ea07bb50f
 ## Methylation Density plot
 cpgDenMatrix<-scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000)
 cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
@@ -80,7 +78,6 @@ g<-g+ggplot2::xlab("CpG coverage based on the CpG density")
 g<-g+ggplot2::xlab('CpG Density')+ggplot2::ylab('Fraction of CpGs')
 g<-g+ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 60, hjust = 1))
 g
-
 ```
 
 

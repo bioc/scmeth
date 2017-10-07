@@ -56,15 +56,9 @@ mbiasplot<-function(dir=NULL,mbiasFiles=NULL){
 
   mt<-reshape2::melt(mbiasTableList,id.vars=c('position', 'X..methylation', 'read'))
 
-<<<<<<< HEAD
+
   mt$read_rep <- paste(mt$read, mt$L1, sep="_")
-=======
-    g<-ggplot2::ggplot(mbiasTable)
-    g<-g+ggplot2::geom_line(ggplot2::aes_string(x='position',
-                            y='X..methylation',colour='read'))
-    g<-g+ggplot2::ylim(0,100)+ggplot2::ggtitle('Mbias Plot')
-    g<-g+ggplot2::ylab('methylation')
->>>>>>> dae3bc3d414210be1058bc9f197c7b0ea07bb50f
+
 
   g<-ggplot2::ggplot(mt)
   g<-g+ggplot2::geom_line(ggplot2::aes_string(x='position',y='X..methylation',

@@ -7,7 +7,7 @@
 mbiasplot(dir = NULL, mbiasFiles = NULL)
 }
 \arguments{
-\item{dir}{name of the directory with mbias files}
+\item{dir}{directory name with mbias files}
 
 \item{mbiasFiles}{list of mbias files}
 }

@@ -13,15 +13,6 @@
 
 
 chromosomeCoverage <- function(bs) {
-<<<<<<< HEAD
-  bs<-GenomeInfoDb::keepStandardChromosomes(bs)
-  covMatrix<-bsseq::getCoverage(bs)
-  Granges<-GenomicRanges::granges(bs)
-  standardChr <- GenomeInfoDb::seqnames(Granges)
-  chrCov <- by(covMatrix>0, standardChr, colSums)
-  chrCov <- do.call("rbind", chrCov)
-  return(chrCov)
-=======
     bs<-GenomeInfoDb::keepStandardChromosomes(bs)
     covMatrix<-bsseq::getCoverage(bs)
     Granges<-GenomicRanges::granges(bs)
@@ -29,5 +20,5 @@ chromosomeCoverage <- function(bs) {
     chrCov <- by(covMatrix>0, standardChr, colSums)
     chrCov <- do.call("rbind", chrCov)
     return(chrCov)
->>>>>>> dae3bc3d414210be1058bc9f197c7b0ea07bb50f
+
 }

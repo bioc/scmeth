@@ -20,20 +20,22 @@
 
 
 
-downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1),0.99,1)){
+downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1))){
     covMatrix<-bsseq::getCoverage(bs)
     Samples<-Biobase::sampleNames(bs)
-    downSampleMatrix<-matrix(nrow=length(dsRates),ncol=length(Samples))
+    downSampleMatrix<-matrix(nrow=length(dsRates)+1,ncol=length(Samples))
 
     for (i in 1:length(dsRates)){
         for (j in 1:ncol(covMatrix)){
             cellCoverage<-as.vector(covMatrix[,j])
             cellNonZeroCoverage<-cellCoverage[cellCoverage>0]
             covSubList<-lapply(cellNonZeroCoverage,rbinom,n=1,prob=dsRates[i])
-            downSampleMatrix[i,j]<- sum(covSubList>0)
+
         }
     }
-    rownames(downSampleMatrix)<-dsRates
+    downSampleMatrix[length(dsRates)+1,]<- DelayedArray::colSums(covMatrix>0)
+
+    rownames(downSampleMatrix)<-c(dsRates,1)
     return(downSampleMatrix)
 }
 

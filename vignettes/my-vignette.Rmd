@@ -145,8 +145,8 @@ the genome build information.
 </p>
 
 ```{r, warning=FALSE,message=FALSE}
-library(BSgenome.Mmusculus.UCSC.mm10)
-scmeth::repMask(bs,Mmusculus,"mm10")
+#library(BSgenome.Mmusculus.UCSC.mm10)
+#scmeth::repMask(bs,Mmusculus,"mm10")
 ```
 
 <p style="text-align: justify;">

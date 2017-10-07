@@ -13,7 +13,13 @@
 
 
 coverage <- function(bs) {
+<<<<<<< HEAD
   covMatrix<-bsseq::getCoverage(bs)
   covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
   return(covVec)
+=======
+    covMatrix<-bsseq::getCoverage(bs)
+    covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+    return(covVec)
+>>>>>>> dae3bc3d414210be1058bc9f197c7b0ea07bb50f
 }

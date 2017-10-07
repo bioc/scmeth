@@ -22,6 +22,7 @@
 
 
 cpgDiscretization<-function(bs){
+<<<<<<< HEAD
   covMatrix<-bsseq::getCoverage(bs)
   methMatrix<-bsseq::getCoverage(bs,type='M')
   nSamples<-ncol(methMatrix)
@@ -41,4 +42,25 @@ cpgDiscretization<-function(bs){
   returnList<-list('discard' = removedCpGs,
                    'discardPerc' = removedCpGFrac)
   return(returnList)
+=======
+    covMatrix<-bsseq::getCoverage(bs)
+    methMatrix<-bsseq::getCoverage(bs,type='M')
+    nSamples<-ncol(methMatrix)
+    methMatrix<-methMatrix/covMatrix
+    covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+
+    #methMatrix[methMatrix>=0.8]<-1
+    #methMatrix[methMatrix<=0.2]<-0
+
+    removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8,
+                                        na.rm=TRUE)
+    removedCpGFrac<-(removedCpGs/(covVec))*100
+    # Avoid returning the corrected methylation matrix until DelayeArray
+    # is updated
+    #returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
+    #                    'discard-perc' = removedCpGFrac)
+    returnList<-list('discard' = removedCpGs,
+                        'discardPerc' = removedCpGFrac)
+    return(returnList)
+>>>>>>> dae3bc3d414210be1058bc9f197c7b0ea07bb50f
 }

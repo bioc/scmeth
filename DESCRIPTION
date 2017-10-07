@@ -20,16 +20,27 @@ Imports:
   annotatr,
   SummarizedExperiment,
   GenomeInfoDb,
+<<<<<<< HEAD
   DT,
   ggthemes,
   scales,
   viridis
+=======
+  DT
+>>>>>>> dae3bc3d414210be1058bc9f197c7b0ea07bb50f
 Suggests:
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,
   Biobase,
   BiocGenerics,
+<<<<<<< HEAD
   Biostrings
+=======
+  Biostrings,
+  ggthemes,
+  scales,
+  viridis
+>>>>>>> dae3bc3d414210be1058bc9f197c7b0ea07bb50f
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: Functions to analyze methylation data can be found here.
              Some functions are relevant for single cell methylation data but most other

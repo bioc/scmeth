@@ -16,6 +16,7 @@
 
 
 repMask<-function(bs,organism,genome){
+<<<<<<< HEAD
   GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"
   hub <- AnnotationHub::AnnotationHub()
   repeatGr <- hub[[names(AnnotationHub::query(hub,
@@ -24,4 +25,14 @@ repMask<-function(bs,organism,genome){
   cov<-bsseq::getCoverage(bs)
   covDf <- data.frame(coveredCpgs=DelayedArray::colSums(cov[!rep,]>=1))
   return(covDf)
+=======
+    GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"
+    hub <- AnnotationHub::AnnotationHub()
+    repeatGr <- hub[[names(AnnotationHub::query(hub,
+                        c("rmsk", GenomeInfoDb::organism(organism), genome)))]]
+    rep <- GenomicRanges::countOverlaps(bs, repeatGr)>0
+    cov<-bsseq::getCoverage(bs)
+    covDf <- data.frame(coveredCpgs=DelayedArray::colSums(cov[!rep,]>=1))
+    return(covDf)
+>>>>>>> dae3bc3d414210be1058bc9f197c7b0ea07bb50f
 }

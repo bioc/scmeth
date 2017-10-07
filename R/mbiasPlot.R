@@ -4,7 +4,7 @@
 #'the methylation
 #'based on the read position
 #'
-#'@param dir name of the directory with mbias files
+#'@param dir directory name with mbias files
 #'@param mbiasFiles list of mbias files
 #'@return Plot showing the methylation across the read position in original top
 #'and original bottom strand both in forward and reverse reads

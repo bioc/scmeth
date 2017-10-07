@@ -11,19 +11,18 @@
 #'the report will have graphics on read information
 #'@return Report will be an html file
 #'@examples
-#'library(BSgenome.Mmusculus.UCSC.mm10)
+#'library(BSgenome.Hsapiens.NCBI.GRCh38)
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'report(directory,'~',Mmusculus,'mm10')
+#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'report(bs,'~',Hsapiens,'hg38')
 #'@import knitr
 #'@export
 #
 
 report <- function(bsObj,outdirectory,organism,genome) {
-    RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
-    rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj
-                        ,organism=organism,genome=genome)
-                        ,output_file=paste0(outdirectory,"/qcReport.html"))
+  RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
+  rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj
+                                        ,organism=organism,genome=genome)
+                    ,output_file=paste0(outdirectory,"/qcReport.html"))
 
 }
-
-

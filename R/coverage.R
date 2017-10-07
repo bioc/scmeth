@@ -13,8 +13,7 @@
 
 
 coverage <- function(bs) {
-    # Need to process HDF5 output (test)
-    covMatrix<-bsseq::getCoverage(bs)
-    covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
-    return(covVec)
+  covMatrix<-bsseq::getCoverage(bs)
+  covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+  return(covVec)
 }

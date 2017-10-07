@@ -2,7 +2,9 @@
 title: "QC Report"
 author: 
 date: 
-output: html_document
+output: 
+    html_document:
+        smart: false      
 params:
   samples: bs
   outdir: outdirectory
@@ -17,24 +19,22 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Rendered by scmeth
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
-#library(bsseq)
 options(DelayedArray.block.size=4500e6)
-dir<-params$samples
-bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(dir)
+bs<-params$samples
 nSamples<-length(Biobase::sampleNames(bs))
 ```
 
 ## Read information
 #### If read data provided the following plot is shown
-```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=10}
+```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=7}
 # Methylation distribution for all the cells
-scmeth::readmetrics(dir)
+scmeth::readmetrics(bs)
 ```
 
 
 ## CpG Coverage 
 
-```{r cpg_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10}
+```{r cpg_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5}
 
 # Coverage
 covVec<-scmeth::coverage(bs)
@@ -44,28 +44,25 @@ o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 covDf$sample <- factor(covDf$sample, levels=sampleOrder)
 
-g<-ggplot2::ggplot(covDf, ggplot2::aes(sample, coveredCpgs))
-g<-g+ggplot2::geom_hline(data = covDf,
-                         ggplot2::aes(yintercept = as.numeric(median(coveredCpgs))),
-                         linetype=2, color="blue")
-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
-g<-g+ggplot2::scale_y_continuous(name="Number of CpGs")
-g<-g+ggplot2::xlab("Sample")
-g<-g+ggplot2::ggtitle("Number of Covered CpGs (1+ reads)")
+g<-ggplot2::ggplot(covDf, ggplot2::aes_string(x="''", y='coveredCpgs'))
+g<-g+ggplot2::geom_boxplot()
+g<-g+ggplot2::geom_jitter() 
+g<-g+ggplot2::xlab("")+ggplot2::ylab("Covered CpGs")
+g<-g+ggplot2::ggtitle("Number of Covered CpGs")
 g<-g+ggplot2::theme_bw()
 g
 #############################
 ```
 
 ## Bisulfite conversion rate
-```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10}
-scmeth::bsConversionPlot(dir)
+```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5}
+scmeth::bsConversionPlot(bs)
 
 ```
 
 
 
-```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
+```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5, eval=TRUE}
 ## Methylation Density plot
 cpgDenMatrix<-scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000)
 cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
@@ -77,7 +74,7 @@ g<-g+ggplot2::geom_line(ggplot2::aes_string(group='Sample'))
 g<-g+ggplot2::ggtitle("Fraction of covered CpGs by CpG density") 
 g<-g+ggplot2::xlab("CpG coverage based on the CpG density") 
 g<-g+ggplot2::xlab('CpG Density')+ggplot2::ylab('Fraction of CpGs')
-g<-g+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust = 1))
+g<-g+ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 60, hjust = 1))
 g
 
 ```
@@ -86,20 +83,20 @@ g
 
 ```{r non_rm_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
 ## Non-repatmasker Coverage
-covDf <- scmeth::repMask(bs,params$organism, params$genome)
-covDf$sample<-rownames(covDf)
-m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
-o <- order(covDf$coveredCpgs)
-sampleOrder <- covDf$sample[o]
-m$sample <- factor(m$sample, levels=sampleOrder)
+#covDf <- scmeth::repMask(bs,params$organism, params$genome)
+#covDf$sample<-rownames(covDf)
+#m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
+#o <- order(covDf$coveredCpgs)
+#sampleOrder <- covDf$sample[o]
+#m$sample <- factor(m$sample, levels=sampleOrder)
 
-g<-ggplot2::ggplot(m, ggplot2::aes_string('sample', 'coveredCpgs'))
-g<-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
-g<-g+ggplot2::scale_y_continuous(name="Number of CpGs") 
-g<-g+ggplot2::xlab("Sample") 
-g<-g+ggplot2::ggtitle("Number of Covered Non-repeatmasker CpGs")  
-g<-g+ggplot2::theme_bw()
-g
+#g<-ggplot2::ggplot(m, ggplot2::aes_string('sample', 'coveredCpgs'))
+#g<-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
+#g<-g+ggplot2::scale_y_continuous(name="Number of CpGs") 
+#g<-g+ggplot2::xlab("Sample") 
+#g<-g+ggplot2::ggtitle("Number of Covered Non-repeatmasker CpGs")  
+#g<-g+ggplot2::theme_bw()
+#g
 
 
 ## Chromosomal Coverage
@@ -108,58 +105,70 @@ g
 # Data Preprocessing
 ## CpG Discretization
 
-```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
+```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5, fig.width=5, eval=TRUE}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
-percentDiscarded<-discretizedCpG[3]
+#percentDiscarded<-discretizedCpG[3]
+percentDiscarded<-discretizedCpG[2]
 sampleNames<-bsseq::sampleNames(bs)
 discardedDf <- data.frame(sample=sampleNames, value=percentDiscarded)
 meltedDiscardedDf<- reshape2::melt(discardedDf, 
-                                   id.vars = c("sample", "discard.perc"))
+                                   id.vars = c("sample", "discardPerc"))
 
-o <- order(meltedDiscardedDf$discard.perc,meltedDiscardedDf$sample)
+o <- order(meltedDiscardedDf$discardPerc,meltedDiscardedDf$sample)
 sampleOrder <- meltedDiscardedDf$sample[o]
 meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
 
-g<-ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes(sample, discard.perc))
-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() 
-g<-g+ggplot2::scale_y_continuous(name="Percentage of discarded CpGs") 
-g<-g+ggplot2::xlab("Sample") 
-g<-g+ggplot2::ggtitle("Discarded CpGs from each sample after discretization")
+g<-ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes_string(x="''", y='discardPerc'))
+g<-g+ggplot2::geom_boxplot()
+g<-g+ggplot2::geom_jitter()
+g<-g+ggplot2::xlab("")+ggplot2::ylab("Percentage of Discarded CpGs")
+g<-g+ggplot2::ggtitle("Percentage of Discarded CpGs")
 g<-g+ggplot2::theme_bw()
 g
 
 # Feature level coverage
 #pandoc.header("Feature level coverage of the CpGs", level = 2)
 library(annotatr)
-featureCovDf<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
+featureCovMatrix<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
 
-colnames(featureCovDf)<-c('feature annotation','number of CpGs')
-DT::datatable(featureCovDf)
+featureCovDf<-reshape2::melt(featureCovMatrix)
+
+
+g<-ggplot2::ggplot(featureCovDf, ggplot2::aes_string(x="Var1", y='value'))
+g<-g+ggplot2::geom_boxplot()+ggplot2::ylim(0,1)
+g<-g+ggplot2::geom_jitter()
+g<-g+ggplot2::xlab("Features")+ggplot2::ylab("Fraction of CpGs")
+g<-g+ggplot2::ggtitle("Feature Coverage Distribution")
+g<-g+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust=1))
+g<-g+ggplot2::theme(panel.background = ggplot2::element_blank())
+g
+
+
 ```
 
 ## Downsampling Analysis
-```{r downsampling,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
+```{r downsampling,echo=FALSE,warning=FALSE,message=FALSE,fig.height=7,fig.width=10, eval=TRUE}
 
 ##############################
 # Downsample Plots
 dsMatrix<-scmeth::downsample(bs)
 meltedDsMatrix<-reshape2::melt(dsMatrix)
-g<-ggplot2::ggplot(meltedDsMatrix, ggplot2::aes(Var1, value, group=Var2))
-g<-g+ggplot2::geom_line() 
+g<-ggplot2::ggplot(meltedDsMatrix, ggplot2::aes_string(x='Var1', y='value', group='Var2'))
+g<-g+ggplot2::geom_line(alpha=0.2) 
 g<-g+ ggplot2::scale_x_continuous(name="Fraction of Reads")
 g<-g+ggplot2::scale_y_continuous(name="Number of CpG covered") 
 g<-g+ ggplot2::ggtitle("Saturation Analysis Plot") 
+g<-g+ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'),fun.y=median, lwd=2,geom="point",aes=1.0)
 g<-g+ggplot2::theme_bw()
 g
 
 ```
 
 ## Methylation Distribution
-```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE}
+```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=7, fig.width=10,eval=TRUE}
 # Methylation distribution for all the cells
-scmeth::methylationDist(bs,all=TRUE)
+scmeth::methylationDist(bs)
 
 ```
-
 

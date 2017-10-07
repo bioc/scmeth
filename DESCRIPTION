@@ -7,6 +7,7 @@ Depends: R (>= 3.4.0)
 Imports:
   ggplot2,
   knitr,
+  rmarkdown,
   bsseq,
   AnnotationHub,
   Repitools,
@@ -16,17 +17,19 @@ Imports:
   utils,
   BSgenome,
   DelayedArray,
-  annotatr (>= 1.0.3),
-  SummarizedExperiment
+  annotatr,
+  SummarizedExperiment,
+  GenomeInfoDb,
+  DT,
+  ggthemes,
+  scales,
+  viridis
 Suggests:
-  rmarkdown,
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,
   Biobase,
   BiocGenerics,
-  GenomeInfoDb,
-  Biostrings,
-  DT
+  Biostrings
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: Functions to analyze methylation data can be found here.
              Some functions are relevant for single cell methylation data but most other

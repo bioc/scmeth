@@ -27,6 +27,7 @@ by the user
 }
 \examples{
 library(annotatr)
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
-featureCoverage(bs,c('cpg_islands','genes_exons'),'mm10')
+directory<-system.file("extdata/bismark_data",package='scmeth')
+bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+featureCoverage(bs,c('cpg_islands','genes_exons'),'hg38')
 }

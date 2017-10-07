@@ -13,7 +13,8 @@
 #'@return discard total number of removed CpGs from each sample
 #'@return Percentage of CpGs discarded compared to the total number of CpGs
 #'@examples
-#'load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#'directory<-system.file("extdata/bismark_data",package='scmeth')
+#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 #'cpgDiscretization(bs)
 #'@importFrom DelayedArray colSums
 #'@importFrom bsseq getCoverage
@@ -21,16 +22,23 @@
 
 
 cpgDiscretization<-function(bs){
-    covMatrix<-as.matrix(bsseq::getCoverage(bs))
-    methMatrix<-as.matrix(bsseq::getCoverage(bs,type='M'))
-    methMatrix<-methMatrix/covMatrix
-    tempMethylationMatrix<-methMatrix
-    methMatrix[methMatrix<=0.2]<-0
-    methMatrix[methMatrix>=0.8]<-1
-    removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8,
-                                        na.rm=TRUE)
-    removedCpGFrac<-(removedCpGs/(scmeth::coverage(bs)))*100
-    returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
-                        'discard-perc' = removedCpGFrac)
-    return(returnList)
+  covMatrix<-bsseq::getCoverage(bs)
+  methMatrix<-bsseq::getCoverage(bs,type='M')
+  nSamples<-ncol(methMatrix)
+  methMatrix<-methMatrix/covMatrix
+  covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+
+  #methMatrix[methMatrix>=0.8]<-1
+  #methMatrix[methMatrix<=0.2]<-0
+
+  removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8,
+                                     na.rm=TRUE)
+  removedCpGFrac<-(removedCpGs/(covVec))*100
+  # Avoid returning the corrected methylation matrix until DelayeArray
+  # is updated
+  #returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
+  #                    'discard-perc' = removedCpGFrac)
+  returnList<-list('discard' = removedCpGs,
+                   'discardPerc' = removedCpGFrac)
+  return(returnList)
 }

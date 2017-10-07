@@ -27,6 +27,7 @@ methyation is above 0.8 and
 unmethylated if the methylation is below 0.2
 }
 \examples{
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
+directory<-system.file("extdata/bismark_data",package='scmeth')
+bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 cpgDiscretization(bs)
 }

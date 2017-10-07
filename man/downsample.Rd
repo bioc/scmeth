@@ -4,7 +4,7 @@
 \alias{downsample}
 \title{Downsample analysis}
 \usage{
-downsample(bs, dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1), 0.99, 1))
+downsample(bs, dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1)))
 }
 \arguments{
 \item{bs}{bsseq object}
@@ -23,7 +23,8 @@ sampling rate
 Downsample the CpG covergae matrix for saturation analysis
 }
 \examples{
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
+directory<-system.file("extdata/bismark_data",package='scmeth')
+bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 downsample(bs)
 downsample(bs,seq(0,1,length.out=20))
 

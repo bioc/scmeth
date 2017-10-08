@@ -32,5 +32,7 @@ cpgDiscretization<-function(bs){
     removedCpGFrac<-(removedCpGs/(scmeth::coverage(bs)))*100
     returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
                         'discard-perc' = removedCpGFrac)
+    #returnList<-list('discard' = removedCpGs,
+    #                 'discard-perc' = removedCpGFrac)
     return(returnList)
 }

@@ -8,6 +8,7 @@
 #'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 #'methylationDist(bs)
 #'@importFrom bsseq getCoverage
+#'@importFrom ggthemes theme_tufte
 #'@export
 
 

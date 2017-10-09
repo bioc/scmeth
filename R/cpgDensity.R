@@ -16,16 +16,14 @@
 
 
 cpgDensity<-function(bs,organism,windowLength=1000){
-    cov<-bsseq::getCoverage(bs)
-    gr <- granges(bs)
-    GenomeInfoDb::seqlevelsStyle(gr) <- GenomeInfoDb::seqlevelsStyle(organism)[1]
-    cpgd<-Repitools::cpgDensityCalc(gr, organism, window = windowLength)
-    if (max(cpgd)>50){
-        cpgdBin<-cut(cpgd,c(seq(0,50,5),max(cpgd)))
-    }else{
-        cpgdBin<-cut(cpgd,c(seq(0,20),max(cpgd)))
-    }
-    cpgdCov <- by(cov>0, cpgdBin, colSums)
-    cpgdCov <- do.call("rbind", cpgdCov)
-    return(cpgdCov)
+
+  cov<-bsseq::getCoverage(bs)
+  gr <- granges(bs)
+  GenomeInfoDb::seqlevelsStyle(gr) <- GenomeInfoDb::seqlevelsStyle(organism)[1]
+  cpgd<-Repitools::cpgDensityCalc(gr, organism, window = windowLength)
+
+  cpgdCov <- by(cov>0, cpgd, colSums)
+  cpgdCov <- do.call("rbind", cpgdCov)
+  return(cpgdCov)
+
 }

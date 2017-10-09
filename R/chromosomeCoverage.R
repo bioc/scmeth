@@ -20,4 +20,5 @@ chromosomeCoverage <- function(bs) {
     chrCov <- by(covMatrix>0, standardChr, colSums)
     chrCov <- do.call("rbind", chrCov)
     return(chrCov)
+
 }

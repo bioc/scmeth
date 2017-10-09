@@ -22,6 +22,7 @@
 
 
 cpgDiscretization<-function(bs){
+
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')
     nSamples<-ncol(methMatrix)
@@ -41,4 +42,5 @@ cpgDiscretization<-function(bs){
     returnList<-list('discard' = removedCpGs,
                         'discardPerc' = removedCpGFrac)
     return(returnList)
+
 }

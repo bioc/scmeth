@@ -4,10 +4,12 @@
 \alias{mbiasplot}
 \title{Methylation bias plot}
 \usage{
-mbiasplot(mbiasFile)
+mbiasplot(dir = NULL, mbiasFiles = NULL)
 }
 \arguments{
-\item{mbiasFile}{methylation bias file provided by methyldackel/pileometh}
+\item{dir}{directory name with mbias files}
+
+\item{mbiasFiles}{list of mbias files}
 }
 \value{
 Plot showing the methylation across the read position in original top
@@ -20,5 +22,5 @@ based on the read position
 }
 \examples{
 mbiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
-mbiasplot(system.file("extdata",mbiasFile,package='scmeth'))
+mbiasplot(mbiasFiles=system.file("extdata",mbiasFile,package='scmeth'))
 }

@@ -56,5 +56,6 @@ methylationDist<-function(bs){
     g <- g + ggplot2::theme(legend.text=ggplot2::element_text(size=8))
 
     return(g)
+
 }
 

@@ -12,6 +12,7 @@
 #'@importFrom stats relevel
 
 readmetrics<-function(bs){
+
     phenotypicData<-Biobase::pData(bs)
     dat<-data.frame(sample=phenotypicData$cell_id,
                     total=as.vector(phenotypicData$total_reads),
@@ -38,6 +39,6 @@ readmetrics<-function(bs){
                       axis.ticks=ggplot2::element_blank())
     return(g)
 
-}
 
+}
 

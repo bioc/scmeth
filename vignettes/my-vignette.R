@@ -3,75 +3,53 @@
 #  biocLite("scmeth")
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  load('methylationData.rda')
+#  directory<-system.file("extdata/bismark_data",package='scmeth')
+#  bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  library(scmeth)
-#  scmeth::report(bs, '~/Documents',Mmusculus,"mm10")
+#  scmeth::report(bsObject, '~/Documents',Hsapiens,"hg38")
 
-## ------------------------------------------------------------------------
+## ----  warning=FALSE,message=FALSE,comment=FALSE-------------------------
 library(scmeth)
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
+directory<-system.file("extdata/bismark_data",package='scmeth')
+bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 
 ## ------------------------------------------------------------------------
-scmeth::coverage(bs)
+scmeth::coverage(bsObject)
+
+## ----fig.width=6,fig.height=6--------------------------------------------
+scmeth::readmetrics(bsObject)
 
 ## ---- warning=FALSE,message=FALSE----------------------------------------
-#library(BSgenome.Mmusculus.UCSC.mm10)
-#scmeth::repMask(bs,Mmusculus,"mm10")
+library(BSgenome.Mmusculus.UCSC.mm10)
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+scmeth::repMask(bs,Mmusculus,"mm10")
 
 ## ---- warning=FALSE------------------------------------------------------
-scmeth::chromosomeCoverage(bs)
+scmeth::chromosomeCoverage(bsObject)
 
-## ---- warning=FALSE,message=FALSE----------------------------------------
-library(annotatr)
-DT::datatable(scmeth::featureCoverage(bs,features=c('genes_exons','genes_introns',
-                            'cpg_islands'),"mm10"))
-
-
+## ---- warning=FALSE,message=FALSE,eval=FALSE-----------------------------
+#  library(annotatr)
+#  DT::datatable(scmeth::featureCoverage(bsObject,features=c('genes_exons','genes_introns',
+#                              'cpg_islands'),"hg38"))
+#  
+#  
 
 ## ----warning=FALSE,message=FALSE-----------------------------------------
-library(BSgenome.Mmusculus.UCSC.mm10)
-DT::datatable(scmeth::cpgDensity(bs,Mmusculus,windowLength=1000))
+library(BSgenome.Hsapiens.NCBI.GRCh38)
+DT::datatable(scmeth::cpgDensity(bsObject,Hsapiens,windowLength=1000))
 
 ## ----warning=FALSE-------------------------------------------------------
-DT::datatable(scmeth::downsample(bs))
+DT::datatable(scmeth::downsample(bsObject))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
 methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
 scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,package='scmeth'))
 
-## ----warning=FALSE,message=FALSE,fig.width=6-----------------------------
-scmeth::methylationDist(bs)
+## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
+scmeth::methylationDist(bsObject)
 
 ## ------------------------------------------------------------------------
-#scmeth::bsConversionPlot(bs)
-
-## ----warning=FALSE-------------------------------------------------------
-CpGBedGraphFile_1<-system.file("extdata",
-                                'sc-RRBS_zyg_01_chr1_CpG.bedGraph',package='scmeth')
-readMetricsFile_1<-system.file("extdata",
-                                'sc-RRBS-zygote_01.read_metrics.txt',package='scmeth')
-bsConversionFile_1<-system.file("extdata",
-                                'sc-RRBS-zygote_01.bsConv.txt',package='scmeth')
-CpGBedGraphFile_2<-system.file("extdata",
-                                'sc-RRBS_zyg_02_chr1_CpG.bedGraph',package='scmeth')
-readMetricsFile_2<-system.file("extdata",
-                                'sc-RRBS-zygote_02.read_metrics.txt',package='scmeth')
-bsConversionFile_2<-system.file("extdata",
-                                'sc-RRBS-zygote_02.bsConv.txt',package='scmeth')
-CpGBedGraphFile_3<-system.file("extdata",
-                                'sc-RRBS_zyg_03_chr1_CpG.bedGraph',package='scmeth')
-readMetricsFile_3<-system.file("extdata",
-                                'sc-RRBS-zygote_03.read_metrics.txt',package='scmeth')
-bsConversionFile_3<-system.file("extdata",
-                                'sc-RRBS-zygote_03.bsConv.txt',package='scmeth')
-
-
-rda1<-createRDA(CpGBedGraphFile_1,readMetricsFile_1,bsConversionFile_1)
-rda2<-createRDA(CpGBedGraphFile_2,readMetricsFile_2,bsConversionFile_2)
-rda3<-createRDA(CpGBedGraphFile_3,readMetricsFile_3,bsConversionFile_3)
-
-## ------------------------------------------------------------------------
-combineRDA(c(rda1,rda2,rda3))
+scmeth::bsConversionPlot(bsObject)
 

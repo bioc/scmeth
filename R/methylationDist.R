@@ -52,9 +52,9 @@ methylationDist<-function(bs){
     g <- g + ggplot2::theme(plot.title=ggplot2::element_text(hjust=0))
     g <- g + ggplot2::theme(axis.text.y=ggplot2::element_blank())
     g <- g + ggplot2::theme(axis.ticks=ggplot2::element_blank()) # get rid of tick marks
-    g <- g + ggplot2::theme(axis.text=ggplot2::element_text(size=10)) # Change the font size
-    g <- g + ggplot2::theme(legend.title=ggplot2::element_text(size=10))
-    g <- g + ggplot2::theme(legend.text=ggplot2::element_text(size=8))
+    g <- g + ggplot2::theme(axis.text=ggplot2::element_text(size=12)) # Change the font size
+    g <- g + ggplot2::theme(legend.title=ggplot2::element_text(size=12))
+    g <- g + ggplot2::theme(legend.text=ggplot2::element_text(size=10))
 
     return(g)
 

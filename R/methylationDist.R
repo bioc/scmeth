@@ -15,8 +15,6 @@
 methylationDist<-function(bs){
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
-    #df <- as.data.frame(matrix(unlist(methMatrix), nrow = nrow(methMatrix)))
-    #colnames(df)<-colnames(methMatrix)
     nSamples<-ncol(methMatrix)
 
     methylationCutOff<-c(0,0.2,0.4,0.6,0.8,1.0)

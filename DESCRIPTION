@@ -23,7 +23,9 @@ Imports:
   DT,
   ggthemes,
   scales,
-  viridis
+  viridis,
+  magrittr,
+  dplyr
 Suggests:
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,

@@ -13,6 +13,8 @@
 #'mbiasplot(mbiasFiles=system.file("extdata",mbiasFile,package='scmeth'))
 #'@importFrom utils read.table
 #'@importFrom utils read.csv
+#'@importFrom stats sd
+#'@import magrittr
 #'@export
 
 
@@ -54,16 +56,26 @@ mbiasplot<-function(dir=NULL,mbiasFiles=NULL){
     mbiasTableList[[i]]<-mbiasTable
   }
 
-  mt<-reshape2::melt(mbiasTableList,id.vars=c('position', 'X..methylation', 'read'))
+  mt<-reshape2::melt(mbiasTableList,
+                     id.vars=c('position', 'X..methylation', 'read'))
 
 
   mt$read_rep <- paste(mt$read, mt$L1, sep="_")
+  sum_mt <- mt %>% dplyr::select('read','position','X..methylation','L1') %>%
+                      dplyr::group_by(position,read) %>%
+                      dplyr::summarise(meth = mean(X..methylation),
+                                sdMeth=stats::sd(X..methylation))
+  sum_mt$seMeth<-sum_mt$sdMeth/sqrt(nSamples)
+  sum_mt$upperCI<-sum_mt$meth+(1.96*sum_mt$seMeth)
+  sum_mt$lowerCI<-sum_mt$meth-(1.96*sum_mt$seMeth)
+  sum_mt$read_rep <-paste(sum_mt$read, sum_mt$position,sep="_")
 
-
-  g<-ggplot2::ggplot(mt)
-  g<-g+ggplot2::geom_line(ggplot2::aes_string(x='position',y='X..methylation',
-                                              group='read_rep',colour='read'),
-                          alpha=0.5)
+  g<-ggplot2::ggplot(sum_mt)
+  g<-g+ggplot2::geom_line(ggplot2::aes_string(x='position',y='meth',
+                                              colour='read'))
+  g<-g+ggplot2::geom_ribbon(ggplot2::aes_string(ymin = 'lowerCI', ymax = 'upperCI',
+                                       x='position',fill = 'read'),
+                                        alpha=0.4)
   g<-g+ggplot2::ylim(0,100)+ggplot2::ggtitle('Mbias Plot')
   g<-g+ggplot2::ylab('methylation')
 

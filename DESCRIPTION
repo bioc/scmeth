@@ -17,7 +17,10 @@ Imports:
   BSgenome,
   DelayedArray,
   annotatr,
-  rmarkdown
+  rmarkdown,
+  ggthemes,
+  scales,
+  viridis
 Suggests:
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,

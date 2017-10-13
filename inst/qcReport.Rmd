@@ -24,17 +24,17 @@ bs<-params$samples
 nSamples<-length(Biobase::sampleNames(bs))
 ```
 
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4,eval=FALSE}
 ## Read information
 #### If read data provided the following plot is shown
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
-# Methylation distribution for all the cells
 scmeth::readmetrics(bs)
 ```
 
 
 ## CpG Coverage 
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=4}
 
 covVec<-scmeth::coverage(bs)
 sampleNames<-bsseq::sampleNames(bs)
@@ -45,33 +45,26 @@ o <- order(covDf$grp, covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
 
-summary<-c('min','max','mean','median')
-numericValues<-c(min(m$value),max(m$value),mean(m$value),median(m$value))
-summaryDF<-as.data.frame(cbind(summary,numericValues))
-
-
-g<-ggplot2::ggplot(m, ggplot2::aes(sample, value))
-g<-g+ggplot2::geom_hline(data = m, 
-                         ggplot2::aes(yintercept = as.numeric(median(value))), 
-                         linetype=2, color="blue")
-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() 
-g<-g+ggplot2::scale_y_continuous(name="Number of CpGs") 
-g<-g+ggplot2::xlab("Sample") 
-g<-g+ggplot2::ggtitle("Number of Covered CpGs")  
+g<-ggplot2::ggplot(covDf, ggplot2::aes_string(x="''", y='coveredCpgs'))
+g<-g+ggplot2::geom_boxplot()
+g<-g+ggplot2::geom_jitter() 
+g<-g+ggplot2::xlab("")+ggplot2::ylab("Covered CpGs")
+g<-g+ggplot2::ggtitle("Number of Covered CpGs")
 g<-g+ggplot2::theme_bw()
 g
 #############################
 ```
 
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,eval=FALSE}
 ## Bisulfite conversion rate for the samples
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
 scmeth::bsConversionPlot(bs)
 
 ```
 
 
 ## Methylation Density plot
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples,eval=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=4,eval=TRUE}
 cpgDenMatrix<-scmeth::cpgDensity(bs,organism = params$organism,windowLength=1000)
 cpgDenMatrix<-apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
 m <- reshape2::melt(cpgDenMatrix, varnames = c("Sample", "Density"))
@@ -90,7 +83,7 @@ g
 
 
 ## Non-repatmasker Coverage
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=4}
 covDf <- scmeth::repMask(bs,params$organism, params$genome)
 covDf$sample<-rownames(covDf)
 m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
@@ -98,22 +91,20 @@ o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
 
-g<-ggplot2::ggplot(m, ggplot2::aes_string('sample', 'coveredCpgs'))
-g<-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
-g<-g+ggplot2::scale_y_continuous(name="Number of CpGs") 
-g<-g+ggplot2::xlab("Sample") 
-g<-g+ggplot2::ggtitle("Number of Covered Non-repeatmasker CpGs")  
+g<-ggplot2::ggplot(covDf, ggplot2::aes_string(x="''", y='coveredCpgs'))
+g<-g+ggplot2::geom_boxplot()
+g<-g+ggplot2::geom_jitter() 
+g<-g+ggplot2::xlab("")+ggplot2::ylab("Covered CpGs")
+g<-g+ggplot2::ggtitle("Number of Covered CpGs in \n Non-repeat masker regions")
 g<-g+ggplot2::theme_bw()
 g
 
-
-## Chromosomal Coverage
 ```
 
 # Data Preprocessing
 ## CpG Discretization
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=4}
 # CpG Discretization
 discretizedCpG<-cpgDiscretization(bs)
 percentDiscarded<-discretizedCpG[3]
@@ -126,11 +117,11 @@ o <- order(meltedDiscardedDf$discard.perc,meltedDiscardedDf$sample)
 sampleOrder <- meltedDiscardedDf$sample[o]
 meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
 
-g<-ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes(sample, discard.perc))
-g<-g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip() 
-g<-g+ggplot2::scale_y_continuous(name="Percentage of discarded CpGs") 
-g<-g+ggplot2::xlab("Sample") 
-g<-g+ggplot2::ggtitle("Discarded CpGs from each sample after discretization")
+g<-ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes_string(x="''", y='discard.perc'))
+g<-g+ggplot2::geom_boxplot()
+g<-g+ggplot2::geom_jitter()
+g<-g+ggplot2::xlab("")+ggplot2::ylab("Percentage of Discarded CpGs")
+g<-g+ggplot2::ggtitle("Percentage of Discarded CpGs")
 g<-g+ggplot2::theme_bw()
 g
 
@@ -144,7 +135,7 @@ print(featureCovDf)
 ```
 
 ## Downsampling Analysis
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=6, fig.width=8}
 
 ##############################
 # Downsample Plots
@@ -161,7 +152,7 @@ g
 ```
 
 ## Methylation Distribution
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5}
 # Methylation distribution for all the cells
 scmeth::methylationDist(bs,all=TRUE)
 

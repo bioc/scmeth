@@ -4,7 +4,7 @@
 \alias{downsample}
 \title{Downsample analysis}
 \usage{
-downsample(bs, dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1), 0.99, 1))
+downsample(bs, dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1)))
 }
 \arguments{
 \item{bs}{bsseq object}

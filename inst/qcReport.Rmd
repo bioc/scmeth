@@ -25,7 +25,7 @@ nSamples<-length(Biobase::sampleNames(bs))
 ```
 
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=nSamples*0.4,eval=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,eval=FALSE}
 ## Read information
 #### If read data provided the following plot is shown
 scmeth::readmetrics(bs)

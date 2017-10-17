@@ -37,13 +37,13 @@ methylation analysis properly.
 
 <p style="text-align: justify;">
 This bioconductor package contains functions to perform quality control and 
-preprocessing analysis for single-cell methylation data. This package is especially 
-customized to use the output from the firecloud implementation of methylation 
-pipeline. For now only human and mouse genomes are supported in this package
-but in the future we will expand to other organisms. In addition to individual
-functions, **report** function in the **scmeth** provides all inclusive report
-using most of the functions in this package. If users prefer they can just use
-the **report** function to gain summary of their data.
+preprocessing analysis for single-cell methylation data. This package is 
+especially customized to use the output from the firecloud implementation of 
+methylation pipeline. For now only human and mouse genomes are supported in 
+this package but in the future we will expand to other organisms. In addition 
+to individual functions, **report** function in the **scmeth** provides all 
+inclusive report using most of the functions in this package. If users prefer
+they can just use the **report** function to gain summary of their data.
 </p>
 
 2. Installation
@@ -181,8 +181,8 @@ that region.
 </p>
 ```{r, warning=FALSE,message=FALSE,eval=FALSE}
 library(annotatr)
-DT::datatable(scmeth::featureCoverage(bsObject,features=c('genes_exons','genes_introns',
-                            'cpg_islands'),"hg38"))
+featureList<-c('genes_exons','genes_introns','cpg_islands')
+DT::datatable(scmeth::featureCoverage(bsObject,features=featureList,"hg38"))
 
 
 ```
@@ -214,15 +214,15 @@ DT::datatable(scmeth::cpgDensity(bsObject,Hsapiens,windowLength=1000))
 <p style="text-align: justify;">
 In addition to the CpG coverage, methylation data can be assessed via down
 sampling analysis, methylation bias plot and methylation distribution. Down 
-sampling analysis is a technique to assess whether the sequencing process achieved 
-the saturation level in terms of CpG capture. In order to perform down sampling
-analysis CpGs that are covered at least will be sampled via binomial random 
-sampling with given probability. At each probability level the number of CpGs
-captured is assessed. If the number of CpG captured attains a plateau then the
-sequencing was successful. **downsample** function provides a matrix of CpG 
-coverage for each sample at various down sampling rates. The report renders 
-this information into a plot. Downsampling rate ranges from 0.01 to 1, 
-however users can change the downsampling rates.
+sampling analysis is a technique to assess whether the sequencing process 
+achieved the saturation level in terms of CpG capture. In order to perform 
+down sampling analysis CpGs that are covered at least will be sampled via 
+binomial random sampling with given probability. At each probability level 
+the number of CpGs captured is assessed. If the number of CpG captured attains
+a plateau then the sequencing was successful. **downsample** function provides
+a matrix of CpG coverage for each sample at various down sampling rates. The
+report renders this information into a plot. Downsampling rate ranges from 
+0.01 to 1, however users can change the downsampling rates.
 </p>
 
 ```{r,warning=FALSE}
@@ -243,7 +243,8 @@ file generated from firecloud pipeline and generates the methylation bias plot.
 
 ```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
 methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
-scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,package='scmeth'))
+scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
+                                        package='scmeth'))
 ```
 </p>
 

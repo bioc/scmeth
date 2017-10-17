@@ -24,19 +24,19 @@ readmetrics<-function(bs){
     #dat$sample<-factor(dat$sample,levels=sampleOrder)
 
     m<-reshape2::melt(dat[,c("sample","mapped","unmapped")],
-                      id.vars="sample",variable.name="Mapping_status")
+                        id.vars="sample",variable.name="Mapping_status")
     m$sample<-factor(m$sample,levels=sampleOrder)
     m$Mapping_status <- relevel(m$Mapping_status, ref="unmapped")
     g<-ggplot2::ggplot(m,ggplot2::aes_string('sample','value',
-                                             fill='Mapping_status'))
+                                            fill='Mapping_status'))
     g<-g+ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()
     g<-g+ggplot2::scale_y_continuous(name="Number of reads")
     g<-g+ggplot2::xlab("samples")
     g<-g+ggplot2::ggtitle("Read mapping stats")
     g<-g+ggplot2::theme(panel.background =
-                      ggplot2::element_rect(fill = "white",colour = "grey50"),
+                    ggplot2::element_rect(fill = "white",colour = "grey50"),
                         axis.text.y=ggplot2::element_blank(),
-                      axis.ticks=ggplot2::element_blank())
+                        axis.ticks=ggplot2::element_blank())
     return(g)
 
 

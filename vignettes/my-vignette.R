@@ -31,8 +31,8 @@ scmeth::chromosomeCoverage(bsObject)
 
 ## ---- warning=FALSE,message=FALSE,eval=FALSE-----------------------------
 #  library(annotatr)
-#  DT::datatable(scmeth::featureCoverage(bsObject,features=c('genes_exons','genes_introns',
-#                              'cpg_islands'),"hg38"))
+#  featureList<-c('genes_exons','genes_introns','cpg_islands')
+#  DT::datatable(scmeth::featureCoverage(bsObject,features=featureList,"hg38"))
 #  
 #  
 
@@ -45,7 +45,8 @@ DT::datatable(scmeth::downsample(bsObject))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
 methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
-scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,package='scmeth'))
+scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
+                                        package='scmeth'))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
 scmeth::methylationDist(bsObject)

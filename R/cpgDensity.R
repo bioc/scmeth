@@ -21,7 +21,7 @@ cpgDensity<-function(bs,organism,windowLength=1000){
     gr <- granges(bs)
     GenomeInfoDb::seqlevelsStyle(gr) <-GenomeInfoDb::seqlevelsStyle(organism)[1]
     cpgd<-Repitools::cpgDensityCalc(gr, organism, window = windowLength)
-    #cpgdBin<-cut(cpgd,seq(0,max(cpgd),5)
+    cpgdBin<-cut(cpgd,seq(0,max(cpgd),5))
 
     # Need to find a better way to conduct this on-disk
     cpgdCov <- by(cov>0, cpgd, colSums)

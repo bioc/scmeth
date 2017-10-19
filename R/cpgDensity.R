@@ -18,7 +18,7 @@ cpgDensity<-function(bs,organism,windowLength=1000){
     cov<-bsseq::getCoverage(bs)
     cpgd<-Repitools::cpgDensityCalc(GenomicRanges::granges(bs),
                                 organism,window = windowLength)
-    #cpgdBin<-cut(cpgd,seq(0,max(cpgd,5)))
+    cpgdBin<-cut(cpgd,seq(0,max(cpgd,5)))
 
     cpgdCov <- by(cov>0, cpgd, colSums)
     cpgdCov <- do.call("rbind", cpgdCov)

@@ -19,7 +19,8 @@ methylationDist<-function(bs){
 
     methCutOff<-c(0,0.2,0.4,0.6,0.8,1.0)
     methylIntervals<-length(methCutOff)-1
-    totCpGs<-DelayedArray::colSums(!is.na(methMatrix))
+    #totCpGs<-DelayedArray::colSums(!is.na(methMatrix))
+    totCpGs<-DelayedArray::colSums(covMatrix>0)
 
 
     methylationDistMatrix<-matrix(nrow=nSamples,ncol=methylIntervals)

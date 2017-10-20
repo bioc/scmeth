@@ -13,8 +13,6 @@
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
 #'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 #'downsample(bs)
-#'downsample(bs,seq(0,1,length.out=20))
-#'
 #'@importFrom stats rbinom
 #'@importFrom bsseq getCoverage
 #'@export
@@ -26,17 +24,39 @@ downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1))){
     covMatrix<-bsseq::getCoverage(bs)
     nSamples<-dim(covMatrix)[2]
     downSampleMatrix<-matrix(nrow=length(dsRates)+1,ncol=nSamples)
+    maxCov<-20
+
+    nonZeroProbMatrix<-matrix(nrow=(length(dsRates)+1),ncol=maxCov)
 
     for (i in 1:length(dsRates)){
-        for (j in 1:nSamples){
-        cellCoverage<-as.vector(covMatrix[,j])
-        cellNonZeroCoverage<-cellCoverage[cellCoverage>0]
-        covSubList<-lapply(cellNonZeroCoverage,rbinom,n=1,prob=dsRates[i])
-        downSampleMatrix[i,j]<- sum(covSubList>0)
-
-        }
+      nonZeroProbMatrix[i,]<-1 - dbinom(0,1:maxCov,dsRates[i])
     }
-    downSampleMatrix[length(dsRates)+1,]<-DelayedArray::colSums(covMatrix>0)
+
+    nonZeroProbMatrix[(length(dsRates)+1),]<-1
+
+
+    countMatrix<-sapply(1:ncol(covMatrix), function(i) {
+      cv = as.vector(covMatrix[,i])
+      cv[cv>maxCov ] <- maxCov
+      tab <- table(cv)
+      tab <- tab[names(tab)!="0"]
+      x <- rep(0, maxCov)
+      x[as.numeric(names(tab))] <- tab
+      x
+    })
+
+    downSampleMatrix<-round(nonZeroProbMatrix %*% countMatrix)
+
+    #for (i in 1:length(dsRates)){
+    #    for (j in 1:nSamples){
+    #    cellCoverage<-as.vector(covMatrix[,j])
+    #    cellNonZeroCoverage<-cellCoverage[cellCoverage>0]
+    #    covSubList<-lapply(cellNonZeroCoverage,rbinom,n=1,prob=dsRates[i])
+    #    downSampleMatrix[i,j]<- sum(covSubList>0)
+
+    #    }
+    #}
+    #downSampleMatrix[length(dsRates)+1,]<-DelayedArray::colSums(covMatrix>0)
     rownames(downSampleMatrix)<-c(dsRates,1)
     return(downSampleMatrix)
 }

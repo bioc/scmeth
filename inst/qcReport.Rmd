@@ -128,14 +128,14 @@ g<-g+ggplot2::xlab("")+ggplot2::ylab("Percentage of Discarded CpGs")
 g<-g+ggplot2::ggtitle("Percentage of Discarded CpGs")
 g<-g+ggplot2::theme_bw()
 g
+```
 
-# Feature level coverage
-#pandoc.header("Feature level coverage of the CpGs", level = 2)
+## Feature level coverage
+```{r feature_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5, fig.width=5, eval=FALSE,fig.align='center'}
 library(annotatr)
 featureCovMatrix<-scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),genome)
 
 featureCovDf<-reshape2::melt(featureCovMatrix)
-
 
 g<-ggplot2::ggplot(featureCovDf, ggplot2::aes_string(x="Var1", y='value'))
 g<-g+ggplot2::geom_boxplot()+ggplot2::ylim(0,1)
@@ -161,7 +161,7 @@ g<-g+ggplot2::geom_line(alpha=0.2)
 g<-g+ ggplot2::scale_x_continuous(name="Fraction of Reads")
 g<-g+ggplot2::scale_y_continuous(name="Number of CpG covered") 
 g<-g+ ggplot2::ggtitle("Saturation Analysis Plot") 
-g<-g+ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'),fun.y=median, lwd=2,geom="point",aes=1.0)
+g<-g+ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'),fun.y=median, lwd=2,geom="point",alpha=1.0)
 g<-g+ggplot2::theme_bw(base_size=11)
 g
 

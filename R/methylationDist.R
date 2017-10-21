@@ -17,22 +17,33 @@ methylationDist<-function(bs){
     methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
     nSamples<-ncol(methMatrix)
 
-    methCutOff<-c(0,0.2,0.4,0.6,0.8,1.0)
+    methCutOff<-c(-0.01,0.2,0.4,0.6,0.8,1.0)
     methylIntervals<-length(methCutOff)-1
-    #totCpGs<-DelayedArray::colSums(!is.na(methMatrix))
-    totCpGs<-DelayedArray::colSums(covMatrix>0)
+    totCpGs<-DelayedArray::colSums(!is.na(methMatrix))
+    #totCpGs<-DelayedArray::colSums(covMatrix>0)
+
+    methylationDistMatrix<-sapply(1:nSamples, function(i) {
+      mv = as.vector(methMatrix[,i])
+      mv<-mv[!is.na(mv)]
+      mvBin<-cut(mv,methCutOff)
+      tab <- table(mvBin)
+      x<- tab
+      x
+    })
+
+    methylationDistMatrix<-t(methylationDistMatrix)
 
 
-    methylationDistMatrix<-matrix(nrow=nSamples,ncol=methylIntervals)
-    for (i in 1:methylIntervals){
-        if (i==1){
-            methylationDistMatrix[,i]<-DelayedArray::colSums(methMatrix>=methCutOff[i] &
-                                        methMatrix<methCutOff[i+1],na.rm=TRUE)
-        } else {
-        methylationDistMatrix[,i]<-DelayedArray::colSums(methMatrix>methCutOff[i] &
-                                    methMatrix<=methCutOff[i+1],na.rm=TRUE)
-        }
-    }
+    #methylationDistMatrix<-matrix(nrow=nSamples,ncol=methylIntervals)
+    #for (i in 1:methylIntervals){
+    #    if (i==1){
+    #        methylationDistMatrix[,i]<-DelayedArray::colSums(methMatrix>=methCutOff[i] &
+    #                                    methMatrix<methCutOff[i+1],na.rm=TRUE)
+    #    } else {
+    #    methylationDistMatrix[,i]<-DelayedArray::colSums(methMatrix>methCutOff[i] &
+    #                                methMatrix<=methCutOff[i+1],na.rm=TRUE)
+    #    }
+    #}
 
     methylationDistMatrix<-apply(methylationDistMatrix,2,function(x) x/totCpGs)
     orderdMeth<-order(methylationDistMatrix[,1])

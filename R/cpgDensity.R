@@ -21,11 +21,24 @@ cpgDensity<-function(bs,organism,windowLength=1000){
     gr <- granges(bs)
     GenomeInfoDb::seqlevelsStyle(gr) <-GenomeInfoDb::seqlevelsStyle(organism)[1]
     cpgd<-Repitools::cpgDensityCalc(gr, organism, window = windowLength)
-    cpgdBin<-cut(cpgd,seq(0,max(cpgd),5))
+
+    maxcpgd<-max(cpgd)
+    cpgdCov<-sapply(1:ncol(cov), function(i) {
+      cv = as.vector(cov[,i])
+      cpgdCell<-cpgd[cv>0 ]
+      tab <- table(cpgdCell)
+      x <- rep(0, maxcpgd)
+      x[as.numeric(names(tab))] <- tab
+      x
+    })
+
+
+
+    #cpgdBin<-cut(cpgd,seq(0,max(cpgd),5))
 
     # Need to find a better way to conduct this on-disk
-    cpgdCov <- by(cov>0, cpgd, colSums)
-    cpgdCov <- do.call("rbind", cpgdCov)
+    #cpgdCov <- by(cov>0, cpgd, colSums)
+    #cpgdCov <- do.call("rbind", cpgdCov)
     return(cpgdCov)
 
 }

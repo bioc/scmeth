@@ -2,6 +2,8 @@
 #'
 #'Plot the methylation distribution for the cells in bsseq object
 #'@param bs bsseq object
+#'@param coverageVec If coverage vector is already calculated provide it to
+#'speed up the process
 #'@return plot of the methylation distribution
 #'@examples
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
@@ -12,14 +14,18 @@
 #'@export
 
 
-methylationDist<-function(bs){
+methylationDist<-function(bs,coverageVec=NULL){
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
     nSamples<-ncol(methMatrix)
 
     methCutOff<-c(-0.01,0.2,0.4,0.6,0.8,1.0)
     methylIntervals<-length(methCutOff)-1
-    totCpGs<-DelayedArray::colSums(!is.na(methMatrix))
+    if (is.null(coverageVec)){
+      totCpGs<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+    }else{
+      totCpGs<- coverageVec
+    }
     #totCpGs<-DelayedArray::colSums(covMatrix>0)
 
     methylationDistMatrix<-sapply(1:nSamples, function(i) {

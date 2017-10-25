@@ -4,10 +4,13 @@
 \alias{methylationDist}
 \title{Provide graphics for methylation distribution}
 \usage{
-methylationDist(bs)
+methylationDist(bs, coverageVec = NULL)
 }
 \arguments{
 \item{bs}{bsseq object}
+
+\item{coverageVec}{If coverage vector is already calculated provide it to
+speed up the process}
 }
 \value{
 plot of the methylation distribution

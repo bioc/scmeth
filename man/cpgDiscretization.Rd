@@ -5,10 +5,13 @@
 \title{Discretize the CpG methylation values
 to align with single cell analysis}
 \usage{
-cpgDiscretization(bs)
+cpgDiscretization(bs, coverageVec = NULL)
 }
 \arguments{
 \item{bs}{bsseq object}
+
+\item{coverageVec}{If coverage vector is already calculated provide it to
+speed up the process}
 }
 \value{
 meth discretized methylation matrix

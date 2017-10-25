@@ -9,6 +9,8 @@
 #'methyation is above 0.8 and
 #'unmethylated if the methylation is below 0.2
 #'@param bs bsseq object
+#'@param coverageVec If coverage vector is already calculated provide it to
+#'speed up the process
 #'@return meth discretized methylation matrix
 #'@return discard total number of removed CpGs from each sample
 #'@return Percentage of CpGs discarded compared to the total number of CpGs
@@ -21,26 +23,37 @@
 #'@export
 
 
-cpgDiscretization<-function(bs){
+cpgDiscretization<-function(bs, coverageVec=NULL){
 
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')
     nSamples<-ncol(methMatrix)
     methMatrix<-methMatrix/covMatrix
-    covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
-
+    if (is.null(coverageVec)){
+      covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+    }else{
+      covVec<-coverageVec
+    }
     #methMatrix[methMatrix>=0.8]<-1
     #methMatrix[methMatrix<=0.2]<-0
 
-    removedCpGs<-DelayedArray::colSums(methMatrix>0.2 & methMatrix<0.8,
-                                        na.rm=TRUE)
+    # Only consider methylation between 0.2 and 0.8
+    methCutOff<-c(0.01,0.19,0.79,1.0)
+
+    methylationDistMatrix<-sapply(1:nSamples, function(i) {
+      mv = as.vector(methMatrix[,i])
+      mv<-mv[!is.na(mv)]
+      mvBin<-cut(mv,methCutOff)
+      tab <- table(mvBin)
+      x<- tab
+      x
+    })
+
+
+    removedCpGs<-methylationDistMatrix[2,]
     removedCpGFrac<-(removedCpGs/(covVec))*100
-    # Avoid returning the corrected methylation matrix until DelayeArray
-    # is updated
-    #returnList<-list('meth' = methMatrix, 'discard' = removedCpGs,
-    #                    'discard-perc' = removedCpGFrac)
     returnList<-list('discard' = removedCpGs,
-                        'discardPerc' = removedCpGFrac)
+                     'discardPerc' = removedCpGFrac)
     return(returnList)
 
 }

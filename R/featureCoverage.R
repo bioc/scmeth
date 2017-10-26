@@ -42,6 +42,7 @@ featureCoverage <-function(bs,features,genomebuild){
     nSamples<-dim(bs)[2]
 
     sumAnnotMatrix<-matrix(nrow=length(features),ncol=nSamples)
+    featureLabel<-rep(NA,length(features))
     for (i in 1:nSamples){
         bsCell<-bs[,i]
 
@@ -56,11 +57,12 @@ featureCoverage <-function(bs,features,genomebuild){
             ignore.strand = TRUE,
             quiet = TRUE)
         sumAnnot<-annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
-        sumAnnotMatrix[,i]<-sumAnnot$n/sum(ind)
+        sumAnnotMatrix[,i]<-sumAnnot$n[match(annotationFeatures,sumAnnot$annot.type)]/sum(ind)
+        featureLabel[1:length(sumAnnot$annot.type)]<-sumAnnot$annot.type
 
     }
     colnames(sumAnnotMatrix)<-colnames(bs)
-    rownames(sumAnnotMatrix)<-sumAnnot$annot.type
+    rownames(sumAnnotMatrix)<-featureLabel
 
     return(sumAnnotMatrix)
 

@@ -2,6 +2,7 @@
 #'
 #'Downsample the CpG covergae matrix for saturation analysis
 #'@param bs bsseq object
+#'@param subSample number of CpGs to subsample
 #'@param dsRates downsampling rate. i.e. the probabaility of sampling
 #'a single CpG
 #'default is list of probabilities ranging from 0.01 to 1

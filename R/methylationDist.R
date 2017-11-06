@@ -2,6 +2,7 @@
 #'
 #'Plot the methylation distribution for the cells in bsseq object
 #'@param bs bsseq object
+#'@param subSample number of CpGs to subsample
 #'@param coverageVec If coverage vector is already calculated provide it to
 #'speed up the process
 #'@return plot of the methylation distribution

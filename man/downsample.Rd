@@ -10,6 +10,8 @@ downsample(bs, subSample = 1e+06, dsRates = c(0.01, 0.02, 0.05, seq(0.1,
 \arguments{
 \item{bs}{bsseq object}
 
+\item{subSample}{number of CpGs to subsample}
+
 \item{dsRates}{downsampling rate. i.e. the probabaility of sampling
 a single CpG
 default is list of probabilities ranging from 0.01 to 1

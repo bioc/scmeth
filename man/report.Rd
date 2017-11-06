@@ -4,7 +4,7 @@
 \alias{report}
 \title{Generates an inclusive report on methylation analysis}
 \usage{
-report(bsObj, outdirectory, organism, genome)
+report(bsObj, outdirectory, organism, genome, mbiasDir = NULL)
 }
 \arguments{
 \item{bsObj}{bsseq object}
@@ -17,6 +17,9 @@ i.e. Mus musculus or Homo sapiens}
 
 \item{genome}{reference alignment, i.e. mm10 or hg38
 the report will have graphics on read information}
+
+\item{mbiasDir}{Optional argument to provide directory name
+that has the mbias files or the list of mbias files}
 }
 \value{
 Report will be an html file
@@ -29,5 +32,6 @@ generate a report for the user
 library(BSgenome.Hsapiens.NCBI.GRCh38)
 directory<-system.file("extdata/bismark_data",package='scmeth')
 bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
-report(bs,'~',Hsapiens,'hg38')
+mbiasDirectory=system.file("extdata",package='scmeth')
+report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory)
 }

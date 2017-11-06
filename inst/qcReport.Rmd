@@ -10,6 +10,7 @@ params:
   outdir: outdirectory
   organism: organism
   genome: genome
+  mbias: mbiasDir
 ---
 
 ```{r setup, include=FALSE}
@@ -30,15 +31,15 @@ nSamples<-length(Biobase::sampleNames(bs))
 scmeth::readmetrics(bs)
 ```
 
+
+```{r mbias,echo=FALSE,warning=FALSE,message=FALSE,eval=!is.null(params$mbias),fig.width=8, fig.height=7,fig.align='center'}
 ## Methylation bias plot
-```{r mbias,echo=FALSE,warning=FALSE,message=FALSE,eval=FALSE,fig.width=8, fig.height=7,fig.align='center'}
 # Methylation distribution for all the cells
-scmeth::mbiasplot(dir=mbias_directory)
+scmeth::mbiasplot(dir=params$mbias)
 ```
 
 
 ## CpG Coverage 
-
 ```{r cpg_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
 
 # Coverage
@@ -170,7 +171,23 @@ g
 ## Methylation Distribution
 ```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=7, fig.width=10,eval=TRUE,fig.align='center'}
 # Methylation distribution for all the cells
-scmeth::methylationDist(bs,covVec)
+methylDistMatrix<-scmeth::methylationDist(bs,covVec)
 
+g <- ggplot2::ggplot(methylDistMatrix, ggplot2::aes_string(x='Var2',
+                                                        y='Var1',fill='value'))
+g <- g + ggplot2::geom_tile(color="white", size=0.1)
+g <- g + viridis::scale_fill_viridis(name="Fraction of \n CpGs observed", label=scales::comma)
+#g <- g + ggplot2::coord_equal() # Adds same aspect ratio
+g <- g + ggplot2::labs(x=NULL, y=NULL, title="Methylation Distribution")
+g <- g + ggthemes::theme_tufte(base_family="Helvetica")
+g <- g + ggplot2::theme(plot.title=ggplot2::element_text(hjust=0))
+g <- g + ggplot2::theme(axis.text.y=ggplot2::element_blank())
+# get rid of tick marks
+g <- g + ggplot2::theme(axis.ticks=ggplot2::element_blank())
+# Change the font size
+g <- g + ggplot2::theme(axis.text=ggplot2::element_text(size=12))
+g <- g + ggplot2::theme(legend.title=ggplot2::element_text(size=12))
+g <- g + ggplot2::theme(legend.text=ggplot2::element_text(size=10))
+g
 ```
 

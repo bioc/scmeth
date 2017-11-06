@@ -149,12 +149,13 @@ mask regions of the genome **repmask** function will require the organism and
 the genome build information.
 </p>
 
-```{r, warning=FALSE,message=FALSE}
+```{r, warning=FALSE,message=FALSE,eval=FALSE}
 library(BSgenome.Mmusculus.UCSC.mm10)
 load(system.file("extdata",'bsObject.rda',package='scmeth'))
 scmeth::repMask(bs,Mmusculus,"mm10")
 ```
 
+### Coverage by Chromosome
 <p style="text-align: justify;">
 There are several other ways the number of CpGs captured can be visualized. 
 One of the way is to observe how the CpGs are distributed across different 
@@ -179,9 +180,9 @@ genome build. Each element in the table represents the fraction of CpGs
 seen in particular cell in specific region compared to all the CpGs seen in 
 that region.
 </p>
-```{r, warning=FALSE,message=FALSE,eval=FALSE}
+```{r, warning=FALSE,message=FALSE}
 library(annotatr)
-featureList<-c('genes_exons','genes_introns','cpg_islands')
+featureList<-c('genes_exons','genes_introns')
 DT::datatable(scmeth::featureCoverage(bsObject,features=featureList,"hg38"))
 
 
@@ -276,6 +277,6 @@ rate below 95% indicates some problem with sample preparation.
 **bsConversionPlot** function generates a plot showing this metric for each 
 sample.
 </p>
-```{r}
+```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
 scmeth::bsConversionPlot(bsObject)
 ```

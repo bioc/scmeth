@@ -21,20 +21,20 @@ scmeth::coverage(bsObject)
 ## ----fig.width=6,fig.height=6--------------------------------------------
 scmeth::readmetrics(bsObject)
 
-## ---- warning=FALSE,message=FALSE----------------------------------------
-library(BSgenome.Mmusculus.UCSC.mm10)
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
-scmeth::repMask(bs,Mmusculus,"mm10")
+## ---- warning=FALSE,message=FALSE,eval=FALSE-----------------------------
+#  library(BSgenome.Mmusculus.UCSC.mm10)
+#  load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#  scmeth::repMask(bs,Mmusculus,"mm10")
 
 ## ---- warning=FALSE------------------------------------------------------
 scmeth::chromosomeCoverage(bsObject)
 
-## ---- warning=FALSE,message=FALSE,eval=FALSE-----------------------------
-#  library(annotatr)
-#  featureList<-c('genes_exons','genes_introns','cpg_islands')
-#  DT::datatable(scmeth::featureCoverage(bsObject,features=featureList,"hg38"))
-#  
-#  
+## ---- warning=FALSE,message=FALSE----------------------------------------
+library(annotatr)
+featureList<-c('genes_exons','genes_introns')
+DT::datatable(scmeth::featureCoverage(bsObject,features=featureList,"hg38"))
+
+
 
 ## ----warning=FALSE,message=FALSE-----------------------------------------
 library(BSgenome.Hsapiens.NCBI.GRCh38)
@@ -51,6 +51,6 @@ scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
 ## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
 scmeth::methylationDist(bsObject)
 
-## ------------------------------------------------------------------------
+## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
 scmeth::bsConversionPlot(bsObject)
 

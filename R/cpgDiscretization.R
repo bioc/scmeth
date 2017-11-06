@@ -9,6 +9,7 @@
 #'methyation is above 0.8 and
 #'unmethylated if the methylation is below 0.2
 #'@param bs bsseq object
+#'@param subSample number of CpGs to subsample
 #'@param coverageVec If coverage vector is already calculated provide it to
 #'speed up the process
 #'@return meth discretized methylation matrix
@@ -23,7 +24,11 @@
 #'@export
 
 
-cpgDiscretization<-function(bs, coverageVec=NULL){
+cpgDiscretization<-function(bs,subSample=1e6, coverageVec=NULL){
+    # subsampling
+    nCpGs<-nrow(bs)
+    subSampleCpGs<-min(nCpGs,subSample)
+    bs<-bs[1:subSampleCpGs,]
 
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')

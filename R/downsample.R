@@ -21,7 +21,12 @@
 
 
 
-downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1))){
+downsample <-function(bs,subSample=1e6,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1))){
+    nCpGs<-nrow(bs)
+    subSampleCpGs<-min(nCpGs,subSample)
+    bs<-bs[1:subSampleCpGs,]
+
+
     covMatrix<-bsseq::getCoverage(bs)
     nSamples<-dim(covMatrix)[2]
     downSampleMatrix<-matrix(nrow=length(dsRates)+1,ncol=nSamples)
@@ -47,6 +52,7 @@ downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1))){
     })
 
     downSampleMatrix<-round(nonZeroProbMatrix %*% countMatrix)
+    downSampleMatrix<-downSampleMatrix*(nCpGs/subSampleCpGs)
 
     #for (i in 1:length(dsRates)){
     #    for (j in 1:nSamples){

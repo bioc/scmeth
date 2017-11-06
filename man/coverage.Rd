@@ -4,10 +4,12 @@
 \alias{coverage}
 \title{Coverage for single cells}
 \usage{
-coverage(bs)
+coverage(bs, subSample = 1e+06)
 }
 \arguments{
 \item{bs}{bsseq object}
+
+\item{subSample}{number of CpGs to subsample}
 }
 \value{
 vector of coverage for the cells in bs object

@@ -4,7 +4,7 @@
 \alias{methylationDist}
 \title{Provide graphics for methylation distribution}
 \usage{
-methylationDist(bs, coverageVec = NULL)
+methylationDist(bs, subSample = 1e+06, coverageVec = NULL)
 }
 \arguments{
 \item{bs}{bsseq object}

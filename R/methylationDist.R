@@ -14,7 +14,12 @@
 #'@export
 
 
-methylationDist<-function(bs,coverageVec=NULL){
+methylationDist<-function(bs,subSample=1e6, coverageVec=NULL){
+    # subsampling
+    nCpGs<-nrow(bs)
+    subSampleCpGs<-min(nCpGs,subSample)
+    bs<-bs[1:subSampleCpGs,]
+
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
     nSamples<-ncol(methMatrix)
@@ -59,23 +64,8 @@ methylationDist<-function(bs,coverageVec=NULL){
     meltedMDistMatrix<-reshape2::melt(methylationDistMatrix)
 
 
-    g <- ggplot2::ggplot(meltedMDistMatrix, ggplot2::aes_string(x='Var2',
-                                                        y='Var1',fill='value'))
-    g <- g + ggplot2::geom_tile(color="white", size=0.1)
-    g <- g + viridis::scale_fill_viridis(name="Fraction of \n CpGs observed", label=scales::comma)
-    #g <- g + ggplot2::coord_equal() # Adds same aspect ratio
-    g <- g + ggplot2::labs(x=NULL, y=NULL, title="Methylation Distribution")
-    g <- g + ggthemes::theme_tufte(base_family="Helvetica")
-    g <- g + ggplot2::theme(plot.title=ggplot2::element_text(hjust=0))
-    g <- g + ggplot2::theme(axis.text.y=ggplot2::element_blank())
-    # get rid of tick marks
-    g <- g + ggplot2::theme(axis.ticks=ggplot2::element_blank())
-    # Change the font size
-    g <- g + ggplot2::theme(axis.text=ggplot2::element_text(size=12))
-    g <- g + ggplot2::theme(legend.title=ggplot2::element_text(size=12))
-    g <- g + ggplot2::theme(legend.text=ggplot2::element_text(size=10))
 
-    return(g)
+    return(meltedMDistMatrix)
 
 }
 

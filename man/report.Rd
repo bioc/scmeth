@@ -4,7 +4,8 @@
 \alias{report}
 \title{Generates an inclusive report on methylation analysis}
 \usage{
-report(bsObj, outdirectory, organism, genome, mbiasDir = NULL)
+report(bsObj, outdirectory, organism, genome, mbiasDir = NULL,
+  subSample = 1e+06)
 }
 \arguments{
 \item{bsObj}{bsseq object}
@@ -20,6 +21,8 @@ the report will have graphics on read information}
 
 \item{mbiasDir}{Optional argument to provide directory name
 that has the mbias files or the list of mbias files}
+
+\item{subSample}{number of CpGs to subsample}
 }
 \value{
 Report will be an html file

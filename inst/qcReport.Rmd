@@ -12,6 +12,7 @@ params:
   genome: genome
   mbias: mbiasDir
   nCpGs: subSample
+  offset: offset
 ---
 
 ```{r setup, include=FALSE}
@@ -44,7 +45,7 @@ scmeth::mbiasplot(dir=params$mbias)
 ```{r cpg_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
 
 # Coverage
-covVec<-scmeth::coverage(bs,subSample=params$nCpGs)
+covVec<-scmeth::coverage(bs,subSample=params$nCpGs,offset=params$offset)
 sampleNames<-bsseq::sampleNames(bs)
 covDf <- data.frame(sample=sampleNames, coveredCpgs=covVec)
 o <- order(covDf$coveredCpgs)
@@ -111,7 +112,7 @@ g
 
 ```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5, fig.width=5, eval=TRUE,fig.align='center'}
 # CpG Discretization
-discretizedCpG<-cpgDiscretization(bs,covVec,subSample=params$nCpGs)
+discretizedCpG<-cpgDiscretization(bs,covVec,subSample=params$nCpGs,offset=params$offset)
 #percentDiscarded<-discretizedCpG[3]
 percentDiscarded<-discretizedCpG[2]
 sampleNames<-bsseq::sampleNames(bs)
@@ -156,7 +157,7 @@ g
 
 ##############################
 # Downsample Plots
-dsMatrix<-scmeth::downsample(bs,subSample=params$nCpGs)
+dsMatrix<-scmeth::downsample(bs,subSample=params$nCpGs,offset=params$offset)
 meltedDsMatrix<-reshape2::melt(dsMatrix)
 g<-ggplot2::ggplot(meltedDsMatrix, ggplot2::aes_string(x='Var1', y='value', group='Var2'))
 g<-g+ggplot2::geom_line(alpha=0.2) 
@@ -172,7 +173,7 @@ g
 ## Methylation Distribution
 ```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=7, fig.width=10,eval=TRUE,fig.align='center'}
 # Methylation distribution for all the cells
-methylDistMatrix<-scmeth::methylationDist(bs,covVec,subSample=params$nCpGs)
+methylDistMatrix<-scmeth::methylationDist(bs,covVec,subSample=params$nCpGs,offset=params$offset)
 
 g <- ggplot2::ggplot(methylDistMatrix, ggplot2::aes_string(x='Var2',
                                                         y='Var1',fill='value'))

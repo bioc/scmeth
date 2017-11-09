@@ -12,6 +12,7 @@
 #'@param mbiasDir Optional argument to provide directory name
 #'that has the mbias files or the list of mbias files
 #'@param subSample number of CpGs to subsample
+#'@param offset how many CpGs to offset when subsampling
 #'@return Report will be an html file
 #'@examples
 #'library(BSgenome.Hsapiens.NCBI.GRCh38)
@@ -25,10 +26,12 @@
 #'@export
 #
 
-report <- function(bsObj,outdirectory,organism,genome,mbiasDir=NULL,subSample=1e6) {
+report <- function(bsObj,outdirectory,organism,genome,mbiasDir=NULL,subSample=1e6,offset=50000) {
     RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
-    rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj
-                                        ,organism=organism,genome=genome,mbias=mbiasDir,nCpGs=subSample)
+    rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,
+                                         organism=organism,genome=genome,
+                                         mbias=mbiasDir,nCpGs=subSample,
+                                         offset=offset)
                     ,output_file=paste0(outdirectory,"/qcReport.html"))
 
 }

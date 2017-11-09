@@ -3,6 +3,7 @@
 #'Downsample the CpG covergae matrix for saturation analysis
 #'@param bs bsseq object
 #'@param subSample number of CpGs to subsample
+#'@param offset how many CpGs to offset when subsampling
 #'@param dsRates downsampling rate. i.e. the probabaility of sampling
 #'a single CpG
 #'default is list of probabilities ranging from 0.01 to 1
@@ -22,10 +23,14 @@
 
 
 
-downsample <-function(bs,subSample=1e6,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1))){
-    nCpGs<-nrow(bs)
-    subSampleCpGs<-min(nCpGs,subSample)
-    bs<-bs[1:subSampleCpGs,]
+downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1)),subSample=1e6, offset=50000){
+  nCpGs<-nrow(bs)
+
+  if (nCpGs<(subSample+offset)){
+    bs<-bs
+  }else{
+    bs<-bs[offset:(subSample+offset)]
+  }
 
 
     covMatrix<-bsseq::getCoverage(bs)
@@ -53,7 +58,7 @@ downsample <-function(bs,subSample=1e6,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0
     })
 
     downSampleMatrix<-round(nonZeroProbMatrix %*% countMatrix)
-    downSampleMatrix<-downSampleMatrix*(nCpGs/subSampleCpGs)
+    downSampleMatrix<-downSampleMatrix*(nCpGs/subSample)
 
     #for (i in 1:length(dsRates)){
     #    for (j in 1:nSamples){

@@ -3,6 +3,7 @@
 #'Plot the methylation distribution for the cells in bsseq object
 #'@param bs bsseq object
 #'@param subSample number of CpGs to subsample
+#'@param offset how many CpGs to offset when subsampling
 #'@param coverageVec If coverage vector is already calculated provide it to
 #'speed up the process
 #'@return plot of the methylation distribution
@@ -15,11 +16,15 @@
 #'@export
 
 
-methylationDist<-function(bs,subSample=1e6, coverageVec=NULL){
+methylationDist<-function(bs,subSample=1e6, offset=50000,coverageVec=NULL){
     # subsampling
     nCpGs<-nrow(bs)
-    subSampleCpGs<-min(nCpGs,subSample)
-    bs<-bs[1:subSampleCpGs,]
+
+    if (nCpGs<(subSample+offset)){
+        bs<-bs
+    }else{
+        bs<-bs[offset:(subSample+offset)]
+    }
 
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')/covMatrix
@@ -44,18 +49,8 @@ methylationDist<-function(bs,subSample=1e6, coverageVec=NULL){
     })
 
     methylationDistMatrix<-t(methylationDistMatrix)
+    methylationDistMatrix<-methylationDistMatrix*(nCpGs/subSample)
 
-
-    #methylationDistMatrix<-matrix(nrow=nSamples,ncol=methylIntervals)
-    #for (i in 1:methylIntervals){
-    #    if (i==1){
-    #        methylationDistMatrix[,i]<-DelayedArray::colSums(methMatrix>=methCutOff[i] &
-    #                                    methMatrix<methCutOff[i+1],na.rm=TRUE)
-    #    } else {
-    #    methylationDistMatrix[,i]<-DelayedArray::colSums(methMatrix>methCutOff[i] &
-    #                                methMatrix<=methCutOff[i+1],na.rm=TRUE)
-    #    }
-    #}
 
     methylationDistMatrix<-apply(methylationDistMatrix,2,function(x) x/totCpGs)
     orderdMeth<-order(methylationDistMatrix[,1])

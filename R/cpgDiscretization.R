@@ -10,6 +10,7 @@
 #'unmethylated if the methylation is below 0.2
 #'@param bs bsseq object
 #'@param subSample number of CpGs to subsample
+#'@param offset how many CpGs to offset when subsampling
 #'@param coverageVec If coverage vector is already calculated provide it to
 #'speed up the process
 #'@return meth discretized methylation matrix
@@ -24,11 +25,15 @@
 #'@export
 
 
-cpgDiscretization<-function(bs,subSample=1e6, coverageVec=NULL){
+cpgDiscretization<-function(bs,subSample=1e6,offset=50000,coverageVec=NULL){
     # subsampling
     nCpGs<-nrow(bs)
-    subSampleCpGs<-min(nCpGs,subSample)
-    bs<-bs[1:subSampleCpGs,]
+
+    if (nCpGs<(subSample+offset)){
+        bs<-bs
+    }else{
+        bs<-bs[offset:(subSample+offset)]
+    }
 
     covMatrix<-bsseq::getCoverage(bs)
     methMatrix<-bsseq::getCoverage(bs,type='M')
@@ -36,6 +41,7 @@ cpgDiscretization<-function(bs,subSample=1e6, coverageVec=NULL){
     methMatrix<-methMatrix/covMatrix
     if (is.null(coverageVec)){
       covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+      covVec<-covVec*(nCpGs/subSample)
     }else{
       covVec<-coverageVec
     }
@@ -55,7 +61,7 @@ cpgDiscretization<-function(bs,subSample=1e6, coverageVec=NULL){
     })
 
 
-    removedCpGs<-methylationDistMatrix[2,]
+    removedCpGs<-methylationDistMatrix[2,]*(nCpGs/subSample)
     removedCpGFrac<-(removedCpGs/(covVec))*100
     returnList<-list('discard' = removedCpGs,
                      'discardPerc' = removedCpGFrac)

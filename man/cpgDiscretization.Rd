@@ -5,12 +5,15 @@
 \title{Discretize the CpG methylation values
 to align with single cell analysis}
 \usage{
-cpgDiscretization(bs, subSample = 1e+06, coverageVec = NULL)
+cpgDiscretization(bs, subSample = 1e+06, offset = 50000,
+  coverageVec = NULL)
 }
 \arguments{
 \item{bs}{bsseq object}
 
 \item{subSample}{number of CpGs to subsample}
+
+\item{offset}{how many CpGs to offset when subsampling}
 
 \item{coverageVec}{If coverage vector is already calculated provide it to
 speed up the process}

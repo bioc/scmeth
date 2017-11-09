@@ -5,7 +5,7 @@
 \title{Generates an inclusive report on methylation analysis}
 \usage{
 report(bsObj, outdirectory, organism, genome, mbiasDir = NULL,
-  subSample = 1e+06)
+  subSample = 1e+06, offset = 50000)
 }
 \arguments{
 \item{bsObj}{bsseq object}
@@ -23,6 +23,8 @@ the report will have graphics on read information}
 that has the mbias files or the list of mbias files}
 
 \item{subSample}{number of CpGs to subsample}
+
+\item{offset}{how many CpGs to offset when subsampling}
 }
 \value{
 Report will be an html file

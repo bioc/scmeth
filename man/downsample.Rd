@@ -4,19 +4,21 @@
 \alias{downsample}
 \title{Downsample analysis}
 \usage{
-downsample(bs, subSample = 1e+06, dsRates = c(0.01, 0.02, 0.05, seq(0.1,
-  0.9, 0.1)))
+downsample(bs, dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1)),
+  subSample = 1e+06, offset = 50000)
 }
 \arguments{
 \item{bs}{bsseq object}
-
-\item{subSample}{number of CpGs to subsample}
 
 \item{dsRates}{downsampling rate. i.e. the probabaility of sampling
 a single CpG
 default is list of probabilities ranging from 0.01 to 1
 This can be changed by the user, for more continuous saturation curve
 dsRates can be changed to add more sampling rates}
+
+\item{subSample}{number of CpGs to subsample}
+
+\item{offset}{how many CpGs to offset when subsampling}
 }
 \value{
 Data frame with the CpG coverage for each sample at each

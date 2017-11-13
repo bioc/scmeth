@@ -24,12 +24,12 @@ cpgDensity<-function(bs,organism,windowLength=1000){
 
     maxcpgd<-max(cpgd)
     cpgdCov<-sapply(1:ncol(cov), function(i) {
-      cv = as.vector(cov[,i])
-      cpgdCell<-cpgd[cv>0 ]
-      tab <- table(cpgdCell)
-      x <- rep(0, maxcpgd)
-      x[as.numeric(names(tab))] <- tab
-      x
+        cv = as.vector(cov[,i])
+        cpgdCell<-cpgd[cv>0 ]
+        tab <- table(cpgdCell)
+        x <- rep(0, maxcpgd)
+        x[as.numeric(names(tab))] <- tab
+        x
     })
 
 

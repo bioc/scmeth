@@ -18,9 +18,9 @@ coverage <- function(bs,subSample=1e6,offset=50000) {
     nCpGs<-nrow(bs)
 
     if (nCpGs<(subSample+offset)){
-      bs<-bs
+        bs<-bs
     }else{
-      bs<-bs[offset:(subSample+offset)]
+        bs<-bs[offset:(subSample+offset)]
     }
 
     covMatrix<-bsseq::getCoverage(bs)

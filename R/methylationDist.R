@@ -33,19 +33,19 @@ methylationDist<-function(bs,subSample=1e6, offset=50000,coverageVec=NULL){
     methCutOff<-c(-0.01,0.2,0.4,0.6,0.8,1.0)
     methylIntervals<-length(methCutOff)-1
     if (is.null(coverageVec)){
-      totCpGs<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+        totCpGs<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
     }else{
-      totCpGs<- coverageVec
+        totCpGs<- coverageVec
     }
     #totCpGs<-DelayedArray::colSums(covMatrix>0)
 
     methylationDistMatrix<-sapply(1:nSamples, function(i) {
-      mv = as.vector(methMatrix[,i])
-      mv<-mv[!is.na(mv)]
-      mvBin<-cut(mv,methCutOff)
-      tab <- table(mvBin)
-      x<- tab
-      x
+        mv = as.vector(methMatrix[,i])
+        mv<-mv[!is.na(mv)]
+        mvBin<-cut(mv,methCutOff)
+        tab <- table(mvBin)
+        x<- tab
+        x
     })
 
     methylationDistMatrix<-t(methylationDistMatrix)

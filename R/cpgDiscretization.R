@@ -40,10 +40,10 @@ cpgDiscretization<-function(bs,subSample=1e6,offset=50000,coverageVec=NULL){
     nSamples<-ncol(methMatrix)
     methMatrix<-methMatrix/covMatrix
     if (is.null(coverageVec)){
-      covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
-      covVec<-covVec*(nCpGs/subSample)
+        covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+        covVec<-covVec*(nCpGs/subSample)
     }else{
-      covVec<-coverageVec
+        covVec<-coverageVec
     }
     #methMatrix[methMatrix>=0.8]<-1
     #methMatrix[methMatrix<=0.2]<-0
@@ -52,19 +52,19 @@ cpgDiscretization<-function(bs,subSample=1e6,offset=50000,coverageVec=NULL){
     methCutOff<-c(0.01,0.19,0.79,1.0)
 
     methylationDistMatrix<-sapply(1:nSamples, function(i) {
-      mv = as.vector(methMatrix[,i])
-      mv<-mv[!is.na(mv)]
-      mvBin<-cut(mv,methCutOff)
-      tab <- table(mvBin)
-      x<- tab
-      x
+        mv = as.vector(methMatrix[,i])
+        mv<-mv[!is.na(mv)]
+        mvBin<-cut(mv,methCutOff)
+        tab <- table(mvBin)
+        x<- tab
+        x
     })
 
 
     removedCpGs<-methylationDistMatrix[2,]*(nCpGs/subSample)
     removedCpGFrac<-(removedCpGs/(covVec))*100
     returnList<-list('discard' = removedCpGs,
-                     'discardPerc' = removedCpGFrac)
+                        'discardPerc' = removedCpGFrac)
     return(returnList)
 
 }

@@ -164,7 +164,7 @@ g<-g+ggplot2::geom_line(alpha=0.2)
 g<-g+ ggplot2::scale_x_continuous(name="Fraction of Reads")
 g<-g+ggplot2::scale_y_continuous(name="Number of CpG covered") 
 g<-g+ ggplot2::ggtitle("Saturation Analysis Plot") 
-g<-g+ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'),fun.y=median, lwd=2,geom="point",alpha=1.0)
+g<-g+ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'),fun.y=median, lwd=2,geom="point",alpha=1.0,color='green')
 g<-g+ggplot2::theme_bw(base_size=11)
 g
 

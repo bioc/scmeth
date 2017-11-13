@@ -20,6 +20,9 @@
 #'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 #'mbiasDirectory=system.file("extdata",package='scmeth')
 #'report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory)
+#'@importFrom scales comma
+#'@importFrom scales comma
+#'@importFrom viridis scale_fill_viridis
 #'@import knitr
 #'@import DT
 #'@import SummarizedExperiment
@@ -29,9 +32,9 @@
 report <- function(bsObj,outdirectory,organism,genome,mbiasDir=NULL,subSample=1e6,offset=50000) {
     RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
     rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,
-                                         organism=organism,genome=genome,
-                                         mbias=mbiasDir,nCpGs=subSample,
-                                         offset=offset)
+                                        organism=organism,genome=genome,
+                                        mbias=mbiasDir,nCpGs=subSample,
+                                        offset=offset)
                     ,output_file=paste0(outdirectory,"/qcReport.html"))
 
 }

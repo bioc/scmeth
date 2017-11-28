@@ -33,7 +33,7 @@ cpgDensity<-function(bs,organism,windowLength=1000){
     })
 
 
-
+    rownames(cpgdCov)<-1:maxcpgd
     #cpgdBin<-cut(cpgd,seq(0,max(cpgd),5))
 
     # Need to find a better way to conduct this on-disk

@@ -31,18 +31,18 @@ Contents
 Though a small chemical change in the genome, DNA methylation has significant
 impact in several diseases, developmental processes and other biological 
 changes. Hence methylation data should be analyzed carefully to gain 
-biological insights. **scmeth** package offers some tools to conduct 
-methylation analysis properly. 
+biological insights. **scmeth** package offers a few functions to asseess
+the quality of the methylation data. 
 </p>
 
 <p style="text-align: justify;">
 This bioconductor package contains functions to perform quality control and 
-preprocessing analysis for single-cell methylation data. This package is 
-especially customized to use the output from the firecloud implementation of 
+preprocessing analysis for single-cell methylation data. *scmeth* is 
+especially customized to use the output from the fireCloud implementation of 
 methylation pipeline. For now only human and mouse genomes are supported in 
 this package but in the future we will expand to other organisms. In addition 
-to individual functions, **report** function in the **scmeth** provides all 
-inclusive report using most of the functions in this package. If users prefer
+to individual functions, **report** function in the package provides all 
+inclusive report using most of the functions. If users prefer
 they can just use the **report** function to gain summary of their data.
 </p>
 
@@ -60,7 +60,7 @@ biocLite("scmeth")
 <p style="text-align: justify;">
 
 
-Main input for most of the function is a *bsseq* object. In the firecloud 
+Main input for most of the function is a *bsseq* object. In the fireCloud 
 implementation it is stored as hdf5 file which can be read via 
 *loadHDF5SummarizedExperiment* function in *SummarizedExperiment* package.
 Code chunk below shows how it can be loaded.
@@ -85,6 +85,15 @@ A comprehensive quality control report can be generated in the package via
 the directory where the report should be saved, organism that this data is 
 obtained from and the genomic build. Following is an example usage of the 
 **report** function.
+
+**report** function also takes two optional arguments: subSample and offset.
+With subsample parameter users can choose how many CpGs to consider in the 
+analysis out of 29 million pairs (both strand) of CpGs. Our analysis have 
+shown that conducting analysis with one million CpGs is suffice to capture
+the quality of the samples. However when more CpGs are added they reflect
+the full data precisely. Offset parameter is to avoid any telomere region
+when subsetting from the beginning of the data. 
+
 
 </p>
 
@@ -133,7 +142,7 @@ Read information is important to assess whether sequencing and alignment
 succeeded. *readmetrics* function outputs a visualization showing number
 of reads seen in each samples and of those reads what proportion of 
 them were mapped to the reference genome. 
-```{r,fig.width=6,fig.height=6}
+```{r,fig.width=6,fig.height=3}
 scmeth::readmetrics(bsObject)
 ```
 
@@ -261,7 +270,7 @@ cell methylation most methylation should be either 1 or 0. If there
 are large number of intermediate methylation this indicates there might be
 some error in sequencing. 
 </p>
-```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
+```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=3}
 scmeth::methylationDist(bsObject)
 ```
 
@@ -272,11 +281,11 @@ Another important metric in methylation analysis is the bisulfite conversion
 rate. Bisulfite conversion rate indicates out of all the Cytosines in the non
 CpG context what fraction of them were methylated. Ideally this number should
 be 1 or 100% indicating none of the non CpG context cytosines are methylated. 
-However in real data this won't be the case, yet bisulfite conversion
+However in real data this will not be the case, yet bisulfite conversion
 rate below 95% indicates some problem with sample preparation. 
 **bsConversionPlot** function generates a plot showing this metric for each 
 sample.
 </p>
-```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
+```{r,warning=FALSE,message=FALSE,fig.width=4,fig.height=6}
 scmeth::bsConversionPlot(bsObject)
 ```

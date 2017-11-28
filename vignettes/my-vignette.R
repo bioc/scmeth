@@ -18,7 +18,7 @@ bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 ## ------------------------------------------------------------------------
 scmeth::coverage(bsObject)
 
-## ----fig.width=6,fig.height=6--------------------------------------------
+## ----fig.width=6,fig.height=3--------------------------------------------
 scmeth::readmetrics(bsObject)
 
 ## ---- warning=FALSE,message=FALSE,eval=FALSE-----------------------------
@@ -48,9 +48,9 @@ methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
 scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
                                         package='scmeth'))
 
-## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
+## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=3----------------
 scmeth::methylationDist(bsObject)
 
-## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
+## ----warning=FALSE,message=FALSE,fig.width=4,fig.height=6----------------
 scmeth::bsConversionPlot(bsObject)
 

@@ -81,15 +81,15 @@ bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 
 <p style="text-align: justify;">
 A comprehensive quality control report can be generated in the package via 
-**report** function in this package. report function takes the bs object, 
+**report** function. report function takes the bs object, 
 the directory where the report should be saved, organism that this data is 
 obtained from and the genomic build. Following is an example usage of the 
 **report** function.
 
-**report** function also takes two optional arguments: subSample and offset.
-With subsample parameter users can choose how many CpGs to consider in the 
-analysis out of 29 million pairs (both strand) of CpGs. Our analysis have 
-shown that conducting analysis with one million CpGs is suffice to capture
+**report** function also takes two optional arguments: *subSample* and 
+*offset*. With subsample parameter users can choose how many CpGs to consider
+in the analysis out of all the CpG information available. Our analysis 
+have shown that conducting analysis with one million CpGs is suffice to capture
 the quality of the samples. However when more CpGs are added they reflect
 the full data precisely. Offset parameter is to avoid any telomere region
 when subsetting from the beginning of the data. 
@@ -104,8 +104,8 @@ scmeth::report(bsObject, '~/Documents',Hsapiens,"hg38")
 
 
 <p style="text-align: justify;">
-Following the command an html report named *qcReport.html* will be stored in 
-the indicated directory. 
+Command above generayed an html report named *qcReport.html*. It will be stored
+in the indicated directory. 
 </p>
 
 --------------------------------------------------------------------------------
@@ -139,7 +139,7 @@ scmeth::coverage(bsObject)
 
 ### readmetrics
 Read information is important to assess whether sequencing and alignment 
-succeeded. *readmetrics* function outputs a visualization showing number
+succeeded. **readmetrics** function outputs a visualization showing number
 of reads seen in each samples and of those reads what proportion of 
 them were mapped to the reference genome. 
 ```{r,fig.width=6,fig.height=3}
@@ -168,7 +168,8 @@ scmeth::repMask(bs,Mmusculus,"mm10")
 <p style="text-align: justify;">
 There are several other ways the number of CpGs captured can be visualized. 
 One of the way is to observe how the CpGs are distributed across different 
-chromosomes. (Since the example data only contains information in chromosome 1
+chromosomes. ***chromosomeCoverage** outputs CpG coverage by individual 
+chromosomes.(Since the example data only contains information in chromosome 1
 only the CpGs covered in chromosome 1 is shown.)
 
 </p>
@@ -209,7 +210,6 @@ however reduced representation bisulfite sequencing (RRBS) target CpG dense CpG
 islands. Therefore CpG density plot will be a great diagnostic to see whether 
 the protocol succeeded. In order to calculate the CpG density a window length 
 should be specified. By default **cpgDensity** function chooses 1kB regions. 
-
 Therefore CpG density plot can be used to check whether the protocol
 specifically targeted CpG dense or CpG sparse regions or whether CpGs were 
 obtained uniformly across the regions.

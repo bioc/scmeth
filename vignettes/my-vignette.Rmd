@@ -67,7 +67,7 @@ Code chunk below shows how it can be loaded.
 </p>
 
 ```{r, eval=FALSE}
-directory<-system.file("extdata/bismark_data",package='scmeth')
+directory<-system.file("extdata","bismark_data",package='scmeth')
 bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 ```
 

@@ -3,7 +3,8 @@
 #  biocLite("scmeth")
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  directory<-system.file("extdata/bismark_data",package='scmeth')
+#  # Works in devtools::check but not in bioconductor
+#  directory<-system.file("extdata","bismark_data",package='scmeth')
 #  bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 
 ## ---- eval=FALSE---------------------------------------------------------
@@ -12,7 +13,7 @@
 
 ## ----  warning=FALSE,message=FALSE,comment=FALSE-------------------------
 library(scmeth)
-directory<-system.file("extdata/bismark_data",package='scmeth')
+directory<-system.file("extdata","bismark_data",package='scmeth')
 bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 
 ## ------------------------------------------------------------------------

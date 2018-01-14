@@ -3,7 +3,7 @@ Type: Package
 Title: Functions to conduct quality control analysis in methylation data
 Version: 0.99.3
 Author: Divy Kangeyan <divyswar01@g.harvard.edu>
-Depends: R (>= 3.4.0)
+Depends: R (>= 3.5.0)
 Imports:
   ggplot2,
   knitr,
@@ -16,9 +16,9 @@ Imports:
   stats,
   utils,
   BSgenome,
-  DelayedArray,
+  DelayedArray (>= 0.5.15),
   annotatr,
-  SummarizedExperiment,
+  SummarizedExperiment (>= 1.9.5),
   GenomeInfoDb,
   DT,
   ggthemes,

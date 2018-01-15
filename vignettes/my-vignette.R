@@ -13,8 +13,8 @@
 
 ## ----  warning=FALSE,message=FALSE,comment=FALSE-------------------------
 library(scmeth)
-directory<-system.file("extdata","bismark_data",package='scmeth')
-bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#directory<-system.file("extdata","bismark_data",package='scmeth')
+bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment('./bismark_data')
 
 ## ------------------------------------------------------------------------
 scmeth::coverage(bsObject)
@@ -24,7 +24,8 @@ scmeth::readmetrics(bsObject)
 
 ## ---- warning=FALSE,message=FALSE,eval=FALSE-----------------------------
 #  library(BSgenome.Mmusculus.UCSC.mm10)
-#  load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#  #load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#  load('bsObject.rda')
 #  scmeth::repMask(bs,Mmusculus,"mm10")
 
 ## ---- warning=FALSE------------------------------------------------------
@@ -46,8 +47,7 @@ DT::datatable(scmeth::downsample(bsObject))
 
 ## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=6----------------
 methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
-scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
-                                        package='scmeth'))
+scmeth::mbiasplot(mbiasFiles=methylationBiasFile)
 
 ## ----warning=FALSE,message=FALSE,fig.width=6,fig.height=3----------------
 scmeth::methylationDist(bsObject)

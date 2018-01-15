@@ -131,7 +131,7 @@ Loading the data
 ```{r,  warning=FALSE,message=FALSE,comment=FALSE,}
 library(scmeth)
 #directory<-system.file("extdata","bismark_data",package='scmeth')
-bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment('./bismark_data')
+bsObject<-HDF5Array::loadHDF5SummarizedExperiment('./bismark_data')
 ```
 
 ```{r}

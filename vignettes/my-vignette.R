@@ -13,8 +13,8 @@
 
 ## ----  warning=FALSE,message=FALSE,comment=FALSE-------------------------
 library(scmeth)
-#directory<-system.file("extdata","bismark_data",package='scmeth')
-bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment('./bismark_data')
+directory<-system.file("extdata","bismark_data",package='scmeth')
+bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
 
 ## ------------------------------------------------------------------------
 scmeth::coverage(bsObject)

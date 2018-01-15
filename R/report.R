@@ -23,6 +23,7 @@
 #'@importFrom scales comma
 #'@importFrom scales comma
 #'@importFrom viridis scale_fill_viridis
+#'@importFrom HDF5Array loadHDF5SummarizedExperiment
 #'@import knitr
 #'@import DT
 #'@import SummarizedExperiment

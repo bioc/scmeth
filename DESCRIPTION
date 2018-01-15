@@ -1,7 +1,7 @@
 Package: scmeth
 Type: Package
 Title: Functions to conduct quality control analysis in methylation data
-Version: 0.99.6
+Version: 0.99.7
 Author: Divy Kangeyan <divyswar01@g.harvard.edu>
 Depends: R (>= 3.5.0)
 Imports:

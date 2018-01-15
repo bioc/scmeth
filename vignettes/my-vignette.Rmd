@@ -130,8 +130,8 @@ sample. **coverage** function can be used to get this information.
 Loading the data
 ```{r,  warning=FALSE,message=FALSE,comment=FALSE,}
 library(scmeth)
-#directory<-system.file("extdata","bismark_data",package='scmeth')
-bsObject<-HDF5Array::loadHDF5SummarizedExperiment('./bismark_data')
+directory<-system.file("extdata","bismark_data",package='scmeth')
+bsObject<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 ```
 
 ```{r}

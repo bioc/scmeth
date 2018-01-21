@@ -1,9 +1,9 @@
 Package: scmeth
 Type: Package
 Title: Functions to conduct quality control analysis in methylation data
-Version: 0.99.10
+Version: 0.99.11
 Author: Divy Kangeyan <divyswar01@g.harvard.edu>
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.4.0)
 Imports:
   ggplot2,
   knitr,
@@ -26,7 +26,7 @@ Imports:
   viridis,
   magrittr,
   dplyr,
-  HDF5Array
+  HDF5Array (>= 1.7.5)
 Suggests:
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,

@@ -37,17 +37,15 @@ downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1)),subSample
     nSamples<-dim(covMatrix)[2]
     downSampleMatrix<-matrix(nrow=length(dsRates)+1,ncol=nSamples)
     maxCov<-20
-
     nonZeroProbMatrix<-matrix(nrow=(length(dsRates)+1),ncol=maxCov)
 
-    for (i in 1:length(dsRates)){
-        nonZeroProbMatrix[i,]<-1 - dbinom(0,1:maxCov,dsRates[i])
+    for (i in seq_len(length(dsRates))){
+        nonZeroProbMatrix[i,]<-1 - dbinom(0,seq_len(maxCov),dsRates[i])
     }
 
     nonZeroProbMatrix[(length(dsRates)+1),]<-1
 
-
-    countMatrix<-sapply(1:ncol(covMatrix), function(i) {
+    countMatrix<-sapply(seq_len(ncol(covMatrix)), function(i) {
         cv = as.vector(covMatrix[,i])
         cv[cv>maxCov ] <- maxCov
         tab <- table(cv)
@@ -60,16 +58,6 @@ downsample <-function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1)),subSample
     downSampleMatrix<-round(nonZeroProbMatrix %*% countMatrix)
     downSampleMatrix<-downSampleMatrix*(nCpGs/subSample)
 
-    #for (i in 1:length(dsRates)){
-    #    for (j in 1:nSamples){
-    #    cellCoverage<-as.vector(covMatrix[,j])
-    #    cellNonZeroCoverage<-cellCoverage[cellCoverage>0]
-    #    covSubList<-lapply(cellNonZeroCoverage,rbinom,n=1,prob=dsRates[i])
-    #    downSampleMatrix[i,j]<- sum(covSubList>0)
-
-    #    }
-    #}
-    #downSampleMatrix[length(dsRates)+1,]<-DelayedArray::colSums(covMatrix>0)
     rownames(downSampleMatrix)<-c(dsRates,1)
     return(downSampleMatrix)
 }

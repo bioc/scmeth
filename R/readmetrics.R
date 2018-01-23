@@ -38,7 +38,5 @@ readmetrics<-function(bs){
                         axis.text.y=ggplot2::element_blank(),
                         axis.ticks=ggplot2::element_blank())
     return(g)
-
-
 }
 

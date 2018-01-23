@@ -40,7 +40,7 @@ methylationDist<-function(bs,subSample=1e6, offset=50000,coverageVec=NULL){
     }
     #totCpGs<-DelayedArray::colSums(covMatrix>0)
 
-    methylationDistMatrix<-sapply(1:nSamples, function(i) {
+    methylationDistMatrix<-sapply(seq_len(nSamples), function(i) {
         mv = as.vector(methMatrix[,i])
         mv<-mv[!is.na(mv)]
         mvBin<-cut(mv,methCutOff)
@@ -52,17 +52,12 @@ methylationDist<-function(bs,subSample=1e6, offset=50000,coverageVec=NULL){
     methylationDistMatrix<-t(methylationDistMatrix)
     methylationDistMatrix<-methylationDistMatrix*(nCpGs/subSample)
 
-
     methylationDistMatrix<-apply(methylationDistMatrix,2,function(x) x/totCpGs)
     orderdMeth<-order(methylationDistMatrix[,1])
     methylationDistMatrix<-methylationDistMatrix[orderdMeth,]
 
     colnames(methylationDistMatrix)<-c('[0,0.2]','(0.2,0.4]','(0.4,0.6]','(0.6,0.8]','(0.8,1]')
     meltedMDistMatrix<-reshape2::melt(methylationDistMatrix)
-
-
-
     return(meltedMDistMatrix)
-
 }
 

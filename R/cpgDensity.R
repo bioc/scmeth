@@ -23,7 +23,7 @@ cpgDensity<-function(bs,organism,windowLength=1000){
     cpgd<-Repitools::cpgDensityCalc(gr, organism, window = windowLength)
 
     maxcpgd<-max(cpgd)
-    cpgdCov<-sapply(1:ncol(cov), function(i) {
+    cpgdCov<-sapply(seq_len(ncol(cov)), function(i) {
         cv = as.vector(cov[,i])
         cpgdCell<-cpgd[cv>0 ]
         tab <- table(cpgdCell)
@@ -32,13 +32,6 @@ cpgDensity<-function(bs,organism,windowLength=1000){
         x
     })
 
-
     rownames(cpgdCov)<-1:maxcpgd
-    #cpgdBin<-cut(cpgd,seq(0,max(cpgd),5))
-
-    # Need to find a better way to conduct this on-disk
-    #cpgdCov <- by(cov>0, cpgd, colSums)
-    #cpgdCov <- do.call("rbind", cpgdCov)
     return(cpgdCov)
-
 }

@@ -28,12 +28,10 @@
 
 featureCoverage <-function(bs,features,genomebuild){
 
-
     annotationFeatures<-c()
     for (i in features){
     annotationFeatures<-c(paste0(genomebuild,'_',i),annotationFeatures)
     }
-
 
     annots_gr = annotatr::build_annotations(genome = genomebuild,
                                         annotations = annotationFeatures)
@@ -43,7 +41,7 @@ featureCoverage <-function(bs,features,genomebuild){
 
     sumAnnotMatrix<-matrix(nrow=length(features),ncol=nSamples)
     featureLabel<-rep(NA,length(features))
-    for (i in 1:nSamples){
+    for (i in seq_len(nSamples)){
         bsCell<-bs[,i]
 
         # CpGs that are observed

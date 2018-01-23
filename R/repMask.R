@@ -16,7 +16,6 @@
 
 
 repMask<-function(bs,organism,genome){
-
     GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"
     hub <- AnnotationHub::AnnotationHub()
     repeatGr <- hub[[names(AnnotationHub::query(hub,
@@ -25,5 +24,4 @@ repMask<-function(bs,organism,genome){
     cov<-bsseq::getCoverage(bs)
     covDf <- data.frame(coveredCpgs=DelayedArray::colSums(cov[!rep,]>=1))
     return(covDf)
-
 }

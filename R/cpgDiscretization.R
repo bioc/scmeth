@@ -45,13 +45,11 @@ cpgDiscretization<-function(bs,subSample=1e6,offset=50000,coverageVec=NULL){
     }else{
         covVec<-coverageVec
     }
-    #methMatrix[methMatrix>=0.8]<-1
-    #methMatrix[methMatrix<=0.2]<-0
 
     # Only consider methylation between 0.2 and 0.8
     methCutOff<-c(0.01,0.19,0.79,1.0)
 
-    methylationDistMatrix<-sapply(1:nSamples, function(i) {
+    methylationDistMatrix<-sapply(seq_len(nSamples), function(i) {
         mv = as.vector(methMatrix[,i])
         mv<-mv[!is.na(mv)]
         mvBin<-cut(mv,methCutOff)
@@ -59,7 +57,6 @@ cpgDiscretization<-function(bs,subSample=1e6,offset=50000,coverageVec=NULL){
         x<- tab
         x
     })
-
 
     removedCpGs<-methylationDistMatrix[2,]*(nCpGs/subSample)
     removedCpGFrac<-(removedCpGs/(covVec))*100

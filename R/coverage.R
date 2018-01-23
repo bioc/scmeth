@@ -25,7 +25,6 @@ coverage <- function(bs,subSample=1e6,offset=50000) {
 
     covMatrix<-bsseq::getCoverage(bs)
     covVec<- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
-
     covVec<-covVec*(nCpGs/subSample)
     return(covVec)
 }

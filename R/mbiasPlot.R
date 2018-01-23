@@ -59,7 +59,6 @@ mbiasplot<-function(dir=NULL,mbiasFiles=NULL){
     mt<-reshape2::melt(mbiasTableList,
                         id.vars=c('position', 'X..methylation', 'read'))
 
-
     mt$read_rep <- paste(mt$read, mt$L1, sep="_")
     sum_mt <- mt %>% dplyr::select('read','position','X..methylation','L1') %>%
                         dplyr::group_by(position,read) %>%
@@ -79,7 +78,5 @@ mbiasplot<-function(dir=NULL,mbiasFiles=NULL){
                                                 alpha=0.4)
     g<-g+ggplot2::ylim(0,100)+ggplot2::ggtitle('Mbias Plot')
     g<-g+ggplot2::ylab('methylation')
-
-
     return(g)
 }

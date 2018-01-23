@@ -23,11 +23,10 @@ scmeth::coverage(bsObject)
 ## ----fig.width=6,fig.height=3--------------------------------------------
 scmeth::readmetrics(bsObject)
 
-## ---- warning=FALSE,message=FALSE,eval=FALSE-----------------------------
-#  library(BSgenome.Mmusculus.UCSC.mm10)
-#  #load(system.file("extdata",'bsObject.rda',package='scmeth'))
-#  load('bsObject.rda')
-#  scmeth::repMask(bs,Mmusculus,"mm10")
+## ---- warning=FALSE,message=FALSE----------------------------------------
+library(BSgenome.Mmusculus.UCSC.mm10)
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+scmeth::repMask(bs,Mmusculus,"mm10")
 
 ## ---- warning=FALSE------------------------------------------------------
 scmeth::chromosomeCoverage(bsObject)

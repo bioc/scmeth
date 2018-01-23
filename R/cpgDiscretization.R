@@ -18,7 +18,7 @@
 #'@return Percentage of CpGs discarded compared to the total number of CpGs
 #'@examples
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'cpgDiscretization(bs)
 #'@importFrom DelayedArray colSums
 #'@importFrom bsseq getCoverage

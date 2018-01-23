@@ -7,7 +7,7 @@
 #'@examples
 #'library(BSgenome.Hsapiens.NCBI.GRCh38)
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'cpgDensity(bs,Hsapiens,1000)
 #'@import BSgenome
 #'@importFrom bsseq getCoverage

@@ -5,16 +5,17 @@
 ## ---- eval=FALSE---------------------------------------------------------
 #  # Works in devtools::check but not in bioconductor
 #  directory<-system.file("extdata","bismark_data",package='scmeth')
-#  bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#  bsObject<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  library(scmeth)
 #  scmeth::report(bsObject, '~/Documents',Hsapiens,"hg38")
 
-## ----  warning=FALSE,message=FALSE,comment=FALSE-------------------------
+## ----  warning=FALSE, message=FALSE, comment=FALSE-----------------------
+#
 library(scmeth)
 directory<-system.file("extdata","bismark_data",package='scmeth')
-bsObject<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+bsObject<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 
 ## ------------------------------------------------------------------------
 scmeth::coverage(bsObject)

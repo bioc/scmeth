@@ -6,7 +6,7 @@
 #'column and rows indicating the samples and the chromosome respectively
 #'@examples
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'chromosomeCoverage(bs)
 #'@importFrom bsseq getCoverage
 #'@export

@@ -5,7 +5,7 @@
 #'@return Plot showing the mapped and unmapped read information for each cell
 #'@examples
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'readmetrics(bs)
 #'@export
 #'@importFrom utils read.delim

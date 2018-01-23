@@ -7,7 +7,7 @@
 #'@return vector of coverage for the cells in bs object
 #'@examples
 #'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+#'bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'coverage(bs)
 #'@importFrom DelayedArray colSums
 #'@importFrom bsseq getCoverage

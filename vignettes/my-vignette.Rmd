@@ -162,8 +162,8 @@ the genome build information.
 
 ```{r, warning=FALSE,message=FALSE,eval=FALSE}
 library(BSgenome.Mmusculus.UCSC.mm10)
-#load(system.file("extdata",'bsObject.rda',package='scmeth'))
-load('bsObject.rda')
+load(system.file("extdata",'bsObject.rda',package='scmeth'))
+#load('bsObject.rda')
 scmeth::repMask(bs,Mmusculus,"mm10")
 ```
 

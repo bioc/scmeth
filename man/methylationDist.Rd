@@ -24,6 +24,6 @@ Plot the methylation distribution for the cells in bsseq object
 }
 \examples{
 directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 methylationDist(bs)
 }

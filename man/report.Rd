@@ -36,7 +36,7 @@ generate a report for the user
 \examples{
 library(BSgenome.Hsapiens.NCBI.GRCh38)
 directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 mbiasDirectory=system.file("extdata",package='scmeth')
 report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory)
 }

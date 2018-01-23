@@ -18,6 +18,6 @@ Provides Coverage metrics for each sample by the chromosome
 }
 \examples{
 directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-SummarizedExperiment::loadHDF5SummarizedExperiment(directory)
+bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
 chromosomeCoverage(bs)
 }

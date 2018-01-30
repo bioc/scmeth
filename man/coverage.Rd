@@ -9,9 +9,12 @@ coverage(bs, subSample = 1e+06, offset = 50000)
 \arguments{
 \item{bs}{bsseq object}
 
-\item{subSample}{number of CpGs to subsample}
+\item{subSample}{number of CpGs to subsample.
+Default value is 1000000.}
 
-\item{offset}{how many CpGs to offset when subsampling}
+\item{offset}{how many CpGs to offset when subsampling
+Default value is set to be 50000, i.e. first 50000 CpGs will
+be ignored in subsampling.}
 }
 \value{
 vector of coverage for the cells in bs object
@@ -20,7 +23,7 @@ vector of coverage for the cells in bs object
 Provides Coverage for each cell in a library pool
 }
 \examples{
-directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+directory <- system.file("extdata/bismark_data",package='scmeth')
+bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 coverage(bs)
 }

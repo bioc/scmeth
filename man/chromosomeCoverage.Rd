@@ -17,7 +17,7 @@ column and rows indicating the samples and the chromosome respectively
 Provides Coverage metrics for each sample by the chromosome
 }
 \examples{
-directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+directory <- system.file("extdata/bismark_data",package='scmeth')
+bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 chromosomeCoverage(bs)
 }

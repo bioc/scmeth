@@ -26,8 +26,7 @@ Provides Coverage metrics for the sample by each genomic features provided
 by the user
 }
 \examples{
-library(annotatr)
-directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+directory <- system.file("extdata/bismark_data",package='scmeth')
+bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 featureCoverage(bs,c('cpg_islands','genes_exons'),'hg38')
 }

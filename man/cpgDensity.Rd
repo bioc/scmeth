@@ -2,7 +2,8 @@
 % Please edit documentation in R/cpgDensity.R
 \name{cpgDensity}
 \alias{cpgDensity}
-\title{Provides Coverage metrics in the repeat masker region}
+\title{Provides Coverage by the CpG density. CpG Density is defined as the number
+of CpGs observed in certain base pair long region.}
 \usage{
 cpgDensity(bs, organism, windowLength = 1000)
 }
@@ -12,17 +13,19 @@ cpgDensity(bs, organism, windowLength = 1000)
 \item{organism}{scientific name of the organism of interest,
 i.e. Mus musculus or Homo sapiens}
 
-\item{windowLength}{Length of the window to calculate the density}
+\item{windowLength}{Length of the window to calculate the density
+Default value for window length is 1000 basepairs.}
 }
 \value{
 Data frame with sample name and coverage in repeat masker regions
 }
 \description{
-Provides Coverage metrics in the repeat masker region
+Provides Coverage by the CpG density. CpG Density is defined as the number
+of CpGs observed in certain base pair long region.
 }
 \examples{
 library(BSgenome.Hsapiens.NCBI.GRCh38)
-directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+directory <- system.file("extdata/bismark_data",package='scmeth')
+bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 cpgDensity(bs,Hsapiens,1000)
 }

@@ -13,22 +13,26 @@ downsample(bs, dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1)),
 \item{dsRates}{downsampling rate. i.e. the probabaility of sampling
 a single CpG
 default is list of probabilities ranging from 0.01 to 1
-This can be changed by the user, for more continuous saturation curve
-dsRates can be changed to add more sampling rates}
+0.01 0.02 0.05 0.10 0.20 0.30 0.40 0.50 0.60 0.70 0.80 0.90
+For more continuous saturation curve dsRates can be changed to add more
+sampling rates}
 
-\item{subSample}{number of CpGs to subsample}
+\item{subSample}{number of CpGs to subsample
+Default value is 1000000.}
 
-\item{offset}{how many CpGs to offset when subsampling}
+\item{offset}{how many CpGs to offset when subsampling
+Default value is set to be 50000, i.e. first 50000 CpGs will
+be ignored in subsampling.}
 }
 \value{
 Data frame with the CpG coverage for each sample at each
 sampling rate
 }
 \description{
-Downsample the CpG covergae matrix for saturation analysis
+Downsample the CpG coverage matrix for saturation analysis
 }
 \examples{
-directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+directory <- system.file("extdata/bismark_data",package='scmeth')
+bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 downsample(bs)
 }

@@ -22,9 +22,12 @@ the report will have graphics on read information}
 \item{mbiasDir}{Optional argument to provide directory name
 that has the mbias files or the list of mbias files}
 
-\item{subSample}{number of CpGs to subsample}
+\item{subSample}{number of CpGs to subsample
+Default value is 1000000.}
 
-\item{offset}{how many CpGs to offset when subsampling}
+\item{offset}{how many CpGs to offset when subsampling
+Default value is set to be 50000, i.e. first 50000 CpGs will
+be ignored in subsampling.}
 }
 \value{
 Report will be an html file
@@ -35,8 +38,8 @@ generate a report for the user
 }
 \examples{
 library(BSgenome.Hsapiens.NCBI.GRCh38)
-directory<-system.file("extdata/bismark_data",package='scmeth')
-bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+directory <- system.file("extdata/bismark_data",package='scmeth')
+bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 mbiasDirectory=system.file("extdata",package='scmeth')
 report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory)
 }

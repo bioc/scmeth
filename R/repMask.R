@@ -1,5 +1,3 @@
-#' Coverage of CpGs in repeat masker region
-#'
 #'Provides Coverage metrics in the repeat masker region
 #'@param bs bsseq object
 #'@param organism scientific name of the organism of interest,
@@ -15,13 +13,13 @@
 #'@export
 
 
-repMask<-function(bs,organism,genome){
-    GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"
+repMask <- function(bs,organism,genome){
+    GenomeInfoDb::seqlevelsStyle(bs) <- "UCSC"
     hub <- AnnotationHub::AnnotationHub()
     repeatGr <- hub[[names(AnnotationHub::query(hub,
                         c("rmsk", GenomeInfoDb::organism(organism), genome)))]]
     rep <- GenomicRanges::countOverlaps(bs, repeatGr)>0
-    cov<-bsseq::getCoverage(bs)
+    cov <- bsseq::getCoverage(bs)
     covDf <- data.frame(coveredCpgs=DelayedArray::colSums(cov[!rep,]>=1))
     return(covDf)
 }

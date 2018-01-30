@@ -5,17 +5,17 @@
 #'@return matrix of chromsome covergae with
 #'column and rows indicating the samples and the chromosome respectively
 #'@examples
-#'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+#'directory <- system.file("extdata/bismark_data",package='scmeth')
+#'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'chromosomeCoverage(bs)
 #'@importFrom bsseq getCoverage
 #'@export
 
 
 chromosomeCoverage <- function(bs) {
-    bs<-GenomeInfoDb::keepStandardChromosomes(bs)
-    covMatrix<-bsseq::getCoverage(bs)
-    Granges<-GenomicRanges::granges(bs)
+    bs <- GenomeInfoDb::keepStandardChromosomes(bs)
+    covMatrix <- bsseq::getCoverage(bs)
+    Granges <- GenomicRanges::granges(bs)
     standardChr <- GenomeInfoDb::seqnames(Granges)
     chrCov <- by(covMatrix>0, standardChr, colSums)
     chrCov <- do.call("rbind", chrCov)

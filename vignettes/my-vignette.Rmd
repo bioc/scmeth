@@ -68,8 +68,8 @@ Code chunk below shows how it can be loaded.
 
 ```{r, eval=FALSE}
 # Works in devtools::check but not in bioconductor
-directory<-system.file("extdata","bismark_data",package='scmeth')
-bsObject<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+directory <- system.file("extdata","bismark_data",package='scmeth')
+bsObject <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 ```
 
 
@@ -131,8 +131,8 @@ Loading the data
 ```{r,  warning=FALSE, message=FALSE, comment=FALSE}
 #
 library(scmeth)
-directory<-system.file("extdata","bismark_data",package='scmeth')
-bsObject<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+directory <- system.file("extdata","bismark_data",package='scmeth')
+bsObject <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 ```
 
 ```{r}
@@ -194,10 +194,8 @@ that region.
 </p>
 ```{r, warning=FALSE,message=FALSE}
 library(annotatr)
-featureList<-c('genes_exons','genes_introns')
+featureList <- c('genes_exons','genes_introns')
 DT::datatable(scmeth::featureCoverage(bsObject,features=featureList,"hg38"))
-
-
 ```
 </p>
 
@@ -254,8 +252,10 @@ file generated from firecloud pipeline and generates the methylation bias plot.
 </p>
 
 ```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
-methylationBiasFile<-'2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
-scmeth::mbiasplot(mbiasFiles=methylationBiasFile)
+
+methylationBiasFile <- '2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
+scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
+                                         package='scmeth'))
 ```
 </p>
 
@@ -289,4 +289,8 @@ sample.
 </p>
 ```{r,warning=FALSE,message=FALSE,fig.width=4,fig.height=6}
 scmeth::bsConversionPlot(bsObject)
+```
+
+```{r,warning=FALSE,message=FALSE}
+sessionInfo()
 ```

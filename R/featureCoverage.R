@@ -12,9 +12,8 @@
 #'@return a data frame with genomic feature names and the number of
 #'CpG covered in each feature
 #'@examples
-#'library(annotatr)
-#'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+#'directory <- system.file("extdata/bismark_data",package='scmeth')
+#'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'featureCoverage(bs,c('cpg_islands','genes_exons'),'hg38')
 #'@importFrom DelayedArray rowSums
 #'@importFrom GenomeInfoDb seqlevelsStyle
@@ -26,27 +25,26 @@
 #'@export
 
 
-featureCoverage <-function(bs,features,genomebuild){
+featureCoverage <- function(bs,features,genomebuild){
 
-    annotationFeatures<-c()
+    annotationFeatures <- c()
     for (i in features){
-    annotationFeatures<-c(paste0(genomebuild,'_',i),annotationFeatures)
+    annotationFeatures <- c(paste0(genomebuild,'_',i),annotationFeatures)
     }
 
     annots_gr = annotatr::build_annotations(genome = genomebuild,
                                         annotations = annotationFeatures)
-    GenomeInfoDb::seqlevelsStyle(bs)<-"UCSC"
+    GenomeInfoDb::seqlevelsStyle(bs) <- "UCSC"
+    nSamples <- dim(bs)[2]
 
-    nSamples<-dim(bs)[2]
-
-    sumAnnotMatrix<-matrix(nrow=length(features),ncol=nSamples)
-    featureLabel<-rep(NA,length(features))
+    sumAnnotMatrix <- matrix(nrow=length(features),ncol=nSamples)
+    featureLabel <- rep(NA,length(features))
     for (i in seq_len(nSamples)){
-        bsCell<-bs[,i]
+        bsCell <- bs[,i]
 
         # CpGs that are observed
-        coverageMatrix<-getCoverage(bsCell)
-        ind<-DelayedArray::rowSums(coverageMatrix)>0
+        coverageMatrix <- getCoverage(bsCell)
+        ind <- DelayedArray::rowSums(coverageMatrix)>0
         # Intersect the regions with the reference annotations
 
         dm_annotated = annotatr::annotate_regions(
@@ -54,15 +52,12 @@ featureCoverage <-function(bs,features,genomebuild){
             annotations = annots_gr,
             ignore.strand = TRUE,
             quiet = TRUE)
-        sumAnnot<-annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
-        sumAnnotMatrix[,i]<-sumAnnot$n[match(annotationFeatures,sumAnnot$annot.type)]/sum(ind)
-        featureLabel[1:length(sumAnnot$annot.type)]<-sumAnnot$annot.type
-
+        sumAnnot <- annotatr::summarize_annotations(dm_annotated,quiet=TRUE)
+        sumAnnotMatrix[,i] <- sumAnnot$n[match(annotationFeatures,sumAnnot$annot.type)]/sum(ind)
+        featureLabel[1:length(sumAnnot$annot.type)] <- sumAnnot$annot.type
     }
-    colnames(sumAnnotMatrix)<-colnames(bs)
-    rownames(sumAnnotMatrix)<-featureLabel
+    colnames(sumAnnotMatrix) <- colnames(bs)
+    rownames(sumAnnotMatrix) <- featureLabel
 
     return(sumAnnotMatrix)
-
-
 }

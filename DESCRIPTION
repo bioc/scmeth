@@ -1,8 +1,9 @@
 Package: scmeth
 Type: Package
 Title: Functions to conduct quality control analysis in methylation data
-Version: 0.99.15
+Version: 0.99.16
 Author: Divy Kangeyan <divyswar01@g.harvard.edu>
+Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Depends: R (>= 3.5.0)
 Imports:
   ggplot2,
@@ -33,7 +34,6 @@ Suggests:
   Biobase,
   BiocGenerics,
   Biostrings
-Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Description: Functions to analyze methylation data can be found here.
              Some functions are relevant for single cell methylation data but most other
              functions can be used for any  methylation data.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/repMask.R
 \name{repMask}
 \alias{repMask}
-\title{Coverage of CpGs in repeat masker region}
+\title{Provides Coverage metrics in the repeat masker region}
 \usage{
 repMask(bs, organism, genome)
 }

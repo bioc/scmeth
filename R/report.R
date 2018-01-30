@@ -12,12 +12,15 @@
 #'@param mbiasDir Optional argument to provide directory name
 #'that has the mbias files or the list of mbias files
 #'@param subSample number of CpGs to subsample
+#'Default value is 1000000.
 #'@param offset how many CpGs to offset when subsampling
+#'Default value is set to be 50000, i.e. first 50000 CpGs will
+#'be ignored in subsampling.
 #'@return Report will be an html file
 #'@examples
 #'library(BSgenome.Hsapiens.NCBI.GRCh38)
-#'directory<-system.file("extdata/bismark_data",package='scmeth')
-#'bs<-HDF5Array::loadHDF5SummarizedExperiment(directory)
+#'directory <- system.file("extdata/bismark_data",package='scmeth')
+#'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'mbiasDirectory=system.file("extdata",package='scmeth')
 #'report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory)
 #'@importFrom scales comma
@@ -31,7 +34,7 @@
 #
 
 report <- function(bsObj,outdirectory,organism,genome,mbiasDir=NULL,subSample=1e6,offset=50000) {
-    RmdFile<-system.file(".",'qcReport.Rmd',package="scmeth")
+    RmdFile <- system.file(".",'qcReport.Rmd',package="scmeth")
     rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,
                                         organism=organism,genome=genome,
                                         mbias=mbiasDir,nCpGs=subSample,

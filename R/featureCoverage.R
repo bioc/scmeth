@@ -3,7 +3,7 @@
 #'Provides Coverage metrics for the sample by each genomic features provided
 #'by the user
 #'@param bs bsseq object
-#'@param features list of genomic features, i.e. genes_exons, genes_introns,
+#'@param features list of genomic features, e.g. genes_exons, genes_introns,
 #'cpg_islands, cpg_shelves
 #'Names are based on the annotatr packages, so all the features provided by the
 #'annotatr

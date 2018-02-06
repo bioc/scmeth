@@ -4,8 +4,8 @@
 \alias{report}
 \title{Generates an inclusive report on methylation analysis}
 \usage{
-report(bsObj, outdirectory, organism, genome, mbiasDir = NULL,
-  subSample = 1e+06, offset = 50000)
+report(bsObj, outdirectory, organism, genome = c("mm10", "hg38"),
+  mbiasDir = NULL, subSample = 1e+06, offset = 50000)
 }
 \arguments{
 \item{bsObj}{bsseq object}
@@ -14,9 +14,9 @@ report(bsObj, outdirectory, organism, genome, mbiasDir = NULL,
 report will be saved}
 
 \item{organism}{scientific name of the organism of interest,
-i.e. Mus musculus or Homo sapiens}
+e.g. Mmusculus or Hsapiens}
 
-\item{genome}{reference alignment, i.e. mm10 or hg38
+\item{genome}{reference alignment, e.g. mm10 or hg38
 the report will have graphics on read information}
 
 \item{mbiasDir}{Optional argument to provide directory name

@@ -2,7 +2,7 @@
 #'of CpGs observed in certain base pair long region.
 #'@param bs bsseq object
 #'@param organism scientific name of the organism of interest,
-#'i.e. Mus musculus or Homo sapiens
+#'e.g. Mus musculus or Homo sapiens
 #'@param windowLength Length of the window to calculate the density
 #'Default value for window length is 1000 basepairs.
 #'@return Data frame with sample name and coverage in repeat masker regions
@@ -18,7 +18,7 @@
 cpgDensity <- function(bs,organism,windowLength=1000){
 
     cov <- bsseq::getCoverage(bs)
-    gr <- granges(bs)
+    gr <- GenomicRanges::granges(bs)
     #GenomeInfoDb::seqlevelsStyle(gr) <- GenomeInfoDb::seqlevelsStyle(organism)[1]
     cpgd <- Repitools::cpgDensityCalc(gr, organism, window = windowLength)
 

@@ -6,8 +6,8 @@
 #'@param outdirectory name of the output directory where the
 #'report will be saved
 #'@param organism scientific name of the organism of interest,
-#'i.e. Mus musculus or Homo sapiens
-#'@param genome reference alignment, i.e. mm10 or hg38
+#'e.g. Mmusculus or Hsapiens
+#'@param genome reference alignment, e.g. mm10 or hg38
 #'the report will have graphics on read information
 #'@param mbiasDir Optional argument to provide directory name
 #'that has the mbias files or the list of mbias files
@@ -33,7 +33,8 @@
 #'@export
 #
 
-report <- function(bsObj,outdirectory,organism,genome,mbiasDir=NULL,subSample=1e6,offset=50000) {
+report <- function(bsObj,outdirectory,organism,genome=c("mm10", "hg38"),mbiasDir=NULL,subSample=1e6,offset=50000) {
+    genome <- match.arg(genome)
     RmdFile <- system.file(".",'qcReport.Rmd',package="scmeth")
     rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,
                                         organism=organism,genome=genome,

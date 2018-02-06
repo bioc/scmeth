@@ -10,7 +10,7 @@ repMask(bs, organism, genome)
 \item{bs}{bsseq object}
 
 \item{organism}{scientific name of the organism of interest,
-i.e. Mus musculus or Homo sapiens}
+e.g. Mus musculus or Homo sapiens}
 
 \item{genome}{reference alignment, i.e. mm10 or hg38}
 }

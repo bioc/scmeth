@@ -11,7 +11,7 @@ cpgDensity(bs, organism, windowLength = 1000)
 \item{bs}{bsseq object}
 
 \item{organism}{scientific name of the organism of interest,
-i.e. Mus musculus or Homo sapiens}
+e.g. Mus musculus or Homo sapiens}
 
 \item{windowLength}{Length of the window to calculate the density
 Default value for window length is 1000 basepairs.}

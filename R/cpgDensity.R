@@ -2,7 +2,7 @@
 #'of CpGs observed in certain base pair long region.
 #'@param bs bsseq object
 #'@param organism scientific name of the organism of interest,
-#'e.g. Mus musculus or Homo sapiens
+#'e.g. Mmusculus or Hsapiens
 #'@param windowLength Length of the window to calculate the density
 #'Default value for window length is 1000 basepairs.
 #'@return Data frame with sample name and coverage in repeat masker regions

@@ -1,7 +1,7 @@
 #'Provides Coverage metrics in the repeat masker region
 #'@param bs bsseq object
 #'@param organism scientific name of the organism of interest,
-#'e.g. Mus musculus or Homo sapiens
+#'e.g. Mmusculus or Hsapiens
 #'@param genome reference alignment, i.e. mm10 or hg38
 #'@return Data frame with sample name and coverage in repeat masker regions
 #'@examples

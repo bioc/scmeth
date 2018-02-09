@@ -22,6 +22,7 @@ coverage <- function(bs,subSample=1e6,offset=50000) {
 
     if (nCpGs<(subSample+offset)){
         bs <- bs
+        subSample <- nCpGs
     }else{
         bs <- bs[offset:(subSample+offset)]
     }

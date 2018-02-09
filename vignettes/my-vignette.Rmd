@@ -31,23 +31,22 @@ Contents
 Though a small chemical change in the genome, DNA methylation has significant
 impact in several diseases, developmental processes and other biological 
 changes. Hence methylation data should be analyzed carefully to gain 
-biological insights. **scmeth** package offers a few functions to asseess
+biological insights. **scmeth** package offers a few functions to assess
 the quality of the methylation data. 
 </p>
 
 <p style="text-align: justify;">
 This bioconductor package contains functions to perform quality control and 
 preprocessing analysis for single-cell methylation data. *scmeth* is 
-especially customized to use the output from the fireCloud implementation of 
-methylation pipeline. For now only human and mouse genomes are supported in 
-this package but in the future we will expand to other organisms. In addition 
-to individual functions, **report** function in the package provides all 
-inclusive report using most of the functions. If users prefer
-they can just use the **report** function to gain summary of their data.
+especially customized to use the output from the FireCloud implementation of 
+methylation pipeline. In addition to individual functions, **report** function
+in the package provides all inclusive report using most of the functions. If
+users prefer they can just use the **report** function to gain summary of 
+their data.
 </p>
 
-2. Installation
----------------------
+2. Installation and package loading
+------------------------------------
 **scmeth** is available in bioconductor and can be downloaded using the 
 following commands
 ```{r, eval=FALSE}
@@ -55,14 +54,19 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("scmeth")
 ```
 
+Load the package
+```{r, warning=FALSE, message=FALSE}
+library(scmeth)
+```
+
 3. Input files
 ---------------------
 <p style="text-align: justify;">
 
 
-Main input for most of the function is a *bsseq* object. In the fireCloud 
+Main input for most of the function is a *bsseq* object. In the FireCloud 
 implementation it is stored as hdf5 file which can be read via 
-*loadHDF5SummarizedExperiment* function in *SummarizedExperiment* package.
+*loadHDF5SummarizedExperiment* function in *HDF5Array* package.
 Code chunk below shows how it can be loaded.
 </p>
 
@@ -99,13 +103,12 @@ when subsetting from the beginning of the data.
 </p>
 
 ```{r, eval=FALSE}
-library(scmeth)
-scmeth::report(bsObject, '~/Documents',Hsapiens,"hg38")
+report(bsObject, '~/Documents',Hsapiens,"hg38")
 ```
 
 
 <p style="text-align: justify;">
-Command above generayed an html report named *qcReport.html*. It will be stored
+Command above generated an html report named *qcReport.html*. It will be stored
 in the indicated directory. 
 </p>
 
@@ -129,8 +132,6 @@ sample. **coverage** function can be used to get this information.
 </p>
 Loading the data
 ```{r,  warning=FALSE, message=FALSE, comment=FALSE}
-#
-library(scmeth)
 directory <- system.file("extdata","bismark_data",package='scmeth')
 bsObject <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 ```
@@ -145,7 +146,7 @@ succeeded. **readmetrics** function outputs a visualization showing number
 of reads seen in each samples and of those reads what proportion of 
 them were mapped to the reference genome. 
 ```{r,fig.width=6,fig.height=3}
-scmeth::readmetrics(bsObject)
+readmetrics(bsObject)
 ```
 
 ### repmask
@@ -163,7 +164,7 @@ the genome build information.
 ```{r, warning=FALSE,message=FALSE}
 library(BSgenome.Mmusculus.UCSC.mm10)
 load(system.file("extdata",'bsObject.rda',package='scmeth'))
-scmeth::repMask(bs,Mmusculus,"mm10")
+repMask(bs,Mmusculus,"mm10")
 ```
 
 ### Coverage by Chromosome
@@ -177,7 +178,7 @@ only the CpGs covered in chromosome 1 is shown.)
 </p>
 
 ```{r, warning=FALSE}
-scmeth::chromosomeCoverage(bsObject)
+chromosomeCoverage(bsObject)
 ```
 
 ### featureCoverage
@@ -195,7 +196,7 @@ that region.
 ```{r, warning=FALSE,message=FALSE}
 library(annotatr)
 featureList <- c('genes_exons','genes_introns')
-DT::datatable(scmeth::featureCoverage(bsObject,features=featureList,"hg38"))
+DT::datatable(featureCoverage(bsObject,features=featureList,"hg38"))
 ```
 </p>
 
@@ -217,7 +218,7 @@ obtained uniformly across the regions.
 
 ```{r,warning=FALSE,message=FALSE}
 library(BSgenome.Hsapiens.NCBI.GRCh38)
-DT::datatable(scmeth::cpgDensity(bsObject,Hsapiens,windowLength=1000))
+DT::datatable(cpgDensity(bsObject,Hsapiens,windowLength=1000))
 ```
 
 ### downsample
@@ -236,7 +237,7 @@ report renders this information into a plot. Downsampling rate ranges from
 </p>
 
 ```{r,warning=FALSE}
-DT::datatable(scmeth::downsample(bsObject))
+DT::datatable(downsample(bsObject))
 ```
 
 
@@ -248,13 +249,13 @@ However there could be fluctuations in the beginning or the end of the read due
 to the quality of the bases. Single cell sequencing samples also can show 
 jagged trend in the methylation bias plot due to low read count. Methylation
 bias can be assessed via **mbiasPlot** function. This function takes the mbias
-file generated from firecloud pipeline and generates the methylation bias plot.
+file generated from FireCloud pipeline and generates the methylation bias plot.
 </p>
 
 ```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
 
 methylationBiasFile <- '2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
-scmeth::mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
+mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
                                          package='scmeth'))
 ```
 </p>
@@ -272,7 +273,7 @@ are large number of intermediate methylation this indicates there might be
 some error in sequencing. 
 </p>
 ```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=3}
-scmeth::methylationDist(bsObject)
+methylationDist(bsObject)
 ```
 
 
@@ -288,7 +289,7 @@ rate below 95% indicates some problem with sample preparation.
 sample.
 </p>
 ```{r,warning=FALSE,message=FALSE,fig.width=4,fig.height=6}
-scmeth::bsConversionPlot(bsObject)
+bsConversionPlot(bsObject)
 ```
 
 ```{r,warning=FALSE,message=FALSE}

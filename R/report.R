@@ -39,7 +39,8 @@ report <- function(bsObj,outdirectory,organism,genome=c("mm10", "hg38"),mbiasDir
     rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,
                                         organism=organism,genome=genome,
                                         mbias=mbiasDir,nCpGs=subSample,
-                                        offset=offset)
-                    ,output_file=paste0(outdirectory,"/qcReport.html"))
+                                        offset=offset),
+                     knit_root_dir=getwd(),
+                    output_file=paste0(outdirectory,"/qcReport.html"))
 
 }

@@ -19,18 +19,15 @@
 
 cpgDensity <- function(bs,organism,windowLength=1000){
 
-    cov <- bsseq::getCoverage(bs)
-    gr <- GenomicRanges::granges(bs)
     #GenomeInfoDb::seqlevelsStyle(gr) <- GenomeInfoDb::seqlevelsStyle(organism)[1]
-
     cov <- bsseq::getCoverage(bs)
     gr <- GenomicRanges::granges(bs)
     cpg <- Biostrings::DNAString("CG")
     cpg_gr <- Biostrings::vmatchPattern(cpg, Hsapiens)
     cpg_gr <- GenomeInfoDb::keepStandardChromosomes(cpg_gr, pruning.mode= "coarse")
 
-    r_cpg_gr<-GenomicRanges::resize(cpg_gr,width=1000,fix='center')
-    cpgd<-GenomicRanges::countOverlaps(gr,r_cpg_gr)
+    r_cpg_gr <- GenomicRanges::resize(cpg_gr,width=1000,fix='center')
+    cpgd <- GenomicRanges::countOverlaps(gr,r_cpg_gr)
 
     #cpgd <- Repitools::cpgDensityCalc(gr, organism, window = windowLength)
 

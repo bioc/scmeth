@@ -14,6 +14,8 @@
 #'@importFrom utils read.table
 #'@importFrom utils read.csv
 #'@importFrom stats sd
+#'@importFrom summarise plyr
+#'@importFrom ddply plyr
 #'@import magrittr
 #'@export
 
@@ -56,10 +58,14 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
     mt <- reshape2::melt(mbiasTableList,
                         id.vars=c('position', 'X..methylation', 'read'))
     mt$read_rep <- paste(mt$read, mt$L1, sep="_")
-    sum_mt <- mt %>% dplyr::group_by(position,read) %>%
-                        dplyr::summarise(meth = mean(X..methylation),
-                                sdMeth=stats::sd(X..methylation))
-    sum_mt$seMeth <- sum_mt$sdMeth/sqrt(nSamples)
+
+    sum_mt <- plyr::ddply(mt, c("position", "read"), plyr::summarise,
+                    meth = mean(X..methylation), sdMeth = sd(X..methylation),
+                    seMeth = sd(X..methylation)/sqrt(length(X..methylation)))
+    #sum_mt <- mt %>% dplyr::group_by(position,read) %>%
+                        #dplyr::summarise(meth = mean(X..methylation),
+                           #     sdMeth=stats::sd(X..methylation))
+    #sum_mt$seMeth <- sum_mt$sdMeth/sqrt(nSamples)
     sum_mt$upperCI <- sum_mt$meth+(1.96*sum_mt$seMeth)
     sum_mt$lowerCI <- sum_mt$meth-(1.96*sum_mt$seMeth)
     sum_mt$read_rep <- paste(sum_mt$read, sum_mt$position,sep="_")

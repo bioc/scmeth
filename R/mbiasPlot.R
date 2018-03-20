@@ -14,8 +14,8 @@
 #'@importFrom utils read.table
 #'@importFrom utils read.csv
 #'@importFrom stats sd
-#'@importFrom summarise plyr
-#'@importFrom ddply plyr
+#'@importFrom plyr summarise
+#'@importFrom plyr ddply
 #'@import magrittr
 #'@export
 

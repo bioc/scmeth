@@ -56,8 +56,7 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
     mt <- reshape2::melt(mbiasTableList,
                         id.vars=c('position', 'X..methylation', 'read'))
     mt$read_rep <- paste(mt$read, mt$L1, sep="_")
-    sum_mt <- mt %>% dplyr::select('read','position','X..methylation','L1') %>%
-                        dplyr::group_by(position,read) %>%
+    sum_mt <- mt %>% dplyr::group_by(position,read) %>%
                         dplyr::summarise(meth = mean(X..methylation),
                                 sdMeth=stats::sd(X..methylation))
     sum_mt$seMeth <- sum_mt$sdMeth/sqrt(nSamples)

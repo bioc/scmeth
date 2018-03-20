@@ -4,6 +4,9 @@
 #'@param organism scientific name of the organism of interest,
 #'e.g. Mmusculus or Hsapiens
 #'@param windowLength Length of the window to calculate the density
+#'@param small Indicator for a small dataset, cpg density is calculated more
+#'memory efficiently for large dataset but for small dataset a different quicker
+#'method is used
 #'Default value for window length is 1000 basepairs.
 #'@return Data frame with sample name and coverage in repeat masker regions
 #'@examples
@@ -11,24 +14,34 @@
 #'directory <- system.file("extdata/bismark_data",package='scmeth')
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'memory.limit(size=300)
-#'cpgDensity(bs,Hsapiens,1000)
+#'cpgDensity(bs,Hsapiens,1000,small=TRUE)
 #'@import BSgenome
 #'@importFrom bsseq getCoverage
 #'@importFrom Biostrings DNAString
 #'@importFrom Biostrings vmatchPattern
 #'@export
 
-cpgDensity <- function(bs,organism,windowLength=1000){
+cpgDensity <- function(bs,organism,windowLength=1000,small=FALSE){
 
     #GenomeInfoDb::seqlevelsStyle(gr) <- GenomeInfoDb::seqlevelsStyle(organism)[1]
     cov <- bsseq::getCoverage(bs)
     gr <- GenomicRanges::granges(bs)
     cpg <- Biostrings::DNAString("CG")
-    cpg_gr <- Biostrings::vmatchPattern(cpg, organism)
-    cpg_gr <- GenomeInfoDb::keepStandardChromosomes(cpg_gr, pruning.mode= "coarse")
 
-    r_cpg_gr <- GenomicRanges::resize(cpg_gr,width=(windowLength/2),fix='center')
-    cpgd <- GenomicRanges::countOverlaps(gr,r_cpg_gr)
+    if (!small){
+      cpg_gr <- Biostrings::vmatchPattern(cpg, organism)
+      cpg_gr <- GenomeInfoDb::keepStandardChromosomes(cpg_gr, pruning.mode= "coarse")
+
+      r_cpg_gr <- GenomicRanges::resize(cpg_gr,width=(windowLength/2),fix='center')
+      cpgd <- GenomicRanges::countOverlaps(gr,r_cpg_gr)
+
+    }else{
+      gr_resized <- GenomicRanges::resize(gr, width=(500/2),fix='center')
+      v <- Biostrings::Views(organism, gr_resized)
+      dnFrequency <- Biostrings::dinucleotideFrequency(v)
+      cpgd <- dnFrequency[,'CG']
+    }
+
 
     #cpgd <- Repitools::cpgDensityCalc(gr, organism, window = windowLength)
 

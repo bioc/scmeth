@@ -5,7 +5,7 @@
 \title{Provides Coverage by the CpG density. CpG Density is defined as the number
 of CpGs observed in certain base pair long region.}
 \usage{
-cpgDensity(bs, organism, windowLength = 1000)
+cpgDensity(bs, organism, windowLength = 1000, small = FALSE)
 }
 \arguments{
 \item{bs}{bsseq object}
@@ -13,7 +13,11 @@ cpgDensity(bs, organism, windowLength = 1000)
 \item{organism}{scientific name of the organism of interest,
 e.g. Mmusculus or Hsapiens}
 
-\item{windowLength}{Length of the window to calculate the density
+\item{windowLength}{Length of the window to calculate the density}
+
+\item{small}{Indicator for a small dataset, cpg density is calculated more
+memory efficiently for large dataset but for small dataset a different quicker
+method is used
 Default value for window length is 1000 basepairs.}
 }
 \value{
@@ -28,5 +32,5 @@ library(BSgenome.Hsapiens.NCBI.GRCh38)
 directory <- system.file("extdata/bismark_data",package='scmeth')
 bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 memory.limit(size=300)
-cpgDensity(bs,Hsapiens,1000)
+cpgDensity(bs,Hsapiens,1000,small=TRUE)
 }

@@ -53,11 +53,7 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
     colnames(mbiasTable)<-c('position','methylation','read')
     mbiasTableList[[i]] <- mbiasTable
     }
-
-    mt <- reshape2::melt(mbiasTableList,
-                        id.vars=c('position', 'methylation', 'read'))
-    mt$read_rep <- paste(mt$read, mt$L1, sep="_")
-    colnames(mt) <- c('position', 'methylation', 'read', 'L1', 'read_rep')
+    mt <- do.call(rbind.data.frame, mbiasTableList)
 
     meanTable <- stats::aggregate(methylation ~ position+read, data=mt, FUN=mean)
     sdTable <- stats::aggregate(methylation ~ position+read, data=mt, FUN=sd)

@@ -218,7 +218,7 @@ obtained uniformly across the regions.
 
 ```{r,warning=FALSE,message=FALSE}
 library(BSgenome.Hsapiens.NCBI.GRCh38)
-DT::datatable(cpgDensity(bsObject,Hsapiens,windowLength=1000))
+DT::datatable(cpgDensity(bsObject,Hsapiens,windowLength=1000,small=TRUE))
 ```
 
 ### downsample

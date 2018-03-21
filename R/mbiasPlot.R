@@ -57,10 +57,11 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
     mt <- reshape2::melt(mbiasTableList,
                         id.vars=c('position', 'methylation', 'read'))
     mt$read_rep <- paste(mt$read, mt$L1, sep="_")
+    colnames(mt) <- c('position', 'methylation', 'read', 'L1', 'read_rep')
 
-    meanTable <- stats::aggregate( methylation ~ position+read, data=mt, FUN=mean)
-    sdTable <- stats::aggregate( methylation ~ position+read, data=mt, FUN=sd)
-    seTable <- stats::aggregate( methylation ~ position+read, data=mt, FUN=function(x){sd(x)/sqrt(length(x))})
+    meanTable <- stats::aggregate(methylation ~ position+read, data=mt, FUN=mean)
+    sdTable <- stats::aggregate(methylation ~ position+read, data=mt, FUN=sd)
+    seTable <- stats::aggregate(methylation ~ position+read, data=mt, FUN=function(x){sd(x)/sqrt(length(x))})
 
     sum_mt<-data.frame('position'=meanTable$position,'read'=meanTable$read,
                        'meth'=meanTable$methylation, 'sdMeth'=sdTable$methylation,

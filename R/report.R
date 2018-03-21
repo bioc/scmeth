@@ -16,13 +16,14 @@
 #'@param offset how many CpGs to offset when subsampling
 #'Default value is set to be 50000, i.e. first 50000 CpGs will
 #'be ignored in subsampling.
+#'@param small Indicator for a small dataset, cpg density is calculated more
 #'@return Report will be an html file
 #'@examples
 #'library(BSgenome.Hsapiens.NCBI.GRCh38)
 #'directory <- system.file("extdata/bismark_data",package='scmeth')
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'mbiasDirectory=system.file("extdata",package='scmeth')
-#'report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory)
+#'report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory,small=TRUE)
 #'@importFrom scales comma
 #'@importFrom scales comma
 #'@importFrom viridis scale_fill_viridis
@@ -33,13 +34,13 @@
 #'@export
 #
 
-report <- function(bsObj,outdirectory,organism,genome=c("mm10", "hg38"),mbiasDir=NULL,subSample=1e6,offset=50000) {
+report <- function(bsObj,outdirectory,organism,genome=c("mm10", "hg38"),mbiasDir=NULL,subSample=1e6,offset=50000,small=FALSE) {
     genome <- match.arg(genome)
     RmdFile <- system.file(".",'qcReport.Rmd',package="scmeth")
     rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,
                                         organism=organism,genome=genome,
                                         mbias=mbiasDir,nCpGs=subSample,
-                                        offset=offset),
+                                        offset=offset,small=small),
                      knit_root_dir=getwd(),
                     output_file=paste0(outdirectory,"/qcReport.html"))
 

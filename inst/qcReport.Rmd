@@ -13,6 +13,7 @@ params:
   mbias: mbiasDir
   nCpGs: subSample
   offset: offset
+  small: small
 ---
 
 ```{r setup, include=FALSE}
@@ -72,7 +73,7 @@ scmeth::bsConversionPlot(bs)
 
 ## Methylation Density plot
 ```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5, eval=TRUE,fig.align='center'}
-cpgDenMatrix <- scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000)
+cpgDenMatrix <- scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000,small=params$small)
 cpgDenMatrix <- apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
 m <- reshape2::melt(cpgDenMatrix, varnames = c("Sample", "Density"))
 

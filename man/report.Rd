@@ -5,7 +5,7 @@
 \title{Generates an inclusive report on methylation analysis}
 \usage{
 report(bsObj, outdirectory, organism, genome = c("mm10", "hg38"),
-  mbiasDir = NULL, subSample = 1e+06, offset = 50000)
+  mbiasDir = NULL, subSample = 1e+06, offset = 50000, small = FALSE)
 }
 \arguments{
 \item{bsObj}{bsseq object}
@@ -28,6 +28,8 @@ Default value is 1000000.}
 \item{offset}{how many CpGs to offset when subsampling
 Default value is set to be 50000, i.e. first 50000 CpGs will
 be ignored in subsampling.}
+
+\item{small}{Indicator for a small dataset, cpg density is calculated more}
 }
 \value{
 Report will be an html file
@@ -41,5 +43,5 @@ library(BSgenome.Hsapiens.NCBI.GRCh38)
 directory <- system.file("extdata/bismark_data",package='scmeth')
 bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 mbiasDirectory=system.file("extdata",package='scmeth')
-report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory)
+report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory,small=TRUE)
 }

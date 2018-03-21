@@ -12,8 +12,8 @@ mbiasplot(dir = NULL, mbiasFiles = NULL)
 \item{mbiasFiles}{list of mbias files}
 }
 \value{
-Plot showing the methylation across the read position in original top
-and original bottom strand both in forward and reverse reads
+Returns a list containing the methylation across the read position in original top
+and original bottom strand both in forward and reverse reads for multiple samples
 }
 \description{
 Plot the methylation at each position of the read to observe any biases in

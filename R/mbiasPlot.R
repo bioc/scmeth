@@ -6,8 +6,8 @@
 #'
 #'@param dir directory name with mbias files
 #'@param mbiasFiles list of mbias files
-#'@return Plot showing the methylation across the read position in original top
-#'and original bottom strand both in forward and reverse reads
+#'@return Returns a list containing the methylation across the read position in original top
+#'and original bottom strand both in forward and reverse reads for multiple samples
 #'@examples
 #'mbiasFile <- '2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
 #'mbiasplot(mbiasFiles=system.file("extdata",mbiasFile,package='scmeth'))
@@ -45,41 +45,17 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
 
     CpG_Mbias_Read1 <- utils::read.csv(sep='\t',text=oracle[[1]])
     CpG_Mbias_Read1$read <- 'read-1'
+    colnames(CpG_Mbias_Read1)<-c('position','count.methylated','count.unmethylated',
+                                 'methylation','coverage','read')
     CpG_Mbias_Read2 <- utils::read.csv(sep='\t',text=oracle[[4]])
     CpG_Mbias_Read2$read <- 'read-2'
+    colnames(CpG_Mbias_Read2)<-c('position','count.methylated','count.unmethylated',
+                                 'methylation','coverage','read')
 
-    mbiasTable <- rbind(CpG_Mbias_Read1[,c('position','X..methylation','read')],
-                        CpG_Mbias_Read2[,c('position','X..methylation','read')])
-    colnames(mbiasTable)<-c('position','methylation','read')
+    mbiasTable <- rbind(CpG_Mbias_Read1[,c('position','methylation','read')],
+                        CpG_Mbias_Read2[,c('position','methylation','read')])
     mbiasTableList[[i]] <- mbiasTable
     }
-    mt <- do.call(rbind.data.frame, mbiasTableList)
 
-    meanTable <- stats::aggregate(methylation ~ position+read, data=mt, FUN=mean)
-    sdTable <- stats::aggregate(methylation ~ position+read, data=mt, FUN=sd)
-    seTable <- stats::aggregate(methylation ~ position+read, data=mt, FUN=function(x){sd(x)/sqrt(length(x))})
-
-    sum_mt<-data.frame('position'=meanTable$position,'read'=meanTable$read,
-                       'meth'=meanTable$methylation, 'sdMeth'=sdTable$methylation,
-                       'seMeth'=seTable$methylation)
-    #sum_mt <- plyr::ddply(mt, .(position, read), plyr::summarise,
-                    #meth = mean(X..methylation), sdMeth = sd(X..methylation),
-                    #seMeth = sd(X..methylation)/sqrt(length(X..methylation)))
-    #sum_mt <- mt %>% dplyr::group_by(position,read) %>%
-                        #dplyr::summarise(meth = mean(X..methylation),
-                           #     sdMeth=stats::sd(X..methylation))
-    #sum_mt$seMeth <- sum_mt$sdMeth/sqrt(nSamples)
-    sum_mt$upperCI <- sum_mt$meth+(1.96*sum_mt$seMeth)
-    sum_mt$lowerCI <- sum_mt$meth-(1.96*sum_mt$seMeth)
-    sum_mt$read_rep <- paste(sum_mt$read, sum_mt$position,sep="_")
-
-    g <- ggplot2::ggplot(sum_mt)
-    g <- g+ggplot2::geom_line(ggplot2::aes_string(x='position',y='meth',
-                                                colour='read'))
-    g <- g+ggplot2::geom_ribbon(ggplot2::aes_string(ymin = 'lowerCI',
-                                ymax = 'upperCI', x='position',fill = 'read'),
-                                alpha=0.4)
-    g <- g+ggplot2::ylim(0,100)+ggplot2::ggtitle('Mbias Plot')
-    g <- g+ggplot2::ylab('methylation')
-    return(g)
+    return(mbiasTableList)
 }

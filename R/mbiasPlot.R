@@ -14,9 +14,7 @@
 #'@importFrom utils read.table
 #'@importFrom utils read.csv
 #'@importFrom stats sd
-#'@importFrom plyr summarise
-#'@importFrom plyr ddply
-#'@import magrittr
+#'@importFrom stats aggregate
 #'@export
 
 mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
@@ -59,9 +57,16 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
                         id.vars=c('position', 'X..methylation', 'read'))
     mt$read_rep <- paste(mt$read, mt$L1, sep="_")
 
-    sum_mt <- plyr::ddply(mt, c("position", "read"), plyr::summarise,
-                    meth = mean(X..methylation), sdMeth = sd(X..methylation),
-                    seMeth = sd(X..methylation)/sqrt(length(X..methylation)))
+    meanTable <- stats::aggregate( X..methylation ~ position+read, data=mt, FUN=mean)
+    sdTable <- stats::aggregate( X..methylation ~ position+read, data=mt, FUN=sd)
+    seTable <- stats::aggregate( X..methylation ~ position+read, data=mt, FUN=function(x){sd(x)/sqrt(length(x))})
+
+    sum_mt<-data.frame('position'=meanTable$position,'read'=meanTable$read,
+                       'meth'=meanTable$X..methylation, 'sdMeth'=sdTable$X..methylation,
+                       'seMeth'=seTable$X..methylation)
+    #sum_mt <- plyr::ddply(mt, .(position, read), plyr::summarise,
+                    #meth = mean(X..methylation), sdMeth = sd(X..methylation),
+                    #seMeth = sd(X..methylation)/sqrt(length(X..methylation)))
     #sum_mt <- mt %>% dplyr::group_by(position,read) %>%
                         #dplyr::summarise(meth = mean(X..methylation),
                            #     sdMeth=stats::sd(X..methylation))

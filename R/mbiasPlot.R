@@ -63,8 +63,8 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
     seTable <- stats::aggregate( methylation ~ position+read, data=mt, FUN=function(x){sd(x)/sqrt(length(x))})
 
     sum_mt<-data.frame('position'=meanTable$position,'read'=meanTable$read,
-                       'meth'=meanTable$X..methylation, 'sdMeth'=sdTable$X..methylation,
-                       'seMeth'=seTable$X..methylation)
+                       'meth'=meanTable$methylation, 'sdMeth'=sdTable$methylation,
+                       'seMeth'=seTable$methylation)
     #sum_mt <- plyr::ddply(mt, .(position, read), plyr::summarise,
                     #meth = mean(X..methylation), sdMeth = sd(X..methylation),
                     #seMeth = sd(X..methylation)/sqrt(length(X..methylation)))

@@ -50,16 +50,17 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
 
     mbiasTable <- rbind(CpG_Mbias_Read1[,c('position','X..methylation','read')],
                         CpG_Mbias_Read2[,c('position','X..methylation','read')])
+    colnames(mbiasTable)<-c('position','methylation','read')
     mbiasTableList[[i]] <- mbiasTable
     }
 
     mt <- reshape2::melt(mbiasTableList,
-                        id.vars=c('position', 'X..methylation', 'read'))
+                        id.vars=c('position', 'methylation', 'read'))
     mt$read_rep <- paste(mt$read, mt$L1, sep="_")
 
-    meanTable <- stats::aggregate( X..methylation ~ position+read, data=mt, FUN=mean)
-    sdTable <- stats::aggregate( X..methylation ~ position+read, data=mt, FUN=sd)
-    seTable <- stats::aggregate( X..methylation ~ position+read, data=mt, FUN=function(x){sd(x)/sqrt(length(x))})
+    meanTable <- stats::aggregate( methylation ~ position+read, data=mt, FUN=mean)
+    sdTable <- stats::aggregate( methylation ~ position+read, data=mt, FUN=sd)
+    seTable <- stats::aggregate( methylation ~ position+read, data=mt, FUN=function(x){sd(x)/sqrt(length(x))})
 
     sum_mt<-data.frame('position'=meanTable$position,'read'=meanTable$read,
                        'meth'=meanTable$X..methylation, 'sdMeth'=sdTable$X..methylation,

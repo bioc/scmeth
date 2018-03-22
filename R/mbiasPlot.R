@@ -45,12 +45,13 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
 
     CpG_Mbias_Read1 <- utils::read.csv(sep='\t',text=oracle[[1]])
     CpG_Mbias_Read1$read <- 'read-1'
-    colnames(CpG_Mbias_Read1)<-c('position','count.methylated','count.unmethylated',
-                                 'methylation','coverage','read')
+    CpG_Mbias_Read1$methylation <- CpG_Mbias_Read1$count.methylated*100/
+      (CpG_Mbias_Read1$count.methylated+CpG_Mbias_Read1$count.unmethylated)
     CpG_Mbias_Read2 <- utils::read.csv(sep='\t',text=oracle[[4]])
     CpG_Mbias_Read2$read <- 'read-2'
-    colnames(CpG_Mbias_Read2)<-c('position','count.methylated','count.unmethylated',
-                                 'methylation','coverage','read')
+    CpG_Mbias_Read2$methylation <- CpG_Mbias_Read2$count.methylated*100/
+      (CpG_Mbias_Read2$count.methylated+CpG_Mbias_Read2$count.unmethylated)
+
 
     mbiasTable <- rbind(CpG_Mbias_Read1[,c('position','methylation','read')],
                         CpG_Mbias_Read2[,c('position','methylation','read')])

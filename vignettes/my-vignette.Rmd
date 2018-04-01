@@ -38,11 +38,11 @@ the quality of the methylation data.
 <p style="text-align: justify;">
 This bioconductor package contains functions to perform quality control and 
 preprocessing analysis for single-cell methylation data. *scmeth* is 
-especially customized to use the output from the FireCloud implementation of 
-methylation pipeline. In addition to individual functions, **report** function
-in the package provides all inclusive report using most of the functions. If
-users prefer they can just use the **report** function to gain summary of 
-their data.
+especially customized to be used with the output from the FireCloud 
+implementation of methylation pipeline. In addition to individual functions,
+**report** function in the package provides all inclusive report using most of
+the functions. If users prefer they can just use the **report** function to 
+gain summary of their data.
 </p>
 
 2. Installation and package loading
@@ -62,8 +62,6 @@ library(scmeth)
 3. Input files
 ---------------------
 <p style="text-align: justify;">
-
-
 Main input for most of the function is a *bsseq* object. In the FireCloud 
 implementation it is stored as hdf5 file which can be read via 
 *loadHDF5SummarizedExperiment* function in *HDF5Array* package.
@@ -90,16 +88,17 @@ A comprehensive quality control report can be generated in the package via
 the directory where the report should be saved, organism that this data is 
 obtained from and the genomic build. Following is an example usage of the 
 **report** function.
+</p>
 
+<p style="text-align: justify;">
 **report** function also takes two optional arguments: *subSample* and 
 *offset*. With subsample parameter users can choose how many CpGs to consider
 in the analysis out of all the CpG information available. Our analysis 
 have shown that conducting analysis with one million CpGs is suffice to capture
 the quality of the samples. However when more CpGs are added they reflect
 the full data precisely. Offset parameter is to avoid any telomere region
-when subsetting from the beginning of the data. 
-
-
+when subsetting from the beginning of the data. Hence Offset parameter would
+avoid first n number of CpGs.
 </p>
 
 ```{r, eval=FALSE}
@@ -119,17 +118,20 @@ in the indicated directory.
 <p style="text-align: justify;">
 This section will elaborate on some of the main functions and show the usage 
 of these functions based on a sample data set that comes along with the 
-package. 
+package.
+</p>
 
+<p style="text-align: justify;">
 **scmeth** package contains several functions to assess different metrics and 
 success of the sequencing process. 
-
+</p>
 ### coverage
+<p style="text-align: justify;">
 One main metric is the CpG coverage. Coverage of the CpG can be assessed in 
 different ways. Very basic one is to check how many CpG were observed in each 
 sample. **coverage** function can be used to get this information. 
-
 </p>
+
 Loading the data
 ```{r,  warning=FALSE, message=FALSE, comment=FALSE}
 directory <- system.file("extdata","bismark_data",package='scmeth')

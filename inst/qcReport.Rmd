@@ -63,6 +63,7 @@ g <- g+ggplot2::geom_ribbon(ggplot2::aes_string(ymin = 'lowerCI',
                         alpha=0.4)
 g <- g+ggplot2::ylim(0,100)+ggplot2::ggtitle('Mbias Plot')
 g <- g+ggplot2::ylab('methylation')
+g <- g+ggplot2::theme_bw()
 g
 ```
 
@@ -109,6 +110,7 @@ g <- g+ggplot2::ggtitle("Fraction of covered CpGs by CpG density")
 g <- g+ggplot2::xlab("CpG coverage based on the CpG density") 
 g <- g+ggplot2::xlab('CpG Density')+ggplot2::ylab('Fraction of CpGs')
 g <- g+ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 60, hjust = 1))
+g <- g+ggplot2::theme_bw()
 g
 ```
 

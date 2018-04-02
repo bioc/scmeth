@@ -196,7 +196,7 @@ seen in particular cell in specific region compared to all the CpGs seen in
 that region.
 </p>
 ```{r, warning=FALSE,message=FALSE}
-library(annotatr)
+#library(annotatr)
 featureList <- c('genes_exons','genes_introns')
 DT::datatable(featureCoverage(bsObject,features=featureList,"hg38"))
 ```

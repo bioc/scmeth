@@ -29,6 +29,7 @@ Imports:
 Suggests:
   BSgenome.Mmusculus.UCSC.mm10,
   BSgenome.Hsapiens.NCBI.GRCh38,
+  TxDb.Hsapiens.UCSC.hg38.knownGene,
   Biobase,
   BiocGenerics
 Description: Functions to analyze methylation data can be found here.

@@ -4,8 +4,8 @@
 \alias{report}
 \title{Generates an inclusive report on methylation analysis}
 \usage{
-report(bsObj, outdirectory, organism, genome = c("mm10", "hg38"),
-  mbiasDir = NULL, subSample = 1e+06, offset = 50000, small = FALSE)
+report(bsObj, outdirectory, organism, genome, mbiasDir = NULL,
+  subSample = 1e+06, offset = 50000, small = FALSE)
 }
 \arguments{
 \item{bsObj}{bsseq object}

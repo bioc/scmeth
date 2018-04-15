@@ -40,7 +40,7 @@ mbiasplot <- function(dir=NULL,mbiasFiles=NULL){
     if (nbreaks > 0L) {
         oracle <- mapply(function(a,b) paste(MbiasFile[a:b]),
                         c(1L, 1L + breaks[-nbreaks])+2,
-                        breaks - 1L)
+                        breaks - 1L,SIMPLIFY = FALSE)
     }
 
     CpG_Mbias_Read1 <- utils::read.csv(sep='\t',text=oracle[[1]])

@@ -41,7 +41,6 @@ methylationDist <- function(bs,subSample=1e6, offset=50000,coverageVec=NULL){
     }else{
         totCpGs <- coverageVec
     }
-    #totCpGs <- DelayedArray::colSums(covMatrix>0)
 
     methylationDistMatrix <- sapply(seq_len(nSamples), function(i) {
         mv = as.vector(methMatrix[,i])

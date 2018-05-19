@@ -31,7 +31,25 @@ nSamples <- length(Biobase::sampleNames(bs))
 ## Read information
 ```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=7,fig.align='center'}
 # Methylation distribution for all the cells
-scmeth::readmetrics(bs)
+dat <- scmeth::readmetrics(bs)
+o <- order(dat$total,dat$sample)
+sampleOrder <- dat$sample[o]
+   
+m <- reshape2::melt(dat[,c("sample","mapped","unmapped")], id.vars="sample",
+                    variable.name="Mapping_status")
+m$sample <- factor(m$sample,levels=sampleOrder)
+m$Mapping_status <- relevel(m$Mapping_status, ref="unmapped")
+g <- ggplot2::ggplot(m,ggplot2::aes_string('sample','value', 
+                                           fill='Mapping_status'))
+g <- g+ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()
+g <- g+ggplot2::scale_y_continuous(name="Number of reads")
+g <- g+ggplot2::xlab("samples")
+g <- g+ggplot2::ggtitle("Read mapping stats")
+g <- g+ggplot2::theme(panel.background = 
+                        ggplot2::element_rect(fill = "white",colour = "grey50"), 
+                        axis.text.y=ggplot2::element_blank(),
+                        axis.ticks=ggplot2::element_blank())
+g
 ```
 
 
@@ -91,7 +109,16 @@ g
 
 ## Bisulfite conversion rate
 ```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
-scmeth::bsConversionPlot(bs)
+bscDf <- scmeth::bsConversionPlot(bs)
+
+g <- ggplot2::ggplot(bscDf, ggplot2::aes_string(x="''", y='bsc'))
+g <- g+ggplot2::geom_boxplot()
+g <- g+ggplot2::ylim(max(min(bscDf$bsc)-0.02,0),min(max(bscDf$bsc)+0.02,1))
+g <- g+ggplot2::theme_bw()
+g <- g+ggplot2::geom_jitter()
+g <- g+ggplot2::xlab('')+ggplot2::ylab('bisulfite conversion rate')
+g <- g+ggplot2::ggtitle('Bisulfite conversion rate across samples')
+g
 ```
 
 

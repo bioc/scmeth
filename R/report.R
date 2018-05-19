@@ -35,7 +35,7 @@
 #
 
 report <- function(bsObj,outdirectory,organism,genome,mbiasDir=NULL,subSample=1e6,offset=50000,small=FALSE) {
-    #genome <- match.arg(genome)
+
     RmdFile <- system.file(".",'qcReport.Rmd',package="scmeth")
     rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,
                                         organism=organism,genome=genome,

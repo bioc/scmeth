@@ -50,7 +50,7 @@ methylationDist <- function(bs,subSample=1e6, offset=50000,coverageVec=NULL){
         x <- tab
         x
     })
-
+    #
     methylationDistMatrix <- t(methylationDistMatrix)
     methylationDistMatrix <- methylationDistMatrix*(nCpGs/subSample)
 

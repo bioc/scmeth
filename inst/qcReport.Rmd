@@ -26,15 +26,25 @@ knitr::opts_chunk$set(echo = TRUE)
 options(DelayedArray.block.size=4500e6)
 bs <- params$samples
 nSamples <- length(Biobase::sampleNames(bs))
+
+
+
 ```
 
 ## Read information
 ```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=7,fig.align='center'}
 # Methylation distribution for all the cells
 dat <- scmeth::readmetrics(bs)
+SummaryTable <- dat
+SummaryTable$sample <- sub('\\..*$', '', SummaryTable$sample)
 o <- order(dat$total,dat$sample)
 sampleOrder <- dat$sample[o]
-   
+Summary_read <- summary(dat[,c('total','mapped','unmapped')])
+
+
+
+
+
 m <- reshape2::melt(dat[,c("sample","mapped","unmapped")], id.vars="sample",
                     variable.name="Mapping_status")
 m$sample <- factor(m$sample,levels=sampleOrder)
@@ -57,8 +67,10 @@ g
 ## Methylation bias plot
 # Methylation distribution for all the cells
 mbiasTableList <- scmeth::mbiasplot(dir=params$mbias)
-
 mbiasDf <- do.call(rbind.data.frame, mbiasTableList)
+mbiasDf$methylation <- round(mbiasDf$methylation,4)
+write.table(mbiasDf, paste0(params$outdir,'/mbias_table.txt'),sep = "\t",quote=FALSE, row.names=FALSE)
+
 meanTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=mean)
 sdTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=sd)
 seTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=function(x){sd(x)/sqrt(length(x))})
@@ -97,6 +109,8 @@ o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 covDf$sample <- factor(covDf$sample, levels=sampleOrder)
 
+SummaryTable$CpG.coverage <- covVec
+
 g <- ggplot2::ggplot(covDf, ggplot2::aes_string(x="''", y='coveredCpgs'))
 g <- g+ggplot2::geom_boxplot()
 g <- g+ggplot2::geom_jitter() 
@@ -110,6 +124,7 @@ g
 ## Bisulfite conversion rate
 ```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
 bscDf <- scmeth::bsConversionPlot(bs)
+SummaryTable$Bisulfite.converion.Rate <- round(bscDf$bsc,4)
 
 g <- ggplot2::ggplot(bscDf, ggplot2::aes_string(x="''", y='bsc'))
 g <- g+ggplot2::geom_boxplot()
@@ -167,6 +182,10 @@ g
 ```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5, fig.width=5, eval=TRUE,fig.align='center'}
 # CpG Discretization
 discretizedCpG <- cpgDiscretization(bs,subSample=params$nCpGs,offset=params$offset,coverageVec=covVec)
+
+SummaryTable$CpG.nonBinary.percentage <- round(discretizedCpG$discardPerc,4)
+write.table(SummaryTable, paste0(params$outdir,'/QC_Summary.txt'),sep = "\t",quote=FALSE, row.names=FALSE)
+
 #percentDiscarded <- discretizedCpG[3]
 percentDiscarded <- discretizedCpG[2]
 sampleNames <- bsseq::sampleNames(bs)
@@ -212,6 +231,9 @@ g
 ##############################
 # Downsample Plots
 dsMatrix <- scmeth::downsample(bs,subSample=params$nCpGs,offset=params$offset)
+colnames(dsMatrix) <- SummaryTable$sample
+write.table(t(dsMatrix), paste0(params$outdir,'/Downsample_Table.txt'),sep = "\t",quote=FALSE)
+
 meltedDsMatrix <- reshape2::melt(dsMatrix)
 g <- ggplot2::ggplot(meltedDsMatrix, ggplot2::aes_string(x='Var1', y='value', group='Var2'))
 g <- g+ggplot2::geom_line(alpha=0.2) 

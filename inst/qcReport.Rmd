@@ -35,6 +35,7 @@ nSamples <- length(Biobase::sampleNames(bs))
 ```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=7,fig.align='center'}
 # Methylation distribution for all the cells
 dat <- scmeth::readmetrics(bs)
+
 SummaryTable <- dat
 SummaryTable$sample <- sub('\\..*$', '', SummaryTable$sample)
 o <- order(dat$total,dat$sample)
@@ -44,6 +45,9 @@ Summary_read <- summary(dat[,c('total','mapped','unmapped')])
 
 
 
+
+o <- order(dat$total,dat$sample)
+sampleOrder <- dat$sample[o]
 
 m <- reshape2::melt(dat[,c("sample","mapped","unmapped")], id.vars="sample",
                     variable.name="Mapping_status")
@@ -69,7 +73,7 @@ g
 mbiasTableList <- scmeth::mbiasplot(dir=params$mbias)
 mbiasDf <- do.call(rbind.data.frame, mbiasTableList)
 mbiasDf$methylation <- round(mbiasDf$methylation,4)
-write.table(mbiasDf, paste0(params$outdir,'/mbias_table.txt'),sep = "\t",quote=FALSE, row.names=FALSE)
+write.table(mbiasDf, paste0(params$outdir,'/mbias_Table.txt'),sep = "\t",quote=FALSE, row.names=FALSE)
 
 meanTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=mean)
 sdTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=sd)
@@ -109,7 +113,7 @@ o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 covDf$sample <- factor(covDf$sample, levels=sampleOrder)
 
-SummaryTable$CpG.coverage <- covVec
+SummaryTable$CpG.coverage <- round(covVec)
 
 g <- ggplot2::ggplot(covDf, ggplot2::aes_string(x="''", y='coveredCpgs'))
 g <- g+ggplot2::geom_boxplot()
@@ -124,7 +128,9 @@ g
 ## Bisulfite conversion rate
 ```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
 bscDf <- scmeth::bsConversionPlot(bs)
+
 SummaryTable$Bisulfite.converion.Rate <- round(bscDf$bsc,4)
+
 
 g <- ggplot2::ggplot(bscDf, ggplot2::aes_string(x="''", y='bsc'))
 g <- g+ggplot2::geom_boxplot()
@@ -184,6 +190,8 @@ g
 discretizedCpG <- cpgDiscretization(bs,subSample=params$nCpGs,offset=params$offset,coverageVec=covVec)
 
 SummaryTable$CpG.nonBinary.percentage <- round(discretizedCpG$discardPerc,4)
+colnames(SummaryTable) <- c('sample.name','total.reads', 'mapped.reads', 'unmapped.reads', 'CpG.coverage',
+                            'Bisulfite.conversion.rate', 'CpG.nonBinary.percentage')
 write.table(SummaryTable, paste0(params$outdir,'/QC_Summary.txt'),sep = "\t",quote=FALSE, row.names=FALSE)
 
 #percentDiscarded <- discretizedCpG[3]

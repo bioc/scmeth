@@ -23,7 +23,8 @@
 #'directory <- system.file("extdata/bismark_data",package='scmeth')
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'mbiasDirectory=system.file("extdata",package='scmeth')
-#'report(bs,'~',Hsapiens,'hg38',mbiasDir=mbiasDirectory,small=TRUE)
+#'outDir <- system.file(package='scmeth')
+#'report(bs,outDir,Hsapiens,'hg38',mbiasDir=mbiasDirectory,small=TRUE)
 #'@importFrom scales comma
 #'@importFrom scales comma
 #'@importFrom viridis scale_fill_viridis

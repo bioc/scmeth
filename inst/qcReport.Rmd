@@ -131,7 +131,6 @@ bscDf <- scmeth::bsConversionPlot(bs)
 
 SummaryTable$Bisulfite.converion.Rate <- round(bscDf$bsc,4)
 
-
 g <- ggplot2::ggplot(bscDf, ggplot2::aes_string(x="''", y='bsc'))
 g <- g+ggplot2::geom_boxplot()
 g <- g+ggplot2::ylim(max(min(bscDf$bsc)-0.02,0),min(max(bscDf$bsc)+0.02,1))

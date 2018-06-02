@@ -34,6 +34,7 @@ nSamples <- length(Biobase::sampleNames(bs))
 ## Read information
 ```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=7,fig.align='center'}
 # Methylation distribution for all the cells
+
 dat <- scmeth::readmetrics(bs)
 
 SummaryTable <- dat
@@ -124,6 +125,7 @@ g
 
 ## Bisulfite conversion rate
 ```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
+
 bscDf <- scmeth::bsConversionPlot(bs)
 
 
@@ -137,6 +139,7 @@ g <- g+ggplot2::geom_jitter()
 g <- g+ggplot2::xlab('')+ggplot2::ylab('bisulfite conversion rate')
 g <- g+ggplot2::ggtitle('Bisulfite conversion rate across samples')
 g
+
 ```
 
 

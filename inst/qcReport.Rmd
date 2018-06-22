@@ -125,6 +125,7 @@ g
 
 ## Bisulfite conversion rate
 ```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
+
 bscDf <- scmeth::bsConversionPlot(bs)
 
 

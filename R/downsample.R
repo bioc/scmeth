@@ -18,7 +18,7 @@
 #'@examples
 #'directory <- system.file("extdata/bismark_data",package='scmeth')
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
-#'downsample(bs)
+#'scmeth::downsample(bs)
 #'@importFrom stats dbinom
 #'@importFrom bsseq getCoverage
 #'

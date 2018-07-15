@@ -8,8 +8,6 @@
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'readmetrics(bs)
 #'@export
-#'@importFrom utils read.delim
-#'@importFrom stats relevel
 
 readmetrics <- function(bs){
 

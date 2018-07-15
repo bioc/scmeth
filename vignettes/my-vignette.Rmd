@@ -239,7 +239,7 @@ report renders this information into a plot. Downsampling rate ranges from
 </p>
 
 ```{r,warning=FALSE}
-#DT::datatable(downsample(bsObject))
+DT::datatable(scmeth::downsample(bsObject))
 ```
 
 

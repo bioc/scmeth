@@ -215,7 +215,7 @@ g
 
 ## Feature level coverage
 ```{r feature_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5, fig.width=5, eval=TRUE ,fig.align='center'}
-library(annotatr)
+#library(annotatr)
 featureCovMatrix <- scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),params$genome)
 
 featureCovDf <- reshape2::melt(featureCovMatrix)

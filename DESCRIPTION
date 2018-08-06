@@ -6,7 +6,6 @@ Author: Divy Kangeyan <divyswar01@g.harvard.edu>
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Depends: R (>= 3.5.0)
 Imports:
-  ggplot2,
   knitr,
   rmarkdown,
   bsseq,
@@ -22,7 +21,6 @@ Imports:
   GenomeInfoDb,
   Biostrings,
   DT,
-  ggthemes,
   scales,
   viridis,
   HDF5Array (>= 1.7.5)
@@ -32,7 +30,9 @@ Suggests:
   TxDb.Hsapiens.UCSC.hg38.knownGene,
   org.Hs.eg.db,
   Biobase,
-  BiocGenerics
+  BiocGenerics,
+  ggplot2,
+  ggthemes
 Description: Functions to analyze methylation data can be found here.
              Some functions are relevant for single cell methylation data but most other
              functions can be used for any  methylation data.

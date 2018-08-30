@@ -50,8 +50,9 @@ gain summary of their data.
 **scmeth** is available in bioconductor and can be downloaded using the 
 following commands
 ```{r, eval=FALSE}
-source("http://bioconductor.org/biocLite.R")
-biocLite("scmeth")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("scmeth")
 ```
 
 Load the package

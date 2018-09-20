@@ -21,8 +21,6 @@ Imports:
   GenomeInfoDb,
   Biostrings,
   DT,
-  scales,
-  viridis,
   HDF5Array (>= 1.7.5)
 Suggests:
   BSgenome.Mmusculus.UCSC.mm10,

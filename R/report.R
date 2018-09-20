@@ -25,8 +25,6 @@
 #'mbiasDirectory=system.file("extdata",package='scmeth')
 #'outDir <- system.file(package='scmeth')
 #'report(bs,outDir,Hsapiens,'hg38',mbiasDir=mbiasDirectory,small=TRUE)
-#'@importFrom scales comma
-#'@importFrom viridis scale_fill_viridis
 #'@importFrom HDF5Array loadHDF5SummarizedExperiment
 #'@import knitr
 #'@import DT

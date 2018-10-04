@@ -20,15 +20,21 @@
 coverage <- function(bs,subSample=1e6,offset=50000) {
     nCpGs <- nrow(bs)
 
-    if (nCpGs<(subSample+offset)){
+    if (subSample == 'all'){
         bs <- bs
-        subSample <- nCpGs
+        ratio <- 1
     }else{
-        bs <- bs[offset:(subSample+offset)]
+        if (nCpGs < (subSample + offset)){
+            bs <- bs
+            subSample <- nCpGs
+            ratio <- 1
+        }else{
+            bs <- bs[offset:(subSample+offset)]
+            ratio <- nCpGs/subSample
+        }
     }
-
     covMatrix <- bsseq::getCoverage(bs)
     covVec <- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
-    covVec <- covVec*(nCpGs/subSample)
+    covVec <- covVec*ratio
     return(covVec)
 }

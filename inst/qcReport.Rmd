@@ -27,8 +27,6 @@ options(DelayedArray.block.size=4500e6)
 bs <- params$samples
 nSamples <- length(Biobase::sampleNames(bs))
 
-
-
 ```
 
 ## Read information
@@ -256,21 +254,22 @@ g
 ## Methylation Distribution
 ```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=7, fig.width=10,eval=TRUE,fig.align='center'}
 # Methylation distribution for all the cells
-methylDistMatrix <- scmeth::methylationDist(bs,subSample=params$nCpGs,offset=params$offset,coverageVec=covVec)
+methylVec <- scmeth::methylationDist(bs)
+methylDf <- data.frame('sample'=sampleNames, 'meth'=methylVec)
 
-g <- ggplot2::ggplot(methylDistMatrix, ggplot2::aes_string(x='Var2',
-                                                        y='value',group='Var1'))
-g <- g + ggplot2::geom_point()
-g <- g + ggplot2::geom_line()
-#g <- g + ggplot2::coord_equal() # Adds same aspect ratio
-g <- g + ggplot2::labs(x=NULL, y=NULL, title="Methylation Distribution")
-g <- g + ggplot2::theme(plot.title=ggplot2::element_text(hjust=0))
-g <- g + ggplot2::theme(axis.text.y=ggplot2::element_blank())
-# get rid of tick marks
-g <- g + ggplot2::theme(axis.ticks=ggplot2::element_blank())
-# Change the font size
-g <- g + ggplot2::theme(axis.text=ggplot2::element_text(size=12))
-g <- g + ggplot2::theme(legend.title=ggplot2::element_text(size=12))
-g <- g + ggplot2::theme(legend.text=ggplot2::element_text(size=10))
+o <- order(methylDf$meth, methylDf$sample)
+sampleOrder <- methylDf$sample[o]
+
+methylDf$sample <- factor(methylDf$sample,levels=sampleOrder)
+
+g <- ggplot2::ggplot(methylDf, ggplot2::aes_string('sample','meth'))
+g <- g+ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()
+g <- g+ggplot2::scale_y_continuous(name="Mean Methylation")
+g <- g+ggplot2::xlab("samples")
+g <- g+ggplot2::ggtitle("Methylation summary")
+g <- g+ggplot2::theme(panel.background = 
+                        ggplot2::element_rect(fill = "white",colour = "grey50"), 
+                        axis.text.y=ggplot2::element_blank(),
+                        axis.ticks=ggplot2::element_blank())
 g
 ```

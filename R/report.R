@@ -20,11 +20,11 @@
 #'@return Report will be an html file
 #'@examples
 #'library(BSgenome.Hsapiens.NCBI.GRCh38)
-#'directory <- system.file("extdata/bismark_data",package='scmeth')
+#'directory <- system.file("extdata/bismark_data", package='scmeth')
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
-#'mbiasDirectory=system.file("extdata",package='scmeth')
+#'mbiasDirectory=system.file("extdata", package='scmeth')
 #'outDir <- system.file(package='scmeth')
-#'report(bs,outDir,Hsapiens,'hg38',mbiasDir=mbiasDirectory,small=TRUE)
+#'report(bs,outDir, Hsapiens, 'hg38', mbiasDir=mbiasDirectory, small=TRUE)
 #'@importFrom HDF5Array loadHDF5SummarizedExperiment
 #'@import knitr
 #'@import DT
@@ -32,14 +32,15 @@
 #'@export
 #
 
-report <- function(bsObj,outdirectory,organism,genome,mbiasDir=NULL,subSample=1e6,offset=50000,small=FALSE) {
+report <- function(bsObj, outdirectory, organism, genome, mbiasDir=NULL,
+                   subSample=1e6, offset=50000, small=FALSE) {
 
-    RmdFile <- system.file(".",'qcReport.Rmd',package="scmeth")
-    rmarkdown::render(RmdFile,params=list(outdir=outdirectory,samples=bsObj,
-                                        organism=organism,genome=genome,
-                                        mbias=mbiasDir,nCpGs=subSample,
-                                        offset=offset,small=small),
+    RmdFile <- system.file(".", 'qcReport.Rmd', package="scmeth")
+    rmarkdown::render(RmdFile, params=list(outdir=outdirectory, samples=bsObj,
+                                        organism=organism, genome=genome,
+                                        mbias=mbiasDir, nCpGs=subSample,
+                                        offset=offset, small=small),
                      knit_root_dir=getwd(),
-                    output_file=paste0(outdirectory,"/qcReport.html"))
+                    output_file=paste0(outdirectory, "/qcReport.html"))
 
 }

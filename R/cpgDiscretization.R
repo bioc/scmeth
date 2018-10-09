@@ -20,7 +20,7 @@
 #'@return discard total number of removed CpGs from each sample
 #'@return Percentage of CpGs discarded compared to the total number of CpGs
 #'@examples
-#'directory <- system.file("extdata/bismark_data",package='scmeth')
+#'directory <- system.file("extdata/bismark_data", package='scmeth')
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'cpgDiscretization(bs)
 #'@importFrom DelayedArray colSums
@@ -28,35 +28,35 @@
 #'@export
 
 
-cpgDiscretization <- function(bs,subSample=1e6,offset=50000,coverageVec=NULL){
+cpgDiscretization <- function(bs, subSample=1e6, offset=50000, coverageVec=NULL){
     # subsampling
     nCpGs <- nrow(bs)
 
-    if (nCpGs<(subSample+offset)){
+    if (nCpGs<(subSample + offset)){
         bs <- bs
         subSample <- nCpGs
     }else{
-        bs <- bs[offset:(subSample+offset)]
+        bs <- bs[offset:(subSample + offset)]
     }
 
     covMatrix <- bsseq::getCoverage(bs)
-    methMatrix <- bsseq::getCoverage(bs,type='M')
+    methMatrix <- bsseq::getCoverage(bs, type='M')
     nSamples <- ncol(methMatrix)
     methMatrix <- methMatrix/covMatrix
     if (is.null(coverageVec)){
-        covVec <- DelayedArray::colSums(covMatrix>0,na.rm=TRUE)
+        covVec <- DelayedArray::colSums(covMatrix>0, na.rm=TRUE)
         covVec <- covVec*(nCpGs/subSample)
     }else{
         covVec <- coverageVec
     }
 
     # Only consider methylation between 0.2 and 0.8
-    methCutOff <- c(0.01,0.19,0.79,1.0)
+    methCutOff <- c(0.01, 0.19, 0.79, 1.0)
 
     methylationDistMatrix <- sapply(seq_len(nSamples), function(i) {
         mv = as.vector(methMatrix[,i])
         mv <- mv[!is.na(mv)]
-        mvBin <- cut(mv,methCutOff)
+        mvBin <- cut(mv, methCutOff)
         tab <- table(mvBin)
         x <- tab
         x

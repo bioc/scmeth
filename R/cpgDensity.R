@@ -11,16 +11,16 @@
 #'@return Data frame with sample name and coverage in repeat masker regions
 #'@examples
 #'library(BSgenome.Hsapiens.NCBI.GRCh38)
-#'directory <- system.file("extdata/bismark_data",package='scmeth')
+#'directory <- system.file("extdata/bismark_data", package='scmeth')
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
-#'cpgDensity(bs,Hsapiens,1000,small=TRUE)
+#'cpgDensity(bs, Hsapiens, 1000, small=TRUE)
 #'@import BSgenome
 #'@importFrom bsseq getCoverage
 #'@importFrom Biostrings DNAString
 #'@importFrom Biostrings vmatchPattern
 #'@export
 
-cpgDensity <- function(bs,organism,windowLength=1000,small=FALSE){
+cpgDensity <- function(bs, organism, windowLength=1000, small=FALSE){
 
     #GenomeInfoDb::seqlevelsStyle(gr) <- GenomeInfoDb::seqlevelsStyle(organism)[1]
     cov <- bsseq::getCoverage(bs)
@@ -31,8 +31,8 @@ cpgDensity <- function(bs,organism,windowLength=1000,small=FALSE){
       cpg_gr <- Biostrings::vmatchPattern(cpg, organism)
       cpg_gr <- GenomeInfoDb::keepStandardChromosomes(cpg_gr, pruning.mode= "coarse")
 
-      r_cpg_gr <- GenomicRanges::resize(cpg_gr,width=(windowLength/2),fix='center')
-      cpgd <- GenomicRanges::countOverlaps(gr,r_cpg_gr)
+      r_cpg_gr <- GenomicRanges::resize(cpg_gr, width=(windowLength/2), fix='center')
+      cpgd <- GenomicRanges::countOverlaps(gr, r_cpg_gr)
 
     }else{
       gr_resized <- GenomicRanges::resize(gr, width=(500/2),fix='center')

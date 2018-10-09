@@ -16,7 +16,7 @@
 #'@return Data frame with the CpG coverage for each sample at each
 #'sampling rate
 #'@examples
-#'directory <- system.file("extdata/bismark_data",package='scmeth')
+#'directory <- system.file("extdata/bismark_data", package='scmeth')
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'scmeth::downsample(bs)
 #'@importFrom stats dbinom
@@ -25,28 +25,28 @@
 #'@export
 
 
-downsample <- function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1)),subSample=1e6, offset=50000){
+downsample <- function(bs, dsRates = c(0.01, 0.02, 0.05, seq(0.1, 0.9, 0.1)), subSample=1e6, offset=50000){
     nCpGs <- nrow(bs)
 
-    if (nCpGs<(subSample+offset)){
+    if (nCpGs<(subSample + offset)){
         bs <- bs
         subSample <- nCpGs
     }else{
-        bs <- bs[offset:(subSample+offset)]
+        bs <- bs[offset:(subSample + offset)]
     }
 
 
     covMatrix <- bsseq::getCoverage(bs)
     nSamples <- dim(covMatrix)[2]
-    downSampleMatrix <- matrix(nrow=length(dsRates)+1,ncol=nSamples)
+    downSampleMatrix <- matrix(nrow=length(dsRates) + 1, ncol=nSamples)
     maxCov <- 20
-    nonZeroProbMatrix <- matrix(nrow=(length(dsRates)+1),ncol=maxCov)
+    nonZeroProbMatrix <- matrix(nrow=(length(dsRates) + 1), ncol=maxCov)
 
     for (i in seq_len(length(dsRates))){
-        nonZeroProbMatrix[i,] <- 1 - dbinom(0,seq_len(maxCov),dsRates[i])
+        nonZeroProbMatrix[i,] <- 1 - dbinom(0, seq_len(maxCov), dsRates[i])
     }
 
-    nonZeroProbMatrix[(length(dsRates)+1),] <- 1
+    nonZeroProbMatrix[(length(dsRates) + 1),] <- 1
 
     countMatrix <- sapply(seq_len(ncol(covMatrix)), function(i) {
         cv = as.vector(covMatrix[,i])
@@ -61,6 +61,6 @@ downsample <- function(bs,dsRates = c(0.01,0.02,0.05, seq(0.1,0.9,0.1)),subSampl
     downSampleMatrix <- round(nonZeroProbMatrix %*% countMatrix)
     downSampleMatrix <- downSampleMatrix*(nCpGs/subSample)
 
-    rownames(downSampleMatrix) <- c(dsRates,1)
+    rownames(downSampleMatrix) <- c(dsRates, 1)
     return(downSampleMatrix)
 }

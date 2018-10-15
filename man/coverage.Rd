@@ -23,7 +23,7 @@ vector of coverage for the cells in bs object
 Provides Coverage for each cell in a library pool
 }
 \examples{
-directory <- system.file("extdata/bismark_data",package='scmeth')
+directory <- system.file("extdata/bismark_data", package='scmeth')
 bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 coverage(bs)
 }

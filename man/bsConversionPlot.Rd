@@ -17,7 +17,7 @@ Plot the bisulfite conversion rate for each sample
 based on the pheno data in the bs object
 }
 \examples{
-directory <- system.file("extdata/bismark_data",package='scmeth')
+directory <- system.file("extdata/bismark_data", package='scmeth')
 bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 bsConversionPlot(bs)
 }

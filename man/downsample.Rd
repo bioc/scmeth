@@ -32,7 +32,7 @@ sampling rate
 Downsample the CpG coverage matrix for saturation analysis
 }
 \examples{
-directory <- system.file("extdata/bismark_data",package='scmeth')
+directory <- system.file("extdata/bismark_data", package='scmeth')
 bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 scmeth::downsample(bs)
 }

@@ -29,7 +29,7 @@ of CpGs observed in certain base pair long region.
 }
 \examples{
 library(BSgenome.Hsapiens.NCBI.GRCh38)
-directory <- system.file("extdata/bismark_data",package='scmeth')
+directory <- system.file("extdata/bismark_data", package='scmeth')
 bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
-cpgDensity(bs,Hsapiens,1000,small=TRUE)
+cpgDensity(bs, Hsapiens, 1000, small=TRUE)
 }

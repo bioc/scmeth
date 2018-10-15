@@ -22,6 +22,6 @@ Provides Coverage metrics in the repeat masker region
 }
 \examples{
 library(BSgenome.Mmusculus.UCSC.mm10)
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
-repMask(bs,Mmusculus,'mm10')
+load(system.file("extdata", 'bsObject.rda', package='scmeth'))
+repMask(bs, Mmusculus, 'mm10')
 }

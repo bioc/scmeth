@@ -4,3 +4,11 @@ CHANGES IN VERSION 0.99.38
 PKG FEATURES
 - scmeth is a package to analyze methylation data and it generates a comprehensive quality control report
 - Most functions take bsseq object as the input
+
+CHANGES IN VERSION 1.1.7
+-------------------------
+
+PKG FEATURES
+- methylationDist function produces more interpretable mean methylation values
+- In addition to the report file QC_Summary text file is generated. Also mbias table and downsample table are stored as text file
+- Added "all" option in functions that utilizes subsampling such that given "all" option certain function would be applied to all the CpGs without any subsample or offset

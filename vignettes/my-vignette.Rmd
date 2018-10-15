@@ -70,7 +70,7 @@ Code chunk below shows how it can be loaded.
 </p>
 
 ```{r, eval=FALSE}
-directory <- system.file("extdata","bismark_data",package='scmeth')
+directory <- system.file("extdata", "bismark_data", package='scmeth')
 bsObject <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 ```
 
@@ -102,7 +102,7 @@ avoid first n number of CpGs.
 </p>
 
 ```{r, eval=FALSE}
-report(bsObject, '~/Documents',Hsapiens,"hg38")
+report(bsObject, '~/Documents', Hsapiens, "hg38")
 ```
 
 
@@ -134,7 +134,7 @@ sample. **coverage** function can be used to get this information.
 
 Loading the data
 ```{r,  warning=FALSE, message=FALSE, comment=FALSE}
-directory <- system.file("extdata","bismark_data",package='scmeth')
+directory <- system.file("extdata", "bismark_data", package='scmeth')
 bsObject <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 ```
 
@@ -147,7 +147,7 @@ Read information is important to assess whether sequencing and alignment
 succeeded. **readmetrics** function outputs a visualization showing number
 of reads seen in each samples and of those reads what proportion of 
 them were mapped to the reference genome. 
-```{r,fig.width=6,fig.height=3}
+```{r, fig.width=6, fig.height=3}
 readmetrics(bsObject)
 ```
 
@@ -163,10 +163,10 @@ mask regions of the genome **repmask** function will require the organism and
 the genome build information.
 </p>
 
-```{r, warning=FALSE,message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 library(BSgenome.Mmusculus.UCSC.mm10)
-load(system.file("extdata",'bsObject.rda',package='scmeth'))
-repMask(bs,Mmusculus,"mm10")
+load(system.file("extdata", 'bsObject.rda', package='scmeth'))
+repMask(bs, Mmusculus, "mm10")
 ```
 
 ### Coverage by Chromosome
@@ -197,8 +197,8 @@ that region.
 </p>
 ```{r, warning=FALSE,message=FALSE}
 #library(annotatr)
-featureList <- c('genes_exons','genes_introns')
-DT::datatable(featureCoverage(bsObject,features=featureList,"hg38"))
+featureList <- c('genes_exons', 'genes_introns')
+DT::datatable(featureCoverage(bsObject, features=featureList, "hg38"))
 ```
 </p>
 
@@ -218,9 +218,9 @@ specifically targeted CpG dense or CpG sparse regions or whether CpGs were
 obtained uniformly across the regions.
 </p>
 
-```{r,warning=FALSE,message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 library(BSgenome.Hsapiens.NCBI.GRCh38)
-DT::datatable(cpgDensity(bsObject,Hsapiens,windowLength=1000,small=TRUE))
+DT::datatable(cpgDensity(bsObject, Hsapiens, windowLength=1000, small=TRUE))
 ```
 
 ### downsample
@@ -254,32 +254,32 @@ bias can be assessed via **mbiasPlot** function. This function takes the mbias
 file generated from FireCloud pipeline and generates the methylation bias plot.
 </p>
 
-```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
+```{r, warning=FALSE, message=FALSE, fig.width=6, fig.height=6}
 
 methylationBiasFile <- '2017-04-21_HG23KBCXY_2_AGGCAGAA_TATCTC_pe.M-bias.txt'
-mbiasList <- mbiasplot(mbiasFiles=system.file("extdata",methylationBiasFile,
+mbiasList <- mbiasplot(mbiasFiles=system.file("extdata", methylationBiasFile,
                                          package='scmeth'))
 
 mbiasDf <- do.call(rbind.data.frame, mbiasList)
-meanTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=mean)
-sdTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=sd)
-seTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=function(x){sd(x)/sqrt(length(x))})
+meanTable <- stats::aggregate(methylation ~ position + read, data=mbiasDf, FUN=mean)
+sdTable <- stats::aggregate(methylation ~ position + read, data=mbiasDf, FUN=sd)
+seTable <- stats::aggregate(methylation ~ position + read, data=mbiasDf, FUN=function(x){sd(x)/sqrt(length(x))})
 sum_mt<-data.frame('position'=meanTable$position,'read'=meanTable$read,
                        'meth'=meanTable$methylation, 'sdMeth'=sdTable$methylation,
                        'seMeth'=seTable$methylation)
 
-sum_mt$upperCI <- sum_mt$meth+(1.96*sum_mt$seMeth)
-sum_mt$lowerCI <- sum_mt$meth-(1.96*sum_mt$seMeth)
-sum_mt$read_rep <- paste(sum_mt$read, sum_mt$position,sep="_")
+sum_mt$upperCI <- sum_mt$meth + (1.96*sum_mt$seMeth)
+sum_mt$lowerCI <- sum_mt$meth - (1.96*sum_mt$seMeth)
+sum_mt$read_rep <- paste(sum_mt$read, sum_mt$position, sep="_")
 
 g <- ggplot2::ggplot(sum_mt)
-g <- g+ggplot2::geom_line(ggplot2::aes_string(x='position',y='meth',
+g <- g + ggplot2::geom_line(ggplot2::aes_string(x='position', y='meth',
                                                 colour='read'))
-g <- g+ggplot2::geom_ribbon(ggplot2::aes_string(ymin = 'lowerCI',
-                        ymax = 'upperCI', x='position',fill = 'read'),
+g <- g + ggplot2::geom_ribbon(ggplot2::aes_string(ymin = 'lowerCI',
+                        ymax = 'upperCI', x='position', fill = 'read'),
                         alpha=0.4)
-g <- g+ggplot2::ylim(0,100)+ggplot2::ggtitle('Mbias Plot')
-g <- g+ggplot2::ylab('methylation')
+g <- g + ggplot2::ylim(0,100) + ggplot2::ggtitle('Mbias Plot')
+g <- g + ggplot2::ylab('methylation')
 g
 
 ```
@@ -297,7 +297,7 @@ cell methylation most methylation should be either 1 or 0. If there
 are large number of intermediate methylation this indicates there might be
 some error in sequencing. 
 </p>
-```{r,warning=FALSE,message=FALSE,fig.width=6,fig.height=3}
+```{r, warning=FALSE, message=FALSE, fig.width=6, fig.height=3}
 methylationDist(bsObject)
 ```
 
@@ -313,10 +313,10 @@ rate below 95% indicates some problem with sample preparation.
 **bsConversionPlot** function generates a plot showing this metric for each 
 sample.
 </p>
-```{r,warning=FALSE,message=FALSE,fig.width=4,fig.height=6}
+```{r, warning=FALSE, message=FALSE, fig.width=4, fig.height=6}
 bsConversionPlot(bsObject)
 ```
 
-```{r,warning=FALSE,message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 sessionInfo()
 ```

@@ -13,9 +13,9 @@
 
 bsConversionPlot <- function(bs){
     phenoData <- bsseq::pData(bs)
-    phenoData$bsconversion <- 1 - (phenoData$CHH_meth+phenoData$CHG_meth)/
-                                    (phenoData$CHH_meth+phenoData$CHH_unmeth+
-                                    phenoData$CHG_meth+phenoData$CHG_unmeth)
+    phenoData$bsconversion <- 1 - (phenoData$CHH_meth + phenoData$CHG_meth)/
+                                    (phenoData$CHH_meth + phenoData$CHH_unmeth+
+                                    phenoData$CHG_meth + phenoData$CHG_unmeth)
     bscDf <- data.frame(sample=rownames(phenoData), bsc=phenoData$bsconversion)
     return(bscDf)
 }

@@ -22,87 +22,96 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Rendered by scmeth
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 options(DelayedArray.block.size=4500e6)
 bs <- params$samples
 nSamples <- length(Biobase::sampleNames(bs))
+phenoData <- Biobase::pData(bs)
 
 ```
 
 ## Read information
-```{r read_metrics,echo=FALSE,warning=FALSE,message=FALSE,fig.width=8, fig.height=7,fig.align='center'}
+```{r read_metrics, eval=!is.null(phenoData$total_reads), echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=7, fig.align='center'}
 # Methylation distribution for all the cells
 # Check the commits
 dat <- scmeth::readmetrics(bs)
 
 SummaryTable <- dat
 SummaryTable$sample <- sub('\\..*$', '', SummaryTable$sample)
-o <- order(dat$total,dat$sample)
+o <- order(dat$total, dat$sample)
 sampleOrder <- dat$sample[o]
-Summary_read <- summary(dat[,c('total','mapped','unmapped')])
+Summary_read <- summary(dat[,c('total', 'mapped', 'unmapped')])
 
 
 
 
 
-m <- reshape2::melt(dat[,c("sample","mapped","unmapped")], id.vars="sample",
+m <- reshape2::melt(dat[,c("sample", "mapped", "unmapped")], id.vars="sample",
                     variable.name="Mapping_status")
-m$sample <- factor(m$sample,levels=sampleOrder)
+m$sample <- factor(m$sample, levels=sampleOrder)
 m$Mapping_status <- relevel(m$Mapping_status, ref="unmapped")
-g <- ggplot2::ggplot(m,ggplot2::aes_string('sample','value', 
+g <- ggplot2::ggplot(m, ggplot2::aes_string('sample', 'value', 
                                            fill='Mapping_status'))
-g <- g+ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()
-g <- g+ggplot2::scale_y_continuous(name="Number of reads")
-g <- g+ggplot2::xlab("samples")
-g <- g+ggplot2::ggtitle("Read mapping stats")
-g <- g+ggplot2::theme(panel.background = 
-                        ggplot2::element_rect(fill = "white",colour = "grey50"), 
+g <- g + ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
+g <- g + ggplot2::scale_y_continuous(name="Number of reads")
+g <- g + ggplot2::xlab("samples")
+g <- g + ggplot2::ggtitle("Read mapping stats")
+g <- g + ggplot2::theme(panel.background = 
+                        ggplot2::element_rect(fill = "white", colour = "grey50"), 
                         axis.text.y=ggplot2::element_blank(),
                         axis.ticks=ggplot2::element_blank())
 g
 ```
 
+```{r read_metrics_null, eval=is.null(phenoData$total_reads), echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=7, fig.align='center'}
+print("Read information not provided in the phenotypic data")
+SummaryTable <- data.frame('sample'=Biobase::sampleNames(bs))
 
-```{r mbias,echo=FALSE,warning=FALSE,message=FALSE,eval=!is.null(params$mbias),fig.width=8, fig.height=7,fig.align='center'}
+```
+
+
+
+```{r mbias, echo=FALSE, warning=FALSE, message=FALSE, eval=!is.null(params$mbias), fig.width=8, fig.height=7, fig.align='center'}
 ## Methylation bias plot
 # Methylation distribution for all the cells
 mbiasTableList <- scmeth::mbiasplot(dir=params$mbias)
 mbiasDf <- do.call(rbind.data.frame, mbiasTableList)
-mbiasDf$methylation <- round(mbiasDf$methylation,4)
-write.table(mbiasDf, paste0(params$outdir,'/mbias_Table.txt'),sep = "\t",quote=FALSE, row.names=FALSE)
+mbiasDf$methylation <- round(mbiasDf$methylation, 4)
+write.table(mbiasDf, paste0(params$outdir, '/mbias_Table.txt') ,sep = "\t", 
+quote=FALSE, row.names=FALSE)
 
-meanTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=mean)
-sdTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=sd)
+meanTable <- stats::aggregate(methylation ~ position + read, data=mbiasDf, FUN=mean)
+sdTable <- stats::aggregate(methylation ~ position + read, data=mbiasDf, FUN=sd)
 seTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=function(x){sd(x)/sqrt(length(x))})
-sum_mt<-data.frame('position'=meanTable$position,'read'=meanTable$read,
+sum_mt <- data.frame('position'=meanTable$position, 'read'=meanTable$read,
                        'meth'=meanTable$methylation, 'sdMeth'=sdTable$methylation,
                        'seMeth'=seTable$methylation)
 #sum_mt <- mt %>% dplyr::group_by(position,read) %>%
                         #dplyr::summarise(meth = mean(X..methylation),
                            #     sdMeth=stats::sd(X..methylation))
 #sum_mt$seMeth <- sum_mt$sdMeth/sqrt(nSamples)
-sum_mt$upperCI <- sum_mt$meth+(1.96*sum_mt$seMeth)
-sum_mt$lowerCI <- sum_mt$meth-(1.96*sum_mt$seMeth)
-sum_mt$read_rep <- paste(sum_mt$read, sum_mt$position,sep="_")
+sum_mt$upperCI <- sum_mt$meth + (1.96*sum_mt$seMeth)
+sum_mt$lowerCI <- sum_mt$meth - (1.96*sum_mt$seMeth)
+sum_mt$read_rep <- paste(sum_mt$read, sum_mt$position, sep="_")
 
 g <- ggplot2::ggplot(sum_mt)
-g <- g+ggplot2::geom_line(ggplot2::aes_string(x='position',y='meth',
+g <- g + ggplot2::geom_line(ggplot2::aes_string(x='position', y='meth',
                                                 colour='read'))
-g <- g+ggplot2::geom_ribbon(ggplot2::aes_string(ymin = 'lowerCI',
-                        ymax = 'upperCI', x='position',fill = 'read'),
+g <- g + ggplot2::geom_ribbon(ggplot2::aes_string(ymin = 'lowerCI',
+                        ymax = 'upperCI', x='position', fill = 'read'),
                         alpha=0.4)
-g <- g+ggplot2::ylim(0,100)+ggplot2::ggtitle('Mbias Plot')
-g <- g+ggplot2::ylab('methylation')
-g <- g+ggplot2::theme_bw()
+g <- g + ggplot2::ylim(0,100) + ggplot2::ggtitle('Mbias Plot')
+g <- g + ggplot2::ylab('methylation')
+g <- g + ggplot2::theme_bw()
 g
 ```
 
 
 ## CpG Coverage 
-```{r cpg_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
+```{r cpg_coverage, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.width=5, fig.align='center'}
 
 # Coverage
-covVec <- scmeth::coverage(bs,subSample=params$nCpGs,offset=params$offset)
+covVec <- scmeth::coverage(bs, subSample=params$nCpGs, offset=params$offset)
 sampleNames <- bsseq::sampleNames(bs)
 covDf <- data.frame(sample=sampleNames, coveredCpgs=covVec)
 o <- order(covDf$coveredCpgs)
@@ -112,84 +121,88 @@ covDf$sample <- factor(covDf$sample, levels=sampleOrder)
 SummaryTable$CpG.coverage <- round(covVec)
 
 g <- ggplot2::ggplot(covDf, ggplot2::aes_string(x="''", y='coveredCpgs'))
-g <- g+ggplot2::geom_boxplot()
-g <- g+ggplot2::geom_jitter() 
-g <- g+ggplot2::xlab("")+ggplot2::ylab("Covered CpGs")
-g <- g+ggplot2::ggtitle("Number of Covered CpGs")
-g <- g+ggplot2::theme_bw()
+g <- g + ggplot2::geom_boxplot()
+g <- g + ggplot2::geom_jitter() 
+g <- g + ggplot2::xlab("")+ggplot2::ylab("Covered CpGs")
+g <- g + ggplot2::ggtitle("Number of Covered CpGs")
+g <- g + ggplot2::theme_bw()
 g
 #############################
 ```
 
 ## Bisulfite conversion rate
-```{r bs_conversion,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5,fig.align='center'}
+```{r bs_conversion, echo=FALSE, warning=FALSE, eval=!is.null(phenoData$CHG_meth), message=FALSE, fig.height=5, fig.width=5, fig.align='center'}
 
 bscDf <- scmeth::bsConversionPlot(bs)
 
 
-SummaryTable$Bisulfite.converion.Rate <- round(bscDf$bsc,4)
+SummaryTable$Bisulfite.converion.Rate <- round(bscDf$bsc, 4)
 
 g <- ggplot2::ggplot(bscDf, ggplot2::aes_string(x="''", y='bsc'))
-g <- g+ggplot2::geom_boxplot()
-g <- g+ggplot2::ylim(max(min(bscDf$bsc)-0.02,0),min(max(bscDf$bsc)+0.02,1))
-g <- g+ggplot2::theme_bw()
-g <- g+ggplot2::geom_jitter()
-g <- g+ggplot2::xlab('')+ggplot2::ylab('bisulfite conversion rate')
-g <- g+ggplot2::ggtitle('Bisulfite conversion rate across samples')
+g <- g + ggplot2::geom_boxplot()
+g <- g + ggplot2::ylim(max(min(bscDf$bsc) - 0.02, 0), min(max(bscDf$bsc) + 0.02 ,1))
+g <- g + ggplot2::theme_bw()
+g <- g + ggplot2::geom_jitter()
+g <- g + ggplot2::xlab('') + ggplot2::ylab('bisulfite conversion rate')
+g <- g + ggplot2::ggtitle('Bisulfite conversion rate across samples')
 g
 ```
 
 
+```{r bs_conversion_2, echo=FALSE, warning=FALSE, eval=is.null(phenoData$CHG_meth), message=FALSE, fig.height=5, fig.width=5, fig.align='center'}
+
+print("bisulfite conversion rate information not provided in the phenotypic data")
+
+```
 
 
 ## Methylation Density plot
-```{r meth_density,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5,fig.width=5, eval=TRUE,fig.align='center'}
-cpgDenMatrix <- scmeth::cpgDensity(bs, organism = params$organism,windowLength=1000,small=params$small)
-cpgDenMatrix <- apply(cpgDenMatrix,1,function(x) x/colSums(cpgDenMatrix))
+```{r meth_density, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.width=5, eval=TRUE, fig.align='center'}
+cpgDenMatrix <- scmeth::cpgDensity(bs, organism = params$organism, 
+                                   windowLength=1000, small=params$small)
+cpgDenMatrix <- apply(cpgDenMatrix, 1, function(x) x/colSums(cpgDenMatrix))
 m <- reshape2::melt(cpgDenMatrix, varnames = c("Sample", "Density"))
 
 
-g <- ggplot2::ggplot(m, ggplot2::aes_string('Density','value'))
-g <- g+ggplot2::geom_line(ggplot2::aes_string(group='Sample'))
-g <- g+ggplot2::ggtitle("Fraction of covered CpGs by CpG density") 
-g <- g+ggplot2::xlab("CpG coverage based on the CpG density") 
-g <- g+ggplot2::xlab('CpG Density')+ggplot2::ylab('Fraction of CpGs')
-g <- g+ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 60, hjust = 1))
-g <- g+ggplot2::theme_bw()
+g <- ggplot2::ggplot(m, ggplot2::aes_string('Density', 'value'))
+g <- g + ggplot2::geom_line(ggplot2::aes_string(group='Sample'))
+g <- g + ggplot2::ggtitle("Fraction of covered CpGs by CpG density") 
+g <- g + ggplot2::xlab("CpG coverage based on the CpG density") 
+g <- g + ggplot2::xlab('CpG Density') + ggplot2::ylab('Fraction of CpGs')
+g <- g + ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 60, hjust = 1))
+g <- g + ggplot2::theme_bw()
 g
 ```
 
 
 
-```{r non_rm_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=10, eval=FALSE,fig.align='center'}
+```{r non_rm_coverage, echo=FALSE, warning=FALSE, message=FALSE, fig.height=10, eval=FALSE, fig.align='center'}
 ## Non-repatmasker Coverage
-covDf <- scmeth::repMask(bs,params$organism, params$genome)
+covDf <- scmeth::repMask(bs, params$organism, params$genome)
 covDf$sample <- rownames(covDf)
-m <- reshape2::melt(covDf, id.vars = c("sample","coveredCpgs"))
+m <- reshape2::melt(covDf, id.vars = c("sample", "coveredCpgs"))
 o <- order(covDf$coveredCpgs)
 sampleOrder <- covDf$sample[o]
 m$sample <- factor(m$sample, levels=sampleOrder)
 
 g <- ggplot2::ggplot(m, ggplot2::aes_string('sample', 'coveredCpgs'))
-g <- g+ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
-g <- g+ggplot2::scale_y_continuous(name="Number of CpGs") 
-g <- g+ggplot2::xlab("Sample") 
-g <- g+ggplot2::ggtitle("Number of Covered Non-repeatmasker CpGs")  
-g <- g+ggplot2::theme_bw()
+g <- g + ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
+g <- g + ggplot2::scale_y_continuous(name="Number of CpGs") 
+g <- g + ggplot2::xlab("Sample") 
+g <- g + ggplot2::ggtitle("Number of Covered Non-repeatmasker CpGs")  
+g <- g + ggplot2::theme_bw()
 g
 ```
 
 # Data Preprocessing
 ## CpG Discretization
 
-```{r cpg_discretization,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5, fig.width=5, eval=TRUE,fig.align='center'}
+```{r cpg_discretization, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.width=5, eval=TRUE, fig.align='center'}
 # CpG Discretization
-discretizedCpG <- cpgDiscretization(bs,subSample=params$nCpGs,offset=params$offset,coverageVec=covVec)
+discretizedCpG <- cpgDiscretization(bs, subSample=params$nCpGs, offset=params$offset, coverageVec=covVec)
 
-SummaryTable$CpG.nonBinary.percentage <- round(discretizedCpG$discardPerc,4)
-colnames(SummaryTable) <- c('sample.name','total.reads', 'mapped.reads', 'unmapped.reads', 'CpG.coverage',
-                            'Bisulfite.conversion.rate', 'CpG.nonBinary.percentage')
-write.table(SummaryTable, paste0(params$outdir,'/QC_Summary.txt'),sep = "\t",quote=FALSE, row.names=FALSE)
+SummaryTable$CpG.nonBinary.percentage <- round(discretizedCpG$discardPerc, 4)
+
 
 #percentDiscarded <- discretizedCpG[3]
 percentDiscarded <- discretizedCpG[2]
@@ -198,77 +211,86 @@ discardedDf <- data.frame(sample=sampleNames, value=percentDiscarded)
 meltedDiscardedDf <- reshape2::melt(discardedDf, 
                                    id.vars = c("sample", "discardPerc"))
 
-o <- order(meltedDiscardedDf$discardPerc,meltedDiscardedDf$sample)
+o <- order(meltedDiscardedDf$discardPerc, meltedDiscardedDf$sample)
 sampleOrder <- meltedDiscardedDf$sample[o]
 meltedDiscardedDf$sample <- factor(meltedDiscardedDf$sample, levels=sampleOrder)
 
 g <- ggplot2::ggplot(meltedDiscardedDf, ggplot2::aes_string(x="''", y='discardPerc'))
-g <- g+ggplot2::geom_boxplot()
-g <- g+ggplot2::geom_jitter()
-g <- g+ggplot2::xlab("")+ggplot2::ylab("Percentage of Discarded CpGs")
-g <- g+ggplot2::ggtitle("Percentage of Discarded CpGs")
-g <- g+ggplot2::theme_bw()
+g <- g + ggplot2::geom_boxplot()
+g <- g + ggplot2::geom_jitter()
+g <- g + ggplot2::xlab("") + ggplot2::ylab("Percentage of Discarded CpGs")
+g <- g + ggplot2::ggtitle("Percentage of Discarded CpGs")
+g <- g + ggplot2::theme_bw()
 g
 ```
 
 ## Feature level coverage
-```{r feature_coverage,echo=FALSE,warning=FALSE,message=FALSE,fig.height=5, fig.width=5, eval=TRUE ,fig.align='center'}
+```{r feature_coverage, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.width=5, eval=TRUE , fig.align='center'}
 #library(annotatr)
-featureCovMatrix <- scmeth::featureCoverage(bs,c('genes_promoters','genes_exons','genes_introns','genes_intergenic','cpg_islands','cpg_shelves','cpg_shores','cpg_inter'),params$genome)
+featureCovMatrix <- scmeth::featureCoverage(bs, c('genes_promoters', 'genes_exons', 'genes_introns', 'genes_intergenic', 'cpg_islands', 'cpg_shelves', 'cpg_shores', 'cpg_inter'), params$genome)
 
 featureCovDf <- reshape2::melt(featureCovMatrix)
 
 g <- ggplot2::ggplot(featureCovDf, ggplot2::aes_string(x="Var1", y='value'))
-g <- g+ggplot2::geom_boxplot()+ggplot2::ylim(0,1)
-g <- g+ggplot2::geom_jitter()
-g <- g+ggplot2::xlab("Features")+ggplot2::ylab("Fraction of CpGs")
-g <- g+ggplot2::ggtitle("Feature Coverage Distribution")
-g <- g+ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust=1))
-g <- g+ggplot2::theme(panel.background = ggplot2::element_blank())
+g <- g + ggplot2::geom_boxplot()+ggplot2::ylim(0, 1)
+g <- g + ggplot2::geom_jitter()
+g <- g + ggplot2::xlab("Features") + ggplot2::ylab("Fraction of CpGs")
+g <- g + ggplot2::ggtitle("Feature Coverage Distribution")
+g <- g + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust=1))
+g <- g + ggplot2::theme(panel.background = ggplot2::element_blank())
 g
-
 
 ```
 
 ## Downsampling Analysis
-```{r downsampling,echo=FALSE,warning=FALSE,message=FALSE,fig.height=7,fig.width=10, eval=TRUE,fig.align='center'}
+```{r downsampling, echo=FALSE, warning=FALSE, message=FALSE, fig.height=7, fig.width=10, eval=TRUE, fig.align='center'}
 
 ##############################
 # Downsample Plots
-dsMatrix <- scmeth::downsample(bs,subSample=params$nCpGs,offset=params$offset)
+dsMatrix <- scmeth::downsample(bs, subSample=params$nCpGs, offset=params$offset)
 colnames(dsMatrix) <- SummaryTable$sample
-write.table(t(dsMatrix), paste0(params$outdir,'/Downsample_Table.txt'),sep = "\t",quote=FALSE)
+write.table(t(dsMatrix), paste0(params$outdir, '/Downsample_Table.txt'), sep = "\t", quote=FALSE)
 
 meltedDsMatrix <- reshape2::melt(dsMatrix)
 g <- ggplot2::ggplot(meltedDsMatrix, ggplot2::aes_string(x='Var1', y='value', group='Var2'))
-g <- g+ggplot2::geom_line(alpha=0.2) 
-g <- g+ ggplot2::scale_x_continuous(name="Fraction of Reads")
-g <- g+ggplot2::scale_y_continuous(name="Number of CpG covered") 
-g <- g+ ggplot2::ggtitle("Saturation Analysis Plot") 
-g <- g+ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'),fun.y=median, lwd=2,geom="point",alpha=1.0,color='green')
-g <- g+ggplot2::theme_bw(base_size=11)
+g <- g + ggplot2::geom_line(alpha=0.2) 
+g <- g + ggplot2::scale_x_continuous(name="Fraction of Reads")
+g <- g + ggplot2::scale_y_continuous(name="Number of CpG covered") 
+g <- g + ggplot2::ggtitle("Saturation Analysis Plot") 
+g <- g + ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'), fun.y=median, lwd=2, geom="point", alpha=1.0, color='green')
+g <- g + ggplot2::theme_bw(base_size=11)
 g
 
 ```
 
-## Methylation Distribution
-```{r meth_dist,echo=FALSE,warning=FALSE,message=FALSE,fig.height=7, fig.width=10,eval=TRUE,fig.align='center'}
+## Mean Methylation
+```{r meth_dist, echo=FALSE, warning=FALSE, message=FALSE, fig.height=7, fig.width=10, eval=TRUE, fig.align='center'}
 # Methylation distribution for all the cells
 methylVec <- scmeth::methylationDist(bs)
 methylDf <- data.frame('sample'=sampleNames, 'meth'=methylVec)
 
+SummaryTable$meanMeth <- round(methylVec, 4)
+if (!is.null(phenoData$total_reads)){
+  colnames(SummaryTable) <- c('sample.name', 'total.reads', 'mapped.reads', 'unmapped.reads', 'CpG.coverage', 'Bisulfite.conversion.rate', 'CpG.nonBinary.percentage', 
+'mean.methylation')
+} else {
+  colnames(SummaryTable) <- c('sample.name', 'CpG.coverage', 'CpG.nonBinary.percentage', 'mean.methylation')
+}
+  
+  
+write.table(SummaryTable, paste0(params$outdir, '/QC_Summary.txt'), sep = "\t", quote=FALSE, row.names=FALSE)
+
 o <- order(methylDf$meth, methylDf$sample)
 sampleOrder <- methylDf$sample[o]
 
-methylDf$sample <- factor(methylDf$sample,levels=sampleOrder)
+methylDf$sample <- factor(methylDf$sample, levels=sampleOrder)
 
-g <- ggplot2::ggplot(methylDf, ggplot2::aes_string('sample','meth'))
-g <- g+ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()
-g <- g+ggplot2::scale_y_continuous(name="Mean Methylation")
-g <- g+ggplot2::xlab("samples")
-g <- g+ggplot2::ggtitle("Methylation summary")
-g <- g+ggplot2::theme(panel.background = 
-                        ggplot2::element_rect(fill = "white",colour = "grey50"), 
+g <- ggplot2::ggplot(methylDf, ggplot2::aes_string('sample', 'meth'))
+g <- g + ggplot2::geom_bar(stat="identity") + ggplot2::coord_flip()
+g <- g + ggplot2::scale_y_continuous(name="Mean Methylation")
+g <- g + ggplot2::xlab("samples")
+g <- g + ggplot2::theme(panel.background = 
+                        ggplot2::element_rect(fill = "white", colour = "grey50"), 
                         axis.text.y=ggplot2::element_blank(),
                         axis.ticks=ggplot2::element_blank())
 g

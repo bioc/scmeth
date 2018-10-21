@@ -32,12 +32,18 @@ cpgDiscretization <- function(bs, subSample=1e6, offset=50000, coverageVec=NULL)
     # subsampling
     nCpGs <- nrow(bs)
 
-    if (nCpGs<(subSample + offset)){
+
+    if (subSample == 'all'){
+      bs <- bs
+    }else{
+      if (nCpGs < (subSample + offset)){
         bs <- bs
         subSample <- nCpGs
-    }else{
+      }else{
         bs <- bs[offset:(subSample + offset)]
+      }
     }
+
 
     covMatrix <- bsseq::getCoverage(bs)
     methMatrix <- bsseq::getCoverage(bs, type='M')

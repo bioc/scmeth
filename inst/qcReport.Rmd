@@ -77,12 +77,12 @@ SummaryTable <- data.frame('sample'=Biobase::sampleNames(bs))
 mbiasTableList <- scmeth::mbiasplot(dir=params$mbias)
 mbiasDf <- do.call(rbind.data.frame, mbiasTableList)
 mbiasDf$methylation <- round(mbiasDf$methylation, 4)
-write.table(mbiasDf, paste0(params$outdir, '/mbias_Table.txt') ,sep = "\t", 
+write.table(mbiasDf, paste0(params$outdir, '/mbias_Table.txt'), sep = "\t", 
 quote=FALSE, row.names=FALSE)
 
 meanTable <- stats::aggregate(methylation ~ position + read, data=mbiasDf, FUN=mean)
 sdTable <- stats::aggregate(methylation ~ position + read, data=mbiasDf, FUN=sd)
-seTable <- stats::aggregate(methylation ~ position+read, data=mbiasDf, FUN=function(x){sd(x)/sqrt(length(x))})
+seTable <- stats::aggregate(methylation ~ position + read, data=mbiasDf, FUN=function(x){sd(x)/sqrt(length(x))})
 sum_mt <- data.frame('position'=meanTable$position, 'read'=meanTable$read,
                        'meth'=meanTable$methylation, 'sdMeth'=sdTable$methylation,
                        'seMeth'=seTable$methylation)
@@ -100,7 +100,7 @@ g <- g + ggplot2::geom_line(ggplot2::aes_string(x='position', y='meth',
 g <- g + ggplot2::geom_ribbon(ggplot2::aes_string(ymin = 'lowerCI',
                         ymax = 'upperCI', x='position', fill = 'read'),
                         alpha=0.4)
-g <- g + ggplot2::ylim(0,100) + ggplot2::ggtitle('Mbias Plot')
+g <- g + ggplot2::ylim(0, 100) + ggplot2::ggtitle('Mbias Plot')
 g <- g + ggplot2::ylab('methylation')
 g <- g + ggplot2::theme_bw()
 g
@@ -255,7 +255,7 @@ meltedDsMatrix <- reshape2::melt(dsMatrix)
 g <- ggplot2::ggplot(meltedDsMatrix, ggplot2::aes_string(x='Var1', y='value', group='Var2'))
 g <- g + ggplot2::geom_line(alpha=0.2) 
 g <- g + ggplot2::scale_x_continuous(name="Fraction of Reads")
-g <- g + ggplot2::scale_y_continuous(name="Number of CpG covered") 
+g <- g + ggplot2::scale_y_continuous(name="Number of CpGs covered") 
 g <- g + ggplot2::ggtitle("Saturation Analysis Plot") 
 g <- g + ggplot2::stat_summary(ggplot2::aes_string(y='value', group='Var1'), fun.y=median, lwd=2, geom="point", alpha=1.0, color='green')
 g <- g + ggplot2::theme_bw(base_size=11)

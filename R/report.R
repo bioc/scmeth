@@ -29,6 +29,7 @@
 #'@import knitr
 #'@import DT
 #'@import SummarizedExperiment
+#'@importFrom reshape2 melt
 #'@export
 #
 

@@ -106,6 +106,15 @@ g <- g + ggplot2::theme_bw()
 g
 ```
 
+```{r mbias_null, eval=is.null(params$mbias), echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=7, fig.align='center'}
+print("Mbias files not provided")
+SummaryTable <- data.frame('sample'=Biobase::sampleNames(bs))
+mbiasDf <- NULL
+write.table(mbiasDf, paste0(params$outdir, '/mbias_Table.txt'), sep = "\t", 
+quote=FALSE, row.names=FALSE)
+
+```
+
 
 ## CpG Coverage 
 ```{r cpg_coverage, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.width=5, fig.align='center'}

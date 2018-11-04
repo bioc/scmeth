@@ -44,5 +44,5 @@ directory <- system.file("extdata/bismark_data", package='scmeth')
 bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 mbiasDirectory=system.file("extdata", package='scmeth')
 outDir <- system.file(package='scmeth')
-report(bs,outDir, Hsapiens, 'hg38', mbiasDir=mbiasDirectory, small=TRUE)
+report(bs, outDir, Hsapiens, 'hg38', mbiasDir=mbiasDirectory, small=TRUE)
 }

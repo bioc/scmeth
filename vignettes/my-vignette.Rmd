@@ -197,7 +197,7 @@ that region.
 </p>
 ```{r, warning=FALSE,message=FALSE}
 #library(annotatr)
-featureList <- c('genes_exons', 'genes_introns')
+featureList <- c('cpg_islands', 'cpg_shores', 'cpg_shelves')
 DT::datatable(featureCoverage(bsObject, features=featureList, "hg38"))
 ```
 </p>

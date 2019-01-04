@@ -20,8 +20,3 @@ Data frame with sample name and coverage in repeat masker regions
 \description{
 Provides Coverage metrics in the repeat masker region
 }
-\examples{
-library(BSgenome.Mmusculus.UCSC.mm10)
-load(system.file("extdata", 'bsObject.rda', package='scmeth'))
-repMask(bs, Mmusculus, 'mm10')
-}

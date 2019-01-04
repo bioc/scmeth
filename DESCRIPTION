@@ -39,5 +39,5 @@ biocViews: DNAMethylation, QualityControl, Preprocessing, SingleCell, ImmunoOnco
 BugReports: https://github.com/aryeelab/scmeth/issues
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr

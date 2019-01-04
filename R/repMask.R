@@ -4,10 +4,6 @@
 #'e.g. Mmusculus or Hsapiens
 #'@param genome reference alignment, i.e. mm10 or hg38
 #'@return Data frame with sample name and coverage in repeat masker regions
-#'@examples
-#'library(BSgenome.Mmusculus.UCSC.mm10)
-#'load(system.file("extdata", 'bsObject.rda', package='scmeth'))
-#'repMask(bs, Mmusculus, 'mm10')
 #'@importFrom DelayedArray colSums
 #'@importFrom bsseq getCoverage
 #'@export

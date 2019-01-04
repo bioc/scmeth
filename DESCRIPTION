@@ -1,7 +1,7 @@
 Package: scmeth
 Type: Package
 Title: Functions to conduct quality control analysis in methylation data
-Version: 1.2.1
+Version: 1.2.2
 Author: Divy Kangeyan <divyswar01@g.harvard.edu>
 Maintainer: Divy Kangeyan <divyswar01@g.harvard.edu>
 Depends: R (>= 3.5.0)
@@ -35,7 +35,7 @@ Description: Functions to analyze methylation data can be found here.
              Some functions are relevant for single cell methylation data but most other
              functions can be used for any  methylation data.
              Highlight of this workflow is the comprehensive quality control report.
-biocViews: DNAMethylation, QualityControl, Preprocessing, SingleCell
+biocViews: ImmunoOncology, DNAMethylation, QualityControl, Preprocessing, SingleCell
 BugReports: https://github.com/aryeelab/scmeth/issues
 License: GPL-2
 LazyData: TRUE

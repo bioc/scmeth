@@ -166,7 +166,7 @@ the genome build information.
 ```{r, warning=FALSE, message=FALSE}
 library(BSgenome.Mmusculus.UCSC.mm10)
 load(system.file("extdata", 'bsObject.rda', package='scmeth'))
-#repMask(bs, Mmusculus, "mm10")
+repMask(bs, Mmusculus, "mm10")
 ```
 
 ### Coverage by Chromosome

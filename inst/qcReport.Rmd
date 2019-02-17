@@ -127,6 +127,11 @@ g <- g + ggplot2::xlab("")+ggplot2::ylab("Covered CpGs")
 g <- g + ggplot2::ggtitle("Number of Covered CpGs")
 g <- g + ggplot2::theme_bw()
 g
+
+#### Coverage Summary #####
+
+summary(SummaryTable$CpG.coverage)
+
 #############################
 ```
 
@@ -294,4 +299,8 @@ g <- g + ggplot2::theme(panel.background =
                         axis.text.y=ggplot2::element_blank(),
                         axis.ticks=ggplot2::element_blank())
 g
+
+#### Methylation Summary #####
+
+summary(methylDf$meth)
 ```

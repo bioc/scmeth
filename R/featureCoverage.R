@@ -57,7 +57,7 @@ featureCoverage <- function(bs, features, genomebuild){
         featureLabel[1:length(sumAnnot$annot.type)] <- sumAnnot$annot.type
     }
     colnames(sumAnnotMatrix) <- colnames(bs)
-    rownames(sumAnnotMatrix) <- featureLabel
+    rownames(sumAnnotMatrix) <- features
 
     return(sumAnnotMatrix)
 }

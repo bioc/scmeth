@@ -9,6 +9,7 @@
 #'bs <- HDF5Array::loadHDF5SummarizedExperiment(directory)
 #'chromosomeCoverage(bs)
 #'@importFrom bsseq getCoverage
+#'@importFrom Seqinfo seqnames
 #'@export
 
 
@@ -16,7 +17,7 @@ chromosomeCoverage <- function(bs) {
     bs <- GenomeInfoDb::keepStandardChromosomes(bs)
     covMatrix <- bsseq::getCoverage(bs)
     Granges <- GenomicRanges::granges(bs)
-    standardChr <- GenomeInfoDb::seqnames(Granges)
+    standardChr <- Seqinfo::seqnames(Granges)
     chrCov <- by(covMatrix>0, standardChr, colSums)
     chrCov <- do.call("rbind", chrCov)
     return(chrCov)

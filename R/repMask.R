@@ -9,6 +9,7 @@
 #'library(AnnotationHub)
 #'load(system.file("extdata", 'bsObject.rda', package='scmeth'))
 #'repMask(bs, Mmusculus, 'mm10')
+#'@importFrom BiocGenerics organism
 #'@importFrom DelayedArray colSums
 #'@importFrom bsseq getCoverage
 #'@export
@@ -18,7 +19,7 @@ repMask <- function(bs, organism, genome){
     GenomeInfoDb::seqlevelsStyle(bs) <- "UCSC"
     hub <- AnnotationHub::AnnotationHub()
     repeatGr <- hub[[names(AnnotationHub::query(hub,
-                        c("rmsk", GenomeInfoDb::organism(organism), genome)))]]
+                        c("rmsk", BiocGenerics::organism(organism), genome)))]]
     rep <- GenomicRanges::countOverlaps(bs, repeatGr)>0
     cov <- bsseq::getCoverage(bs)
     covDf <- data.frame(coveredCpgs = DelayedArray::colSums(cov[!rep,]>=1))
